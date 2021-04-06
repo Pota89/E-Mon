@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import angelini.domotica.databinding.FragmentHomeBinding
-import angelini.domotica.dummy.DummyContent
 
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
