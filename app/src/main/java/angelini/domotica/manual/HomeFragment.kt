@@ -24,13 +24,7 @@ class HomeFragment : Fragment() {
 
         val adapter = RoomAdapter()
         binding.roomList.adapter = adapter
-        viewModel.rooms.observe(viewLifecycleOwner, Observer {adapter.data=it})
-        /*
-        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.data = it
-            }
-        })*/
+        viewModel.rooms.observe(viewLifecycleOwner, {adapter.data=it})
 
         return binding.root
     }
