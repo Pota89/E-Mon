@@ -13,7 +13,7 @@ import angelini.domotica.data.RoomType
 class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val contentView: TextView = view.findViewById(R.id.content)
 
-    //companion objects act like static methods of a class
+    //companion objects act like static methods of a class, here inflate the layout for a new RoomViewHolder
     companion object {
         fun from(parent: ViewGroup): RoomViewHolder {
             val view = LayoutInflater.from(parent.context)
