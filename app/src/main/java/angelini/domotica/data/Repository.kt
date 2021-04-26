@@ -8,17 +8,17 @@ import androidx.lifecycle.MutableLiveData
 
 class Repository(context:Context){
 
-    private val networkClient:NetworkClient = NetworkClient(context)
+    //private val networkClient:NetworkClient = NetworkClient(context)
 
     private val _roomList = mutableListOf<Room>()
     val roomList: List<Room>
         get() = _roomList
 
     fun connect() {
-        networkClient.connect()
+        //networkClient.connect()
     }
 
     fun disconnect() {
-        networkClient.disconnect()
+        //networkClient.disconnect()
     }
 }
