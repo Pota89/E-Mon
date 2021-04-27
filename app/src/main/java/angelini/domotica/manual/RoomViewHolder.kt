@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
-import angelini.domotica.data.Room
+import angelini.domotica.data.db.Room
 import angelini.domotica.data.RoomType
 
 //code to configure a single row of Room in HomeFragment
@@ -23,7 +23,7 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun bind(item: Room)  {
-        when (item.roomType) {
+        when (item.type) {
             RoomType.KITCHEN -> contentView.text = "Cucina"
             RoomType.BATHROOM -> contentView.text = "Bagno"
             RoomType.LOUNGE -> contentView.text = "Soggiorno"

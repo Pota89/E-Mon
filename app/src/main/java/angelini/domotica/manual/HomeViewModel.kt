@@ -3,7 +3,7 @@ package angelini.domotica.manual
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import angelini.domotica.data.Room
+import angelini.domotica.data.db.Room
 import angelini.domotica.data.RoomType
 
 class HomeViewModel:ViewModel() {
