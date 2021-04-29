@@ -3,6 +3,7 @@ package angelini.domotica.data
 import android.content.Context
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Room
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,7 @@ class Repository(context:Context){
     //TODO si può fare meglio?
     init {
         //load database on not UI thread
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
             val userDao = db.userDao()
             userDao.deleteAll()
             userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN),Room(RoomType.GARAGE))
