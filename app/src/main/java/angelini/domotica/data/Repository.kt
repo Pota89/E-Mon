@@ -19,10 +19,13 @@ class Repository(context:Context){
     val roomList: List<Room>
         get() = _roomList
 
+    //TODO si può fare meglio?
     init {
         //load database on not UI thread
         GlobalScope.launch {
             val userDao = db.userDao()
+            userDao.deleteAll()
+            userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN),Room(RoomType.GARAGE))
             _roomList.addAll(userDao.getAll())
             }
     }

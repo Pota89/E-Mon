@@ -11,12 +11,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        repository=Repository(applicationContext)
-        repository.connect()
+        //repository=Repository(applicationContext)
+        //repository.connect()
     }
 
     override fun onDestroy() {
-        repository.disconnect()
+        //repository.disconnect()
         super.onDestroy()
     }
 
