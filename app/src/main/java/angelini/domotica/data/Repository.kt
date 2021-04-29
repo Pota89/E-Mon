@@ -6,6 +6,7 @@ import angelini.domotica.data.db.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class Repository(context:Context){
 
@@ -22,13 +23,15 @@ class Repository(context:Context){
 
     //TODO si può fare meglio?
     init {
-        //load database on not UI thread
-        GlobalScope.launch(Dispatchers.IO) {
-            val userDao = db.userDao()
-            userDao.deleteAll()
-            userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN),Room(RoomType.GARAGE))
-            _roomList.addAll(userDao.getAll())
+        runBlocking {
+            //load database on IO thread pool (avoid main/UI thread)
+            launch(Dispatchers.IO) {
+                val userDao = db.userDao()
+                userDao.deleteAll()
+                userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
+                _roomList.addAll(userDao.getAll())
             }
+        }
     }
     fun connect() {
 
