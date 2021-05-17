@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 
 class Repository(context:Context){
 
-    //private val networkClient:NetworkClient = NetworkClient(context)
+    private val networkClient:NetworkClient = NetworkClient(context)
 
     val db = androidx.room.Room.databaseBuilder(
         context,
