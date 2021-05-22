@@ -10,15 +10,10 @@ import angelini.domotica.data.RoomType
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val testList=Repository(application.applicationContext).roomList
+    private val _rooms = Repository(application.applicationContext).roomList
 
-    private val _rooms = MutableLiveData<List<Room>>()
     val rooms: LiveData<List<Room>>
         get() = _rooms
-
-    init {
-        _rooms.value=testList
-    }
 }
 
 

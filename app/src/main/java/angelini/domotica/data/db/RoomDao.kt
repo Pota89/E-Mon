@@ -1,5 +1,6 @@
 package angelini.domotica.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -9,7 +10,7 @@ interface RoomDao {
     suspend fun insert(vararg rooms: Room)
 
     @Query("SELECT * FROM room")
-    fun getAll(): List<Room>
+    fun getAll(): LiveData<List<Room>>
 
     @Query("DELETE FROM room")
     suspend fun deleteAll()

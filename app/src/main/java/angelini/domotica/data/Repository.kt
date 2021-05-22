@@ -1,10 +1,11 @@
 package angelini.domotica.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Room
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -17,9 +18,7 @@ class Repository(context:Context){
         CacheDatabase::class.java, "cache"
     ).build()
 
-    private val _roomList = mutableListOf<Room>()
-    val roomList: List<Room>
-        get() = _roomList
+    val roomList: LiveData<List<Room>> =db.userDao().getAll()
 
     //TODO si può fare meglio?
     init {
@@ -29,7 +28,6 @@ class Repository(context:Context){
                 val userDao = db.userDao()
                 userDao.deleteAll()
                 userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
-                _roomList.addAll(userDao.getAll())
             }
         }
     }
