@@ -33,10 +33,10 @@ class Repository(context:Context){
     }
     fun connect() {
 
-        //networkClient.connect()
+        networkClient.connect()
     }
 
     fun disconnect() {
-        //networkClient.disconnect()
+        networkClient.disconnect()
     }
 }
