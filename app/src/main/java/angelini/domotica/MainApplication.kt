@@ -1,12 +1,15 @@
 package angelini.domotica
 
 import android.app.Application
+import angelini.domotica.data.Repository
 
 class MainApplication : Application() {
-    // Called when the application is starting, before any other application objects have been created.
-    // Overriding this method is totally optional!
+    private lateinit var repository:Repository
+
     override fun onCreate() {
         super.onCreate()
-        // Required initialization logic here!
+        repository= Repository(applicationContext)
     }
+
+    fun getRepository():Repository{ return repository}
 }

@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Room
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -13,14 +12,13 @@ class Repository(context:Context){
 
     private val networkClient:NetworkClient = NetworkClient(context)
 
-    val db = androidx.room.Room.databaseBuilder(
+    private val db = androidx.room.Room.databaseBuilder(
         context,
         CacheDatabase::class.java, "cache"
     ).build()
 
     val roomList: LiveData<List<Room>> =db.userDao().getAll()
 
-    //TODO si può fare meglio?
     init {
         runBlocking {
             //load database on IO thread pool (avoid main/UI thread)
@@ -32,7 +30,6 @@ class Repository(context:Context){
         }
     }
     fun connect() {
-
         networkClient.connect()
     }
 
