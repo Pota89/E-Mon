@@ -9,7 +9,13 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         repository= Repository(applicationContext)
+        repository.connect()
     }
 
     fun getRepository():Repository{ return repository}
+
+    override fun onTerminate() {
+        repository.disconnect()
+        super.onTerminate()
+    }
 }

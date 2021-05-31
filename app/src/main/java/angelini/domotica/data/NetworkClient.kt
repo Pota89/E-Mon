@@ -16,7 +16,6 @@ class NetworkClient(context: Context) {
 
         try {
             mqttClient.connect(options)
-            Toast.makeText(myContext, "Connesso", Toast.LENGTH_SHORT).show();
         } catch (e: MqttException) {
             e.printStackTrace()
             return false
@@ -31,7 +30,6 @@ class NetworkClient(context: Context) {
     fun disconnect() {
         try {
             mqttClient.disconnect()
-            Toast.makeText(myContext, "Disconnesso", Toast.LENGTH_SHORT).show();
         } catch (e: MqttException) {
             e.printStackTrace()
         }

@@ -30,10 +30,18 @@ class Repository(context:Context){
         }
     }
     fun connect() {
-        networkClient.connect()
+        runBlocking {
+            launch(Dispatchers.IO) {
+                networkClient.connect()
+            }
+        }
     }
 
     fun disconnect() {
-        networkClient.disconnect()
+        runBlocking {
+            launch(Dispatchers.IO) {
+                networkClient.disconnect()
+            }
+        }
     }
 }
