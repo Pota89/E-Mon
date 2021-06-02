@@ -1,6 +1,7 @@
 package angelini.domotica.data
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Room
@@ -28,6 +29,14 @@ class Repository(context:Context){
                 userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
             }
         }
+        networkClient.onConnectionSuccess={
+            Log.i("Repository", "Connection success receipt")
+        }
+
+        networkClient.onConnectionFailure={
+            Log.i("Repository", "Connection failure receipt")
+        }
+
     }
     fun connect() {
         networkClient.connect()
