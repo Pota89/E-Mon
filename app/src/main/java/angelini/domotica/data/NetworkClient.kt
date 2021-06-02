@@ -2,14 +2,13 @@ package angelini.domotica.data
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
 class NetworkClient(context: Context) {
     private var mqttClient = MqttAndroidClient(context, MQTT_SERVER_URI, MQTT_CLIENT_ID)
 
-    private val defaultCbConnect = object : IMqttActionListener {
+    private val connectCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
             Log.i("NetworkClient", "Connection success")
         }
@@ -25,7 +24,7 @@ class NetworkClient(context: Context) {
         options.password = MQTT_PWD.toCharArray()
 
         try {
-            mqttClient.connect(options,null, defaultCbConnect)
+            mqttClient.connect(options,null, connectCallbacks)
         } catch (e: MqttException) {
             e.printStackTrace()
             return false
