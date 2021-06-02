@@ -9,14 +9,23 @@ import org.eclipse.paho.client.mqttv3.*
 class NetworkClient(context: Context) {
     private var mqttClient = MqttAndroidClient(context, MQTT_SERVER_URI, MQTT_CLIENT_ID)
 
+    private val defaultCbConnect = object : IMqttActionListener {
+        override fun onSuccess(asyncActionToken: IMqttToken?) {
+            Log.i("NetworkClient", "Connection success")
+        }
+
+        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+            Log.i("NetworkClient", "Connection failure: ${exception.toString()}")
+        }
+    }
+
     fun connect():Boolean{
         val options = MqttConnectOptions()
         options.userName = MQTT_USERNAME
         options.password = MQTT_PWD.toCharArray()
 
         try {
-            Log.i("NetworkClient","Connect")
-            mqttClient.connect(options)
+            mqttClient.connect(options,null, defaultCbConnect)
         } catch (e: MqttException) {
             e.printStackTrace()
             return false
