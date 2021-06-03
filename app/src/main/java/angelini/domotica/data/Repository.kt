@@ -31,10 +31,16 @@ class Repository(context:Context){
         }
         networkClient.onConnectionSuccess={
             Log.i("EMon - Repository", "Connection success receipt")
+            networkClient.subscribe("ExamToGo/groups/home")
+            networkClient.publish("ExamToGo/groups/home/get","")
         }
 
         networkClient.onConnectionFailure={
             Log.i("EMon - Repository", "Connection failure receipt")
+        }
+
+        networkClient.onPublishSuccess={
+            Log.i("EMon - Repository", "Message published")
         }
 
     }
