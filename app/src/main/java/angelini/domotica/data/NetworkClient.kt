@@ -18,64 +18,84 @@ class NetworkClient(context: Context) {
     var onPublishFailure: () -> Unit = {}
     var onDisconnectSuccess: () -> Unit = {}
     var onDisconnectFailure: () -> Unit = {}
+    var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
+    var onConnectionLost: () -> Unit = {}
+    var onDeliveryComplete: () -> Unit = {}
 
     //region Callbacks section
     private val connectCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("NetworkClient","Connection success")
+            Log.i("EMon - NetworkClient","Connection success")
             onConnectionSuccess()
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("NetworkClient", "Connection failure: ${exception.toString()}")
+            Log.i("EMon - NetworkClient", "Connection failure: ${exception.toString()}")
             onConnectionFailure()
         }
     }
 
     private val subscribeCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("NetworkClient", "Subscribed to topic")
+            Log.i("EMon - NetworkClient", "Subscribed to topic")
             onSubscribeSuccess()
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("NetworkClient", "Failed to subscribe topic: ${exception.toString()}")
+            Log.i("EMon - NetworkClient", "Failed to subscribe topic: ${exception.toString()}")
             onSubscribeFailure()
         }
     }
 
     private val unsubscribeCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("NetworkClient", "Unsubscribed to topic")
+            Log.i("EMon - NetworkClient", "Unsubscribed to topic")
             onUnsubscribeSuccess()
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("NetworkClient", "Failed to unsubscribe topic: ${exception.toString()}")
+            Log.i("EMon - NetworkClient", "Failed to unsubscribe topic: ${exception.toString()}")
             onUnsubscribeFailure()
         }
     }
 
     private val publishCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("NetworkClient", "Message published to topic")
+            Log.i("EMon - NetworkClient", "Message published to topic")
             onPublishSuccess()
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("NetworkClient", "Failed to publish message to topic: ${exception.toString()}")
+            Log.i("EMon - NetworkClient", "Failed to publish message to topic: ${exception.toString()}")
             onPublishFailure()
         }
     }
     private val disconnectCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("NetworkClient", "Disconnected")
+            Log.i("EMon - NetworkClient", "Disconnected")
             onDisconnectSuccess()
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("NetworkClient", "Failed to disconnect: ${exception.toString()}")
+            Log.i("EMon - NetworkClient", "Failed to disconnect: ${exception.toString()}")
             onDisconnectFailure()
+        }
+    }
+
+    private val clientCallbacks = object : MqttCallback {
+        override fun messageArrived(topic: String?, message: MqttMessage?) {
+            Log.i("EMon - NetworkClient", "Receive message: ${message.toString()} from topic: $topic")
+            onMessageArrived(topic ?: "",message.toString())
+        }
+
+        override fun connectionLost(cause: Throwable?) {
+            Log.i("EMon - NetworkClient", "Connection lost ${cause.toString()}")
+            onConnectionLost()
+        }
+
+        override fun deliveryComplete(token: IMqttDeliveryToken?) {
+            Log.i("EMon - NetworkClient", "Delivery completed")
+            onDeliveryComplete()
         }
     }
     //endregion
@@ -84,6 +104,7 @@ class NetworkClient(context: Context) {
         val options = MqttConnectOptions()
         options.userName = MQTT_USERNAME
         options.password = MQTT_PWD.toCharArray()
+        mqttClient.setCallback(clientCallbacks)
 
         try {
             mqttClient.connect(options,null, connectCallbacks)

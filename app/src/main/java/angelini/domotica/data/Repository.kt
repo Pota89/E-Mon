@@ -30,11 +30,11 @@ class Repository(context:Context){
             }
         }
         networkClient.onConnectionSuccess={
-            Log.i("Repository", "Connection success receipt")
+            Log.i("EMon - Repository", "Connection success receipt")
         }
 
         networkClient.onConnectionFailure={
-            Log.i("Repository", "Connection failure receipt")
+            Log.i("EMon - Repository", "Connection failure receipt")
         }
 
     }
