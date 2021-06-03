@@ -11,7 +11,8 @@ import kotlinx.coroutines.runBlocking
 
 class Repository(context:Context){
 
-    private val networkClient:NetworkClient = NetworkClient(context)
+    private val networkClient= NetworkClient(context)
+    private val parser=Parser("ExamToGo")
 
     private val db = androidx.room.Room.databaseBuilder(
         context,
@@ -31,16 +32,16 @@ class Repository(context:Context){
         }
         networkClient.onConnectionSuccess={
             Log.i("EMon - Repository", "Connection success receipt")
-            networkClient.subscribe("ExamToGo/groups/home")
-            networkClient.publish("ExamToGo/groups/home/get","")
+            networkClient.subscribe(parser.subscribeAllFeeds())
+            networkClient.publish(parser.requestAllFeeds(),"")
         }
 
         networkClient.onConnectionFailure={
             Log.i("EMon - Repository", "Connection failure receipt")
         }
 
-        networkClient.onPublishSuccess={
-            Log.i("EMon - Repository", "Message published")
+        networkClient.onMessageArrived={ topic, message ->
+            Log.i("EMon - Repository", "Topic $topic and message $message")
         }
 
     }
