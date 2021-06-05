@@ -47,7 +47,6 @@ class Repository(context:Context){
                 //load database on IO thread pool (avoid main/UI thread)
                 launch(Dispatchers.IO) {
                     val userDao = db.userDao()
-                    userDao.deleteAll()
                     for(element in list){
                         userDao.insert(element)
                     }
