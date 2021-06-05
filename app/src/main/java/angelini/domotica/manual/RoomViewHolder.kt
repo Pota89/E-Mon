@@ -24,9 +24,15 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(item: Room)  {
         when (item.type) {
-            RoomType.KITCHEN -> contentView.text = "Cucina"
             RoomType.BATHROOM -> contentView.text = "Bagno"
+            RoomType.BEDROOM -> contentView.text = "Camera"
+            RoomType.KITCHEN -> contentView.text = "Cucina"
             RoomType.LOUNGE -> contentView.text = "Soggiorno"
+            RoomType.STUDY -> contentView.text = "Studio"
+            RoomType.GARAGE -> contentView.text = "Garage"
+            RoomType.HALL -> contentView.text = "Ingresso"
+            RoomType.DINING -> contentView.text = "Sala da pranzo"
+            RoomType.HALLWAY -> contentView.text = "Corridoio"
             else -> contentView.text = "Sconosciuto"
         }
     }

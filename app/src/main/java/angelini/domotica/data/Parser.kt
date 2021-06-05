@@ -19,8 +19,15 @@ class Parser(username:String) {
         for (item in itemList){
             val elements=item.removePrefix("home.").split(",")
             when (elements[0]) {
-                "minni" -> returnList.add(Room(RoomType.KITCHEN))
-                "topolino" -> returnList.add(Room(RoomType.BATHROOM))
+                "bathroom" -> returnList.add(Room(RoomType.BATHROOM))
+                "bedroom" -> returnList.add(Room(RoomType.BEDROOM))
+                "kitchen" -> returnList.add(Room(RoomType.KITCHEN))
+                "lounge" -> returnList.add(Room(RoomType.LOUNGE))
+                "study" -> returnList.add(Room(RoomType.STUDY))
+                "garage" -> returnList.add(Room(RoomType.GARAGE))
+                "hall" -> returnList.add(Room(RoomType.HALL))
+                "dining" -> returnList.add(Room(RoomType.DINING))
+                "hallway" -> returnList.add(Room(RoomType.HALLWAY))
                 "" -> {}//to ignore the last empty item of itemList
                 else -> returnList.add(Room())
             }
