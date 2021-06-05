@@ -35,5 +35,11 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             RoomType.HALLWAY -> contentView.text = "Corridoio"
             else -> contentView.text = "Sconosciuto"
         }
+
+        if (item.number!=0){
+            val tempString=contentView.text.toString()
+            val outString=tempString.plus(" ").plus(item.number)
+            contentView.text=outString
+        }
     }
 }

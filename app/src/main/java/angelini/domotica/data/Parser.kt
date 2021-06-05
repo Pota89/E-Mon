@@ -17,19 +17,23 @@ class Parser(username:String) {
         val returnList= mutableListOf<Room>()
         val itemList=message.lines()//split message by Carriage Return
         for (item in itemList){
-            val elements=item.removePrefix("home.").split(",")
-            when (elements[0]) {
-                "bathroom" -> returnList.add(Room(RoomType.BATHROOM))
-                "bedroom" -> returnList.add(Room(RoomType.BEDROOM))
-                "kitchen" -> returnList.add(Room(RoomType.KITCHEN))
-                "lounge" -> returnList.add(Room(RoomType.LOUNGE))
-                "study" -> returnList.add(Room(RoomType.STUDY))
-                "garage" -> returnList.add(Room(RoomType.GARAGE))
-                "hall" -> returnList.add(Room(RoomType.HALL))
-                "dining" -> returnList.add(Room(RoomType.DINING))
-                "hallway" -> returnList.add(Room(RoomType.HALLWAY))
-                "" -> {}//to ignore the last empty item of itemList
-                else -> returnList.add(Room())
+            if(item!="") {
+                val itemElements = item.removePrefix("home.")
+                    .split(",", "-") //split room, roomNumber, (device), (numberDevice), value
+                val roomType = itemElements[0]
+                val roomNumber = itemElements[1].toInt()
+                when (roomType) {
+                    "bathroom" -> returnList.add(Room(RoomType.BATHROOM, roomNumber))
+                    "bedroom" -> returnList.add(Room(RoomType.BEDROOM, roomNumber))
+                    "kitchen" -> returnList.add(Room(RoomType.KITCHEN, roomNumber))
+                    "lounge" -> returnList.add(Room(RoomType.LOUNGE, roomNumber))
+                    "study" -> returnList.add(Room(RoomType.STUDY, roomNumber))
+                    "garage" -> returnList.add(Room(RoomType.GARAGE, roomNumber))
+                    "hall" -> returnList.add(Room(RoomType.HALL, roomNumber))
+                    "dining" -> returnList.add(Room(RoomType.DINING, roomNumber))
+                    "hallway" -> returnList.add(Room(RoomType.HALLWAY, roomNumber))
+                    else -> returnList.add(Room())
+                }
             }
         }
         return returnList
