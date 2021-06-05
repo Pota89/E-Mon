@@ -27,7 +27,7 @@ class Repository(context:Context){
             launch(Dispatchers.IO) {
                 val userDao = db.userDao()
                 userDao.deleteAll()
-                userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
+                //userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
             }
         }
         networkClient.onConnectionSuccess={
@@ -42,6 +42,17 @@ class Repository(context:Context){
 
         networkClient.onMessageArrived={ topic, message ->
             Log.i("EMon - Repository", "Topic $topic and message $message")
+            runBlocking {
+                //load database on IO thread pool (avoid main/UI thread)
+                launch(Dispatchers.IO) {
+                    val list=parser.decode(topic,message)
+                    val userDao = db.userDao()
+                    userDao.deleteAll()
+                    for(element in list){
+                        userDao.insert(element)
+                    }
+                }
+            }
         }
 
     }
