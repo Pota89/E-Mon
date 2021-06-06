@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
-import angelini.domotica.data.db.Room
+import angelini.domotica.data.db.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -19,7 +19,7 @@ class Repository(context:Context){
         CacheDatabase::class.java, "cache"
     ).build()
 
-    val roomList: LiveData<List<Room>> =db.userDao().getAll()
+    val devicesList: LiveData<List<Device>> =db.userDao().getAll()
 
     init {
         runBlocking {
@@ -27,7 +27,6 @@ class Repository(context:Context){
             launch(Dispatchers.IO) {
                 val userDao = db.userDao()
                 userDao.deleteAll()
-                //userDao.insert(Room(RoomType.LOUNGE), Room(RoomType.BATHROOM), Room(RoomType.KITCHEN), Room(RoomType.GARAGE))
             }
         }
         networkClient.onConnectionSuccess={

@@ -3,17 +3,14 @@ package angelini.domotica.manual
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import angelini.domotica.MainApplication
-import angelini.domotica.data.Repository
-import angelini.domotica.data.db.Room
-import angelini.domotica.data.RoomType
+import angelini.domotica.data.db.Device
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _rooms = getApplication<MainApplication>().getRepository().roomList
+    private val _rooms = getApplication<MainApplication>().getRepository().devicesList
 
-    val rooms: LiveData<List<Room>>
+    val rooms: LiveData<List<Device>>
         get() = _rooms
 }
 

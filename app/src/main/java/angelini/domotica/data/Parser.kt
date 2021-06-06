@@ -1,6 +1,6 @@
 package angelini.domotica.data
 
-import angelini.domotica.data.db.Room
+import angelini.domotica.data.db.Device
 
 class Parser(username:String) {
 
@@ -13,27 +13,29 @@ class Parser(username:String) {
         return "${rootname}/groups/home/get"
     }
 
-    fun decode(topic:String, message:String):List<Room>{
-        val returnList= mutableListOf<Room>()
+    fun decode(topic:String, message:String):List<Device>{
+        val returnList= mutableListOf<Device>()
         val itemList=message.lines()//split message by Carriage Return
         for (item in itemList){
             if(item!="") {
                 val itemElements = item.removePrefix("home.")
                     .split(",", "-") //split room, roomNumber, (device), (numberDevice), value
-                val roomType = itemElements[0]
+                val roomTypeString = itemElements[0]
+                var roomType=RoomType.UNKNOWN
                 val roomNumber = itemElements[1].toInt()
-                when (roomType) {
-                    "bathroom" -> returnList.add(Room(RoomType.BATHROOM, roomNumber))
-                    "bedroom" -> returnList.add(Room(RoomType.BEDROOM, roomNumber))
-                    "kitchen" -> returnList.add(Room(RoomType.KITCHEN, roomNumber))
-                    "lounge" -> returnList.add(Room(RoomType.LOUNGE, roomNumber))
-                    "study" -> returnList.add(Room(RoomType.STUDY, roomNumber))
-                    "garage" -> returnList.add(Room(RoomType.GARAGE, roomNumber))
-                    "hall" -> returnList.add(Room(RoomType.HALL, roomNumber))
-                    "dining" -> returnList.add(Room(RoomType.DINING, roomNumber))
-                    "hallway" -> returnList.add(Room(RoomType.HALLWAY, roomNumber))
-                    else -> returnList.add(Room())
+                when (roomTypeString) {
+                    "bathroom" -> roomType=RoomType.BATHROOM
+                    "bedroom" -> roomType=RoomType.BEDROOM
+                    "kitchen" -> roomType=RoomType.KITCHEN
+                    "lounge" -> roomType=RoomType.LOUNGE
+                    "study" -> roomType=RoomType.STUDY
+                    "garage" -> roomType=RoomType.GARAGE
+                    "hall" -> roomType=RoomType.HALL
+                    "dining" -> roomType=RoomType.DINING
+                    "hallway" -> roomType=RoomType.HALLWAY
                 }
+
+                returnList.add(Device(roomType,roomNumber,DeviceType.UNKNOWN,0))//TODO terminate device setup
             }
         }
         return returnList
