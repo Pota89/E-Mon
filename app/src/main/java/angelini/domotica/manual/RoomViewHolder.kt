@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
+import angelini.domotica.data.DeviceType
 import angelini.domotica.data.db.Device
 import angelini.domotica.data.RoomType
 
@@ -23,23 +24,39 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun bind(item: Device)  {
+        val builder = StringBuilder()
+
         when (item.roomType) {
-            RoomType.BATHROOM -> contentView.text = "Bagno"
-            RoomType.BEDROOM -> contentView.text = "Camera"
-            RoomType.KITCHEN -> contentView.text = "Cucina"
-            RoomType.LOUNGE -> contentView.text = "Soggiorno"
-            RoomType.STUDY -> contentView.text = "Studio"
-            RoomType.GARAGE -> contentView.text = "Garage"
-            RoomType.HALL -> contentView.text = "Ingresso"
-            RoomType.DINING -> contentView.text = "Sala da pranzo"
-            RoomType.HALLWAY -> contentView.text = "Corridoio"
-            else -> contentView.text = "Sconosciuto"
+            RoomType.BATHROOM -> builder.append("Bagno")
+            RoomType.BEDROOM -> builder.append("Camera")
+            RoomType.KITCHEN -> builder.append("Cucina")
+            RoomType.LOUNGE -> builder.append("Soggiorno")
+            RoomType.STUDY -> builder.append("Studio")
+            RoomType.GARAGE -> builder.append("Garage")
+            RoomType.HALL -> builder.append("Ingresso")
+            RoomType.DINING -> builder.append("Sala da pranzo")
+            RoomType.HALLWAY -> builder.append("Corridoio")
+            else -> builder.append("Sconosciuto")
         }
 
         if (item.roomNumber!=0){
-            val tempString=contentView.text.toString()
-            val outString=tempString.plus(" ").plus(item.roomNumber)
-            contentView.text=outString
+            builder.append(" ")
+            builder.append(item.roomNumber)
         }
+
+        builder.append(" ")
+        when (item.deviceType) {
+            DeviceType.TEMPERATURE -> builder.append("Temperatura")
+            DeviceType.LAMP -> builder.append("Lampada")
+            DeviceType.MOVEMENT -> builder.append("Movimento")
+            else -> builder.append("Sconosciuto")
+        }
+
+        if (item.deviceNumber!=0){
+            builder.append(" ")
+            builder.append(item.deviceNumber)
+        }
+
+        contentView.text=builder.toString()
     }
 }

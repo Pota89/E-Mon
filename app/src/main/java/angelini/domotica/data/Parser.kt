@@ -23,7 +23,13 @@ class Parser(username:String) {
                 val roomTypeString = itemElements[0]
                 var roomType=RoomType.UNKNOWN
                 val roomNumber = itemElements[1].toInt()
-                when (roomTypeString) {
+                val deviceTypeString=itemElements[2]
+                var deviceType=DeviceType.UNKNOWN
+                val deviceNumber=itemElements[3].toInt()
+
+                when (roomTypeString) {//TODO implement "valueOf"
+                    //https://stackoverflow.com/questions/28548015/how-do-i-create-an-enum-from-a-string-in-kotlin
+                    //https://kotlinlang.org/docs/enum-classes.html#working-with-enum-constants
                     "bathroom" -> roomType=RoomType.BATHROOM
                     "bedroom" -> roomType=RoomType.BEDROOM
                     "kitchen" -> roomType=RoomType.KITCHEN
@@ -35,7 +41,14 @@ class Parser(username:String) {
                     "hallway" -> roomType=RoomType.HALLWAY
                 }
 
-                returnList.add(Device(roomType,roomNumber,DeviceType.UNKNOWN,0))//TODO terminate device setup
+                when (deviceTypeString) {
+                    //TODO implement "valueOf"
+                    "temperature" -> deviceType=DeviceType.TEMPERATURE
+                    "lamp" -> deviceType=DeviceType.LAMP
+                    "movement" -> deviceType=DeviceType.MOVEMENT
+                }
+
+                returnList.add(Device(roomType,roomNumber,deviceType,deviceNumber))
             }
         }
         return returnList
