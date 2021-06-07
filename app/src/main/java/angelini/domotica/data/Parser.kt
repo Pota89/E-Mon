@@ -1,6 +1,7 @@
 package angelini.domotica.data
 
 import angelini.domotica.data.db.Device
+import java.util.*
 
 class Parser(username:String) {
 
@@ -19,34 +20,25 @@ class Parser(username:String) {
         for (item in itemList){
             if(item!="") {
                 val itemElements = item.removePrefix("home.")
-                    .split(",", "-") //split room, roomNumber, (device), (numberDevice), value
-                val roomTypeString = itemElements[0]
-                var roomType=RoomType.UNKNOWN
+                    .split(",", "-") //split room, roomNumber, device, numberDevice, (value)
+
+                val roomType = try {
+                    RoomType.valueOf(itemElements[0].toUpperCase(Locale.ROOT))//matching room type from string to enum
+                } catch(e: IllegalArgumentException) {
+                    RoomType.UNKNOWN
+                }
+
                 val roomNumber = itemElements[1].toInt()
-                val deviceTypeString=itemElements[2]
-                var deviceType=DeviceType.UNKNOWN
+
+                val deviceType = try {
+                    DeviceType.valueOf(itemElements[2].toUpperCase(Locale.ROOT))//matching device type from string to enum
+                } catch(e: IllegalArgumentException) {
+                    DeviceType.UNKNOWN
+                }
+
                 val deviceNumber=itemElements[3].toInt()
 
-                when (roomTypeString) {//TODO implement "valueOf"
-                    //https://stackoverflow.com/questions/28548015/how-do-i-create-an-enum-from-a-string-in-kotlin
-                    //https://kotlinlang.org/docs/enum-classes.html#working-with-enum-constants
-                    "bathroom" -> roomType=RoomType.BATHROOM
-                    "bedroom" -> roomType=RoomType.BEDROOM
-                    "kitchen" -> roomType=RoomType.KITCHEN
-                    "lounge" -> roomType=RoomType.LOUNGE
-                    "study" -> roomType=RoomType.STUDY
-                    "garage" -> roomType=RoomType.GARAGE
-                    "hall" -> roomType=RoomType.HALL
-                    "dining" -> roomType=RoomType.DINING
-                    "hallway" -> roomType=RoomType.HALLWAY
-                }
-
-                when (deviceTypeString) {
-                    //TODO implement "valueOf"
-                    "temperature" -> deviceType=DeviceType.TEMPERATURE
-                    "lamp" -> deviceType=DeviceType.LAMP
-                    "movement" -> deviceType=DeviceType.MOVEMENT
-                }
+                //TODO value parsing
 
                 returnList.add(Device(roomType,roomNumber,deviceType,deviceNumber))
             }
