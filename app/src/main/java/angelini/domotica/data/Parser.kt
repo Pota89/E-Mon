@@ -1,6 +1,7 @@
 package angelini.domotica.data
 
 import angelini.domotica.data.db.Device
+import angelini.domotica.data.db.Room
 import java.util.*
 
 class Parser(username:String) {
@@ -40,7 +41,7 @@ class Parser(username:String) {
 
                 val deviceValue=itemElements[4].toInt()
 
-                returnList.add(Device(roomType,roomNumber,deviceType,deviceNumber,deviceValue))
+                returnList.add(Device(Room(roomType,roomNumber),deviceType,deviceNumber,deviceValue))
             }
         }
         return returnList

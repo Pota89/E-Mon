@@ -26,7 +26,7 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: Device)  {
         val builder = StringBuilder()
 
-        when (item.roomType) {
+        when (item.room.roomType) {
             RoomType.BATHROOM -> builder.append("Bagno")
             RoomType.BEDROOM -> builder.append("Camera")
             RoomType.KITCHEN -> builder.append("Cucina")
@@ -39,9 +39,9 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             else -> builder.append("Sconosciuto")
         }
 
-        if (item.roomNumber!=0){
+        if (item.room.roomNumber!=0){
             builder.append(" ")
-            builder.append(item.roomNumber)
+            builder.append(item.room.roomNumber)
         }
 
         builder.append(" ")
