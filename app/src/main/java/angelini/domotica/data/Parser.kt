@@ -38,9 +38,9 @@ class Parser(username:String) {
 
                 val deviceNumber=itemElements[3].toInt()
 
-                //TODO value parsing
+                val deviceValue=itemElements[4].toInt()
 
-                returnList.add(Device(roomType,roomNumber,deviceType,deviceNumber))
+                returnList.add(Device(roomType,roomNumber,deviceType,deviceNumber,deviceValue))
             }
         }
         return returnList

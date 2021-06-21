@@ -10,5 +10,6 @@ data class Device (
     @ColumnInfo(name = "roomType") val roomType: RoomType = RoomType.UNKNOWN,
     @ColumnInfo(name = "roomNumber") val roomNumber:Int=0,
     @ColumnInfo(name = "deviceType") val deviceType: DeviceType = DeviceType.UNKNOWN,
-    @ColumnInfo(name = "deviceNumber") val deviceNumber:Int=0
+    @ColumnInfo(name = "deviceNumber") val deviceNumber:Int=0,
+    @ColumnInfo(name = "devicevalue") val deviceValue:Int=0
 )

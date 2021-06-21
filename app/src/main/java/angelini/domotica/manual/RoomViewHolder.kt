@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
 import angelini.domotica.data.DeviceType
-import angelini.domotica.data.db.Device
 import angelini.domotica.data.RoomType
+import angelini.domotica.data.db.Device
 
 //code to configure a single row of Room in HomeFragment
 class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,6 +56,12 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             builder.append(" ")
             builder.append(item.deviceNumber)
         }
+
+        builder.append(" ")
+        if (item.deviceValue==0)
+            builder.append("--")
+        else
+            builder.append((item.deviceValue))
 
         contentView.text=builder.toString()
     }
