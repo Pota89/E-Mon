@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
-import angelini.domotica.data.DeviceType
-import angelini.domotica.data.RoomType
+import angelini.domotica.data.db.DeviceType
+import angelini.domotica.data.db.RoomType
 import angelini.domotica.data.db.Device
 
 //code to configure a single row of Room in HomeFragment

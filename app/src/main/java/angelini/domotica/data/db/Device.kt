@@ -3,7 +3,6 @@ package angelini.domotica.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
-import angelini.domotica.data.DeviceType
 
 @Entity(primaryKeys = ["roomType", "roomNumber", "deviceType", "deviceNumber"])
 data class Device (

@@ -2,7 +2,6 @@ package angelini.domotica.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import angelini.domotica.data.RoomType
 
 @Entity(primaryKeys = ["roomType", "roomNumber"])
 data class Room (

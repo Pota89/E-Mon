@@ -1,7 +1,9 @@
 package angelini.domotica.data
 
 import angelini.domotica.data.db.Device
+import angelini.domotica.data.db.DeviceType
 import angelini.domotica.data.db.Room
+import angelini.domotica.data.db.RoomType
 import java.util.*
 
 class Parser(username:String) {
