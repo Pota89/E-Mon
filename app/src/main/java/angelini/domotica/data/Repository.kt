@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Device
+import angelini.domotica.data.db.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -20,6 +21,7 @@ class Repository(context:Context){
     ).build()
 
     val devicesList: LiveData<List<Device>> =db.userDao().getAll()
+    val roomsList: LiveData<List<Room>> =db.userDao().getAllRooms()
 
     init {
         runBlocking {

@@ -2,12 +2,12 @@ package angelini.domotica.manual
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import angelini.domotica.data.db.Device
+import angelini.domotica.data.db.Room
 
 //take Room rows and adapt them for RecyclerView in HomeFragment
 class RoomAdapter: RecyclerView.Adapter<RoomViewHolder>() {
 
-    var data =  listOf<Device>()
+    var data =  listOf<Room>()
         set(value) {
             field = value
             notifyDataSetChanged()

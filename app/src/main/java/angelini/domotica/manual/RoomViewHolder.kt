@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
-import angelini.domotica.data.db.DeviceType
 import angelini.domotica.data.db.RoomType
-import angelini.domotica.data.db.Device
+import angelini.domotica.data.db.Room
 
 //code to configure a single row of Room in HomeFragment
 class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,10 +22,10 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(item: Device)  {
+    fun bind(item: Room)  {
         val builder = StringBuilder()
 
-        when (item.room.type) {
+        when (item.type) {
             RoomType.BATHROOM -> builder.append("Bagno")
             RoomType.BEDROOM -> builder.append("Camera")
             RoomType.KITCHEN -> builder.append("Cucina")
@@ -39,29 +38,10 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             else -> builder.append("Sconosciuto")
         }
 
-        if (item.room.number!=0){
-            builder.append(" ")
-            builder.append(item.room.number)
-        }
-
-        builder.append(" ")
-        when (item.type) {
-            DeviceType.TEMPERATURE -> builder.append("Temperatura")
-            DeviceType.LAMP -> builder.append("Lampada")
-            DeviceType.MOVEMENT -> builder.append("Movimento")
-            else -> builder.append("Sconosciuto")
-        }
-
         if (item.number!=0){
             builder.append(" ")
             builder.append(item.number)
         }
-
-        builder.append(" ")
-        if (item.value==0)
-            builder.append("--")
-        else
-            builder.append((item.value))
 
         contentView.text=builder.toString()
     }
