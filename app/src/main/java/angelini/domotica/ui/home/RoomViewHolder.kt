@@ -1,4 +1,4 @@
-package angelini.domotica.manual
+package angelini.domotica.ui.home
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package angelini.domotica.manual
+package angelini.domotica.ui.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

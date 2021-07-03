@@ -1,4 +1,4 @@
-package angelini.domotica.manual
+package angelini.domotica.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
