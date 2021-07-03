@@ -2,12 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_navigation"
-    app:startDestination="@id/mainFragment">
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/nav_home"
         android:name="angelini.domotica.ui.home.HomeFragment"
-        android:label="fragment_main_list"
+        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="angelini.domotica.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_rules"
+        android:name="angelini.domotica.ui.rules.RulesFragment"
+        android:label="@string/menu_rules"
+        tools:layout="@layout/fragment_rules" />
 </navigation>
