@@ -3,6 +3,7 @@ package angelini.domotica.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
@@ -11,7 +12,8 @@ import angelini.domotica.data.db.Room
 
 //code to configure a single row of Room in HomeFragment
 class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val contentView: TextView = view.findViewById(R.id.content)
+    val roomImage: ImageView = view.findViewById(R.id.room_image)
+    val roomName: TextView = view.findViewById(R.id.room_name)
 
     //companion objects act like static methods of a class, here inflate the layout for a new RoomViewHolder
     companion object {
@@ -23,6 +25,22 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun bind(item: Room)  {
+
+        //room image
+        when (item.type) {
+            RoomType.BATHROOM -> roomImage.setImageResource(R.drawable.ic_room_bathroom)
+            RoomType.BEDROOM -> roomImage.setImageResource(R.drawable.ic_room_bedroom)
+            RoomType.KITCHEN -> roomImage.setImageResource(R.drawable.ic_room_kitchen)
+            RoomType.LOUNGE -> roomImage.setImageResource(R.drawable.ic_room_lounge)
+            RoomType.STUDY -> roomImage.setImageResource(R.drawable.ic_room_study)
+            RoomType.GARAGE -> roomImage.setImageResource(R.drawable.ic_room_garage)
+            RoomType.HALL -> roomImage.setImageResource(R.drawable.ic_room_hall)
+            RoomType.DINING -> roomImage.setImageResource(R.drawable.ic_room_dining)
+            RoomType.HALLWAY -> roomImage.setImageResource(R.drawable.ic_room_hallway)
+            else -> roomImage.setImageResource(R.drawable.ic_room_unknown)
+        }
+
+        //room string
         val builder = StringBuilder()
 
         when (item.type) {
@@ -43,6 +61,6 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             builder.append(item.number)
         }
 
-        contentView.text=builder.toString()
+        roomName.text=builder.toString()
     }
 }

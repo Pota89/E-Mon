@@ -13,16 +13,16 @@
     card_view:cardUseCompatPadding="true"    >
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/room_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_menu_home"
+        android:src="@drawable/ic_room_unknown"
         android:layout_margin="10dp"
         android:contentDescription="@string/room_icon" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/room_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
