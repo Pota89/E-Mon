@@ -1,5 +1,6 @@
 package angelini.domotica.data
 
+import androidx.core.text.isDigitsOnly
 import angelini.domotica.data.db.Device
 import angelini.domotica.data.db.DeviceType
 import angelini.domotica.data.db.Room
@@ -41,7 +42,9 @@ class Parser(username:String) {
 
                 val deviceNumber=itemElements[3].toInt()
 
-                val deviceValue=itemElements[4].toInt()
+                var deviceValue=0
+                if (itemElements[4].isDigitsOnly())//check if is a valid value
+                    deviceValue=itemElements[4].toInt()
 
                 returnList.add(Device(Room(roomType,roomNumber),deviceType,deviceNumber,deviceValue))
             }
