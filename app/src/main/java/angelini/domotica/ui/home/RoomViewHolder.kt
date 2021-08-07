@@ -15,6 +15,7 @@ import angelini.domotica.databinding.ListItemRoomBinding
 
 class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
     init {
+        //TODO end to implement clicklistener
        /* binding.setClickListener {
             binding.plant?.let { plant ->
                 navigateToPlant(plant, it)

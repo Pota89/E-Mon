@@ -27,7 +27,7 @@ class Parser(username:String) {
                     .split(",", "-") //split room, roomNumber, device, numberDevice, (value)
 
                 val roomType = try {
-                    RoomType.valueOf(itemElements[0].toUpperCase(Locale.ROOT))//matching room type from string to enum
+                    RoomType.valueOf(itemElements[0].uppercase())//matching room type from string to enum
                 } catch(e: IllegalArgumentException) {
                     RoomType.UNKNOWN
                 }
@@ -35,7 +35,7 @@ class Parser(username:String) {
                 val roomNumber = itemElements[1].toInt()
 
                 val deviceType = try {
-                    DeviceType.valueOf(itemElements[2].toUpperCase(Locale.ROOT))//matching device type from string to enum
+                    DeviceType.valueOf(itemElements[2].uppercase())//matching device type from string to enum
                 } catch(e: IllegalArgumentException) {
                     DeviceType.UNKNOWN
                 }

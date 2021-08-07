@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="angelini.domotica.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_roomFragment"
+            app:destination="@id/nav_room" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
@@ -22,4 +26,17 @@
         android:name="angelini.domotica.ui.rules.RulesFragment"
         android:label="@string/menu_rules"
         tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/nav_room"
+        android:name="angelini.domotica.RoomFragment"
+        android:label="fragment_room"
+        tools:layout="@layout/fragment_room" >
+        <argument android:name="roomType"
+            app:argType="angelini.domotica.data.db.RoomType"
+            android:defaultValue="UNKNOWN" />
+        <argument
+            android:name="roomNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
