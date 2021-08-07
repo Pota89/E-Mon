@@ -21,7 +21,8 @@ class HomeFragment : Fragment() {
 
         val adapter = RoomAdapter()
         binding.roomList.adapter = adapter
-        viewModel.rooms.observe(viewLifecycleOwner, {adapter.data=it})
+        viewModel.rooms.observe(viewLifecycleOwner, {rooms ->
+            adapter.submitList(rooms)})
 
         return binding.root
     }

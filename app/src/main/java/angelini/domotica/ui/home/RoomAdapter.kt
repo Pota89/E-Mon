@@ -1,26 +1,37 @@
 package angelini.domotica.ui.home
 
-import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import angelini.domotica.data.db.Room
+import angelini.domotica.databinding.ListItemRoomBinding
 
 //take Room rows and adapt them for RecyclerView in HomeFragment
-class RoomAdapter: RecyclerView.Adapter<RoomViewHolder>() {
-
-    var data =  listOf<Room>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
+class RoomAdapter : ListAdapter<Room, RoomViewHolder>(RoomDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
-        return RoomViewHolder.from(parent)
+        return RoomViewHolder(
+            ListItemRoomBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
-        val item = data[position]
-        holder.bind(item)
+        val room = getItem(position)
+        holder.bind(room)
+    }
+}
+
+private class RoomDiffCallback : DiffUtil.ItemCallback<Room>() {
+
+    override fun areItemsTheSame(oldItem: Room, newItem: Room): Boolean {
+        return oldItem.type == newItem.type && oldItem.number == newItem.number
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun areContentsTheSame(oldItem: Room, newItem: Room): Boolean {
+        return oldItem == newItem
+    }
 }

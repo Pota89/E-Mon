@@ -1,43 +1,40 @@
 package angelini.domotica.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
 import angelini.domotica.data.db.RoomType
 import angelini.domotica.data.db.Room
+import angelini.domotica.databinding.ListItemRoomBinding
 
 //code to configure a single row of Room in HomeFragment
-class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val roomImage: ImageView = view.findViewById(R.id.room_image)
-    val roomName: TextView = view.findViewById(R.id.room_name)
 
-    //companion objects act like static methods of a class, here inflate the layout for a new RoomViewHolder
-    companion object {
-        fun from(parent: ViewGroup): RoomViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_home_room_item, parent, false)
-            return RoomViewHolder(view)
+class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
+    init {
+       /* binding.setClickListener {
+            binding.plant?.let { plant ->
+                navigateToPlant(plant, it)
+            }*/
         }
-    }
+
 
     fun bind(item: Room)  {
-
         //room image
         when (item.type) {
-            RoomType.BATHROOM -> roomImage.setImageResource(R.drawable.ic_room_bathroom)
-            RoomType.BEDROOM -> roomImage.setImageResource(R.drawable.ic_room_bedroom)
-            RoomType.KITCHEN -> roomImage.setImageResource(R.drawable.ic_room_kitchen)
-            RoomType.LOUNGE -> roomImage.setImageResource(R.drawable.ic_room_lounge)
-            RoomType.STUDY -> roomImage.setImageResource(R.drawable.ic_room_study)
-            RoomType.GARAGE -> roomImage.setImageResource(R.drawable.ic_room_garage)
-            RoomType.HALL -> roomImage.setImageResource(R.drawable.ic_room_hall)
-            RoomType.DINING -> roomImage.setImageResource(R.drawable.ic_room_dining)
-            RoomType.HALLWAY -> roomImage.setImageResource(R.drawable.ic_room_hallway)
-            else -> roomImage.setImageResource(R.drawable.ic_room_unknown)
+            RoomType.BATHROOM -> binding.roomImage.setImageResource(R.drawable.ic_room_bathroom)
+            RoomType.BEDROOM -> binding.roomImage.setImageResource(R.drawable.ic_room_bedroom)
+            RoomType.KITCHEN -> binding.roomImage.setImageResource(R.drawable.ic_room_kitchen)
+            RoomType.LOUNGE -> binding.roomImage.setImageResource(R.drawable.ic_room_lounge)
+            RoomType.STUDY -> binding.roomImage.setImageResource(R.drawable.ic_room_study)
+            RoomType.GARAGE -> binding.roomImage.setImageResource(R.drawable.ic_room_garage)
+            RoomType.HALL -> binding.roomImage.setImageResource(R.drawable.ic_room_hall)
+            RoomType.DINING -> binding.roomImage.setImageResource(R.drawable.ic_room_dining)
+            RoomType.HALLWAY -> binding.roomImage.setImageResource(R.drawable.ic_room_hallway)
+            else -> binding.roomImage.setImageResource(R.drawable.ic_room_unknown)
         }
 
         //room string
@@ -61,6 +58,6 @@ class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             builder.append(item.number)
         }
 
-        roomName.text=builder.toString()
+        binding.roomName.text=builder.toString()
     }
 }
