@@ -1,15 +1,10 @@
 package angelini.domotica.ui.home
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
-import angelini.domotica.data.db.RoomType
 import angelini.domotica.data.db.Room
+import angelini.domotica.data.db.RoomType
 import angelini.domotica.databinding.ListItemRoomBinding
 
 //code to configure a single row of Room in HomeFragment
@@ -20,10 +15,12 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
 
         binding.root.setOnClickListener {
             val toast = Toast.makeText(binding.root.context, "${item.type} ${item.number}", Toast.LENGTH_SHORT)
-            toast.show()
-            /*
-                 binding.plant?.let { plant ->
-                     navigateToPlant(plant, it)*/
+            toast.show()/*
+            val direction =
+                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
+                    plant.plantId
+                )
+            binding.root.findNavController().navigate(direction)*/
         }
 
         //room image
