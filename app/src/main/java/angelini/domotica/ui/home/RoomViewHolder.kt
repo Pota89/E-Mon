@@ -15,23 +15,17 @@ import angelini.domotica.databinding.ListItemRoomBinding
 //code to configure a single row of Room in HomeFragment
 
 class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        //TODO end to implement clicklistener
-       binding.root.setOnClickListener {
-
-           val text = "Hello toast!"
-           val duration = Toast.LENGTH_SHORT
-
-           val toast = Toast.makeText(binding.root.context, text, duration)
-           toast.show()
-       /*
-            binding.plant?.let { plant ->
-                navigateToPlant(plant, it)*/
-            }
-        }
-
 
     fun bind(item: Room)  {
+
+        binding.root.setOnClickListener {
+            val toast = Toast.makeText(binding.root.context, "${item.type} ${item.number}", Toast.LENGTH_SHORT)
+            toast.show()
+            /*
+                 binding.plant?.let { plant ->
+                     navigateToPlant(plant, it)*/
+        }
+
         //room image
         when (item.type) {
             RoomType.BATHROOM -> binding.roomImage.setImageResource(R.drawable.ic_room_bathroom)
