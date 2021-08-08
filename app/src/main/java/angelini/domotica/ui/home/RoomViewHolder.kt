@@ -14,17 +14,12 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
 
     fun bind(item: Room)  {
 
+        //navigation to selected room
         binding.root.setOnClickListener {
-            val toast = Toast.makeText(binding.root.context, "${item.type} ${item.number}", Toast.LENGTH_SHORT)
-            toast.show()
             val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()
+            direction.roomType = item.type
+            direction.roomNumber=item.number
             binding.root.findNavController().navigate(direction)
-            /*
-            val direction =
-                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
-                    plant.plantId
-                )
-            binding.root.findNavController().navigate(direction)*/
         }
 
         //room image
