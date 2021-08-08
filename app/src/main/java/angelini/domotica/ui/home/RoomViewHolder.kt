@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
@@ -16,10 +17,17 @@ import angelini.domotica.databinding.ListItemRoomBinding
 class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
     init {
         //TODO end to implement clicklistener
-       /* binding.setClickListener {
+       binding.root.setOnClickListener {
+
+           val text = "Hello toast!"
+           val duration = Toast.LENGTH_SHORT
+
+           val toast = Toast.makeText(binding.root.context, text, duration)
+           toast.show()
+       /*
             binding.plant?.let { plant ->
-                navigateToPlant(plant, it)
-            }*/
+                navigateToPlant(plant, it)*/
+            }
         }
 
 
