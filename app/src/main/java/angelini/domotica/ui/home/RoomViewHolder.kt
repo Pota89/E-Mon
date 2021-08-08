@@ -13,14 +13,6 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
 
     fun bind(item: Room)  {
 
-        //navigation to selected room
-        binding.root.setOnClickListener {
-            val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()
-            direction.roomType = item.type
-            direction.roomNumber=item.number
-            binding.root.findNavController().navigate(direction)
-        }
-
         //room image
         when (item.type) {
             RoomType.BATHROOM -> binding.roomImage.setImageResource(R.drawable.ic_room_bathroom)
@@ -54,6 +46,15 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
         if (item.number!=0){
             builder.append(" ")
             builder.append(item.number)
+        }
+
+        //navigation to selected room
+        binding.root.setOnClickListener {
+            val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()
+            direction.roomType = item.type
+            direction.roomNumber=item.number
+            direction.roomName=builder.toString()
+            binding.root.findNavController().navigate(direction)
         }
 
         binding.roomName.text=builder.toString()

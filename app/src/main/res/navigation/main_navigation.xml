@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/nav_room"
         android:name="angelini.domotica.ui.room.RoomFragment"
-        android:label="fragment_room"
+        android:label="{roomName}"
         tools:layout="@layout/fragment_room" >
         <argument android:name="roomType"
             app:argType="angelini.domotica.data.db.RoomType"
@@ -38,5 +38,9 @@
             android:name="roomNumber"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="roomName"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 </navigation>
