@@ -1,6 +1,7 @@
 package angelini.domotica.ui.home
 
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
 import angelini.domotica.data.db.Room
@@ -15,7 +16,10 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
 
         binding.root.setOnClickListener {
             val toast = Toast.makeText(binding.root.context, "${item.type} ${item.number}", Toast.LENGTH_SHORT)
-            toast.show()/*
+            toast.show()
+            val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()
+            binding.root.findNavController().navigate(direction)
+            /*
             val direction =
                 HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
                     plant.plantId

@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_rules" />
     <fragment
         android:id="@+id/nav_room"
-        android:name="angelini.domotica.RoomFragment"
+        android:name="angelini.domotica.ui.room.RoomFragment"
         android:label="fragment_room"
         tools:layout="@layout/fragment_room" >
         <argument android:name="roomType"
