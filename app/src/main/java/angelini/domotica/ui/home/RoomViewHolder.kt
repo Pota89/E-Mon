@@ -1,6 +1,5 @@
 package angelini.domotica.ui.home
 
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
