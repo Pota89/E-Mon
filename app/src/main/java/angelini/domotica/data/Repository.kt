@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Device
 import angelini.domotica.data.db.Room
+import angelini.domotica.data.db.RoomType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -20,14 +21,18 @@ class Repository(context:Context){
         CacheDatabase::class.java, "cache"
     ).build()
 
-    val devicesList: LiveData<List<Device>> =db.userDao().getAll()
-    val roomsList: LiveData<List<Room>> =db.userDao().getAllRooms()
+    val devicesList: LiveData<List<Device>> =db.deviceDao().getAll()
+    val roomsList: LiveData<List<Room>> =db.deviceDao().getAllRooms()
+
+    fun getRoomDevices(roomType: RoomType, roomNumber: Int): LiveData<List<Device>> {
+        return db.deviceDao().getRoomDevices(roomType,roomNumber)
+    }
 
     init {
         runBlocking {
             //load database on IO thread pool (avoid main/UI thread)
             launch(Dispatchers.IO) {
-                val userDao = db.userDao()
+                val userDao = db.deviceDao()
                 userDao.deleteAll()
             }
         }
@@ -47,7 +52,7 @@ class Repository(context:Context){
             runBlocking {
                 //load database on IO thread pool (avoid main/UI thread)
                 launch(Dispatchers.IO) {
-                    val userDao = db.userDao()
+                    val userDao = db.deviceDao()
                     for(element in list){
                         userDao.insert(element)
                     }

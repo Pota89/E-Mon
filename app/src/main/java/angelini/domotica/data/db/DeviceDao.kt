@@ -12,6 +12,9 @@ interface DeviceDao {
     @Query("SELECT * FROM device")
     fun getAll(): LiveData<List<Device>>
 
+    @Query("SELECT * FROM device WHERE roomType = :roomType AND roomNumber = :roomNumber")
+    fun getRoomDevices(roomType: RoomType, roomNumber: Int): LiveData<List<Device>>
+
     //DISTINCT clause because to avoid duplicates on list
     @Query("SELECT DISTINCT roomType,roomNumber FROM device")
     fun getAllRooms(): LiveData<List<Room>>
