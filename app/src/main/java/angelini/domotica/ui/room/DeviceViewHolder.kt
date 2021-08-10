@@ -20,8 +20,8 @@ class DeviceViewHolder(private val binding: ListItemDeviceBinding) : RecyclerVie
         when(item.type)
         {
             DeviceType.TEMPERATURE -> builder.append("Temperatura")
-            DeviceType.MOVEMENT -> builder.append("Temperatura")
-            DeviceType.LAMP -> builder.append("Temperatura")
+            DeviceType.MOVEMENT -> builder.append("Movimento")
+            DeviceType.LAMP -> builder.append("Lampada")
             else -> builder.append("Sconosciuto")
         }
 
