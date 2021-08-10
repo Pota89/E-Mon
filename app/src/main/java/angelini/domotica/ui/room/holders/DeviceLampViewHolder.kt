@@ -1,18 +1,12 @@
-package angelini.domotica.ui.room
+package angelini.domotica.ui.room.holders
 
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import angelini.domotica.R
 import angelini.domotica.data.db.Device
 import angelini.domotica.data.db.DeviceType
-import angelini.domotica.data.db.Room
-import angelini.domotica.data.db.RoomType
-import angelini.domotica.databinding.ListItemDeviceBinding
-import angelini.domotica.databinding.ListItemRoomBinding
+import angelini.domotica.databinding.ListItemDeviceLampBinding
+import angelini.domotica.databinding.ListItemDeviceTemperatureBinding
 
-//code to configure a single Device in HomeFragment
-
-class DeviceViewHolder(private val binding: ListItemDeviceBinding) : RecyclerView.ViewHolder(binding.root) {
+class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {
         val builder = StringBuilder()
