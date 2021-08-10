@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.Room
 import angelini.domotica.databinding.ListItemDeviceBinding
-import angelini.domotica.databinding.ListItemRoomBinding
 
 //take Device rows and adapt them for RecyclerView in RoomFragment
 class DeviceAdapter : ListAdapter<Device, DeviceViewHolder>(DeviceDiffCallback()) {
@@ -22,8 +20,8 @@ class DeviceAdapter : ListAdapter<Device, DeviceViewHolder>(DeviceDiffCallback()
     }
 
     override fun onBindViewHolder(holder: DeviceViewHolder, position: Int) {
-        val room = getItem(position)
-        holder.bind(room)
+        val device = getItem(position)
+        holder.bind(device)
     }
 }
 
