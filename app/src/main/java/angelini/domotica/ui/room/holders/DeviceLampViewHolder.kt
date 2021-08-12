@@ -9,21 +9,15 @@ import angelini.domotica.databinding.ListItemDeviceTemperatureBinding
 class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {
+        binding.switchLamp.isChecked = item.value!=0//return true if value is different than 0
         val builder = StringBuilder()
-
-        when(item.type)
-        {
-            DeviceType.TEMPERATURE -> builder.append("Temperatura")
-            DeviceType.MOVEMENT -> builder.append("Movimento")
-            DeviceType.LAMP -> builder.append("Lampada")
-            else -> builder.append("Sconosciuto")
-        }
+        builder.append("Lampada")
 
         if (item.number!=0){
             builder.append(" ")
             builder.append(item.number)
         }
 
-        binding.deviceName.text=builder.toString()
+        binding.lampName.text=builder.toString()
     }
 }
