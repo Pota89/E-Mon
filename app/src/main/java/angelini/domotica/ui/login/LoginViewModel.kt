@@ -1,13 +1,13 @@
-package angelini.domotica.ui.rules
+package angelini.domotica.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class RulesViewModel : ViewModel() {
+class LoginViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is rules Fragment"
+        value = "This is login Fragment"
     }
     val text: LiveData<String> = _text
 }

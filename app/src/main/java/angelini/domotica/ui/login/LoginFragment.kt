@@ -1,4 +1,4 @@
-package angelini.domotica.ui.rules
+package angelini.domotica.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import angelini.domotica.R
 
-class RulesFragment : Fragment() {
+class LoginFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rulesViewModel: RulesViewModel by viewModels()
+        val rulesViewModel: LoginViewModel by viewModels()
 
-        val root = inflater.inflate(R.layout.fragment_rules, container, false)
-        val textView: TextView = root.findViewById(R.id.text_rules)
+        val root = inflater.inflate(R.layout.fragment_login, container, false)
+        val textView: TextView = root.findViewById(R.id.text_login)
         rulesViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })

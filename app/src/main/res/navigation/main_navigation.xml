@@ -22,10 +22,10 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/nav_rules"
-        android:name="angelini.domotica.ui.rules.RulesFragment"
-        android:label="@string/menu_rules"
-        tools:layout="@layout/fragment_rules" />
+        android:id="@+id/nav_login"
+        android:name="angelini.domotica.ui.login.LoginFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/nav_room"
         android:name="angelini.domotica.ui.room.RoomFragment"
