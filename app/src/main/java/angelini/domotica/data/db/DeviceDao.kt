@@ -7,7 +7,7 @@ import androidx.room.*
 interface DeviceDao {
 
     @Insert()
-    suspend fun insert(vararg devices: Device)
+    fun insert(vararg devices: Device)
 
     @Query("SELECT * FROM device")
     fun getAll(): LiveData<List<Device>>
@@ -20,5 +20,5 @@ interface DeviceDao {
     fun getAllRooms(): LiveData<List<Room>>
 
     @Query("DELETE FROM device")
-    suspend fun deleteAll()
+    fun deleteAll()
 }
