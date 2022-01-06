@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class Repository(context:Context) : IRepository {
+class Repository(context:Context) {
 
     private val networkClient= NetworkClient(context)
     private val parser=Parser("ExamToGo")
@@ -24,7 +24,7 @@ class Repository(context:Context) : IRepository {
     val devicesList: LiveData<List<Device>> =db.deviceDao().getAll()
     val roomsList: LiveData<List<Room>> =db.deviceDao().getAllRooms()
 
-    override fun getRoomDevices(roomType: RoomType, roomNumber: Int): LiveData<List<Device>> {
+    fun getRoomDevices(roomType: RoomType, roomNumber: Int): LiveData<List<Device>> {
         return db.deviceDao().getRoomDevices(roomType,roomNumber)
     }
 
@@ -61,11 +61,11 @@ class Repository(context:Context) : IRepository {
         }
 
     }
-    override fun connect() {
+    fun connect() {
         networkClient.connect()
     }
 
-    override fun disconnect() {
+    fun disconnect() {
         networkClient.disconnect()
     }
 }

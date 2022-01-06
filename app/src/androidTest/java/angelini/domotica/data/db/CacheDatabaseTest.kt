@@ -1,6 +1,7 @@
 package angelini.domotica.data.db
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import junit.framework.TestCase
@@ -19,7 +20,7 @@ class CacheDatabaseTest : TestCase() {
     @Before
     public override fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db=androidx.room.Room.inMemoryDatabaseBuilder(context,CacheDatabase::class.java).allowMainThreadQueries().build()
+        db=androidx.room.Room.databaseBuilder(context,CacheDatabase::class.java,"cache").allowMainThreadQueries().build()
         dao=db.deviceDao()
     }
 
@@ -30,11 +31,13 @@ class CacheDatabaseTest : TestCase() {
 
     @Test
     fun  checkDeviceInsert(){
-        var deviceList=dao.getAll()
+        //assertEquals(0, deviceList.value?.size)
+
         val kitchenRoom=Room(RoomType.KITCHEN,0)
         val lampKitchen=Device(kitchenRoom,DeviceType.LAMP,1,0)
-        dao.insert(lampKitchen)
-        deviceList=dao.getAll()
-        assertEquals(1, deviceList.value?.size)
+        //dao.insert(lampKitchen)
+        val deviceListLiveData: LiveData<List<Device>> = dao.getAll()
+        val deviceList=deviceListLiveData.value
+        assertEquals(1, deviceList?.size)
     }
 }
