@@ -2,12 +2,12 @@ package angelini.domotica.data
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import angelini.domotica.data.db.CacheDatabase
 import angelini.domotica.data.db.Device
 import angelini.domotica.data.db.Room
 import angelini.domotica.data.db.RoomType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -21,10 +21,10 @@ class Repository(context:Context) {
         CacheDatabase::class.java, "cache"
     ).build()
 
-    val devicesList: LiveData<List<Device>> =db.deviceDao().getAll()
-    val roomsList: LiveData<List<Room>> =db.deviceDao().getAllRooms()
+    val devicesList: Flow<List<Device>> =db.deviceDao().getAll()
+    val roomsList: Flow<List<Room>> =db.deviceDao().getAllRooms()
 
-    fun getRoomDevices(roomType: RoomType, roomNumber: Int): LiveData<List<Device>> {
+    fun getRoomDevices(roomType: RoomType, roomNumber: Int): Flow<List<Device>> {
         return db.deviceDao().getRoomDevices(roomType,roomNumber)
     }
 
