@@ -4,9 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import angelini.domotica.MainApplication
-import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.RoomType
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.RoomType
 
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
 

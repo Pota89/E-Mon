@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import angelini.domotica.data.db.Room
+import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.databinding.ListItemRoomBinding
 
 //take Room rows and adapt them for RecyclerView in HomeFragment

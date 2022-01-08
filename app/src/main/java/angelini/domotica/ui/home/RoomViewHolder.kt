@@ -3,8 +3,8 @@ package angelini.domotica.ui.home
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.R
-import angelini.domotica.data.db.Room
-import angelini.domotica.data.db.RoomType
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.databinding.ListItemRoomBinding
 
 //code to configure a single row of Room in HomeFragment
@@ -48,6 +48,7 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
             builder.append(item.number)
         }
 
+        //TODO fix the listener with Flow
         //navigation to selected room
         binding.root.setOnClickListener {
             val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()

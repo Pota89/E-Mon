@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.DeviceType
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.databinding.ListItemDeviceUnknownBinding
 import angelini.domotica.databinding.ListItemDeviceLampBinding
 import angelini.domotica.databinding.ListItemDeviceMovementBinding

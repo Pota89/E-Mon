@@ -7,12 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import angelini.domotica.R
-import angelini.domotica.data.db.RoomType
-import angelini.domotica.databinding.FragmentHomeBinding
 import angelini.domotica.databinding.FragmentRoomBinding
-import angelini.domotica.ui.home.HomeViewModel
-import angelini.domotica.ui.home.RoomAdapter
 
 class RoomFragment : Fragment() {
     private val viewModel: RoomViewModel by viewModels()
@@ -27,8 +22,11 @@ class RoomFragment : Fragment() {
 
         val adapter = DeviceAdapter()
         binding.deviceList.adapter = adapter
+
+        //TODO fix the observer with Flow
         viewModel.getRoomDevices(args.roomType,args.roomNumber).observe(viewLifecycleOwner, {device ->
             adapter.submitList(device)})
+
 
         return binding.root
     }

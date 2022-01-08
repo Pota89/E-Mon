@@ -1,4 +1,4 @@
-package angelini.domotica.data.db
+package angelini.domotica.repository.datatypes
 
 enum class
 DeviceType {

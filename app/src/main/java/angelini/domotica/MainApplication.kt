@@ -1,7 +1,7 @@
 package angelini.domotica
 
 import android.app.Application
-import angelini.domotica.data.Repository
+import angelini.domotica.repository.Repository
 
 class MainApplication : Application() {
     private lateinit var repository:Repository

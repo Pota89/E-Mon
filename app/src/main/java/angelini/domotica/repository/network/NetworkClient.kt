@@ -1,7 +1,11 @@
-package angelini.domotica.data
+package angelini.domotica.repository.network
 
 import android.content.Context
 import android.util.Log
+import angelini.domotica.repository.MQTT_CLIENT_ID
+import angelini.domotica.repository.MQTT_PWD
+import angelini.domotica.repository.MQTT_SERVER_URI
+import angelini.domotica.repository.MQTT_USERNAME
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 

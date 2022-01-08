@@ -1,11 +1,13 @@
-package angelini.domotica.data
+package angelini.domotica.repository
 
 import android.content.Context
 import android.util.Log
-import angelini.domotica.data.db.CacheDatabase
-import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.Room
-import angelini.domotica.data.db.RoomType
+import angelini.domotica.repository.db.CacheDatabase
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
+import angelini.domotica.repository.network.NetworkClient
+import angelini.domotica.repository.network.Parser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -14,7 +16,7 @@ import kotlinx.coroutines.runBlocking
 class Repository(context:Context) {
 
     private val networkClient= NetworkClient(context)
-    private val parser=Parser("ExamToGo")
+    private val parser= Parser("ExamToGo")
 
     private val db = androidx.room.Room.databaseBuilder(
         context,

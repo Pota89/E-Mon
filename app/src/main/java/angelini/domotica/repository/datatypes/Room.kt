@@ -1,8 +1,7 @@
-package angelini.domotica.data.db
+package angelini.domotica.repository.datatypes
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
-import androidx.room.Entity
 
 data class Room (
     @NonNull @ColumnInfo(name = "roomType")val type: RoomType = RoomType.UNKNOWN,

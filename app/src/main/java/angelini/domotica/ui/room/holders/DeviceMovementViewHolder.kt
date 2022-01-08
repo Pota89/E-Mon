@@ -1,11 +1,9 @@
 package angelini.domotica.ui.room.holders
 
 import androidx.recyclerview.widget.RecyclerView
-import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.DeviceType
-import angelini.domotica.databinding.ListItemDeviceLampBinding
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.databinding.ListItemDeviceMovementBinding
-import angelini.domotica.databinding.ListItemDeviceTemperatureBinding
 
 class DeviceMovementViewHolder(private val binding: ListItemDeviceMovementBinding) : RecyclerView.ViewHolder(binding.root) {
 

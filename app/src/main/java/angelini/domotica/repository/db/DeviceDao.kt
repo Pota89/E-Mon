@@ -1,6 +1,9 @@
-package angelini.domotica.data.db
+package angelini.domotica.repository.db
 
 import androidx.room.*
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 import kotlinx.coroutines.flow.Flow
 
 /**

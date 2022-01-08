@@ -1,4 +1,4 @@
-package angelini.domotica.data
+package angelini.domotica.repository
 
 const val MQTT_SERVER_URI       = "tcp://io.adafruit.com:1883"
 const val MQTT_CLIENT_ID        = ""

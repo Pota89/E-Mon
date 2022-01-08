@@ -1,11 +1,10 @@
-package angelini.domotica.data
+package angelini.domotica.repository.network
 
 import androidx.core.text.isDigitsOnly
-import angelini.domotica.data.db.Device
-import angelini.domotica.data.db.DeviceType
-import angelini.domotica.data.db.Room
-import angelini.domotica.data.db.RoomType
-import java.util.*
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 
 class Parser(username:String) {
 

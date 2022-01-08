@@ -32,7 +32,7 @@
         android:label="{roomName}"
         tools:layout="@layout/fragment_room" >
         <argument android:name="roomType"
-            app:argType="angelini.domotica.data.db.RoomType"
+            app:argType="angelini.domotica.repository.datatypes.RoomType"
             android:defaultValue="UNKNOWN" />
         <argument
             android:name="roomNumber"

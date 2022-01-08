@@ -10,7 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import angelini.domotica.data.Repository
+import angelini.domotica.repository.Repository
 import com.google.android.material.navigation.NavigationView
 
 

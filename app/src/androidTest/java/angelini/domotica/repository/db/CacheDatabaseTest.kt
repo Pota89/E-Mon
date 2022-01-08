@@ -1,8 +1,12 @@
-package angelini.domotica.data.db
+package angelini.domotica.repository.db
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -21,16 +25,16 @@ class CacheDatabaseTest : TestCase() {
     private lateinit var dao:DeviceDao
 
     //private objects useful for tests
-    private val kitchenRoom=Room(RoomType.KITCHEN,1)
-    private val kitchenLampOne=Device(kitchenRoom,DeviceType.LAMP,1,0)
-    private val kitchenLampTwo=Device(kitchenRoom,DeviceType.LAMP,2,0)
-    private val kitchenTemperatureOne=Device(kitchenRoom,DeviceType.TEMPERATURE,1,0)
+    private val kitchenRoom= Room(RoomType.KITCHEN,1)
+    private val kitchenLampOne= Device(kitchenRoom, DeviceType.LAMP,1,0)
+    private val kitchenLampTwo= Device(kitchenRoom, DeviceType.LAMP,2,0)
+    private val kitchenTemperatureOne= Device(kitchenRoom, DeviceType.TEMPERATURE,1,0)
 
-    private val loungeRoom=Room(RoomType.LOUNGE,1)
-    private val loungeTemperatureOne=Device(loungeRoom,DeviceType.TEMPERATURE,1,20)
+    private val loungeRoom= Room(RoomType.LOUNGE,1)
+    private val loungeTemperatureOne= Device(loungeRoom, DeviceType.TEMPERATURE,1,20)
 
-    private val bedroomRoom=Room(RoomType.BEDROOM,1)
-    private val bedroomLampOne=Device(bedroomRoom,DeviceType.LAMP,1,0)
+    private val bedroomRoom= Room(RoomType.BEDROOM,1)
+    private val bedroomLampOne= Device(bedroomRoom, DeviceType.LAMP,1,0)
 
     @Before
     public override fun setUp() {
