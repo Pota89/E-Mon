@@ -6,10 +6,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DeviceDao {
 
-    @Insert()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg devices: Device)
 
     @Query("SELECT * FROM device")
+
     fun getAll(): Flow<List<Device>>
 
     @Query("SELECT * FROM device WHERE roomType = :roomType AND roomNumber = :roomNumber")
