@@ -21,8 +21,8 @@ class Repository(context:Context) {
         CacheDatabase::class.java, "cache"
     ).build()
 
-    val devicesList: Flow<List<Device>> =db.deviceDao().getAll()
-    val roomsList: Flow<List<Room>> =db.deviceDao().getAllRooms()
+    val devicesList: Flow<List<Device>> =db.deviceDao().getAllDevices()
+    val roomsList: Flow<List<Room>> =db.deviceDao().getRoomList()
 
     fun getRoomDevices(roomType: RoomType, roomNumber: Int): Flow<List<Device>> {
         return db.deviceDao().getRoomDevices(roomType,roomNumber)

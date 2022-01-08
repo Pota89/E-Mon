@@ -29,6 +29,9 @@ class CacheDatabaseTest : TestCase() {
     private val loungeRoom=Room(RoomType.LOUNGE,1)
     private val loungeTemperatureOne=Device(loungeRoom,DeviceType.TEMPERATURE,1,20)
 
+    private val bedroomRoom=Room(RoomType.BEDROOM,1)
+    private val bedroomLampOne=Device(bedroomRoom,DeviceType.LAMP,1,0)
+
     @Before
     public override fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -47,7 +50,7 @@ class CacheDatabaseTest : TestCase() {
     @ExperimentalCoroutinesApi
     @Test
     fun  checkDeviceInsert()=runTest{
-        val deviceListFlow: Flow<List<Device>> = dao.getAll()
+        val deviceListFlow: Flow<List<Device>> = dao.getAllDevices()
         assertEquals(0, deviceListFlow.first().size)
 
         dao.insert(kitchenLampOne)
@@ -63,7 +66,7 @@ class CacheDatabaseTest : TestCase() {
     @ExperimentalCoroutinesApi
     @Test
     fun  checkDuplicatedDeviceInsert()=runTest{
-        val deviceListFlow: Flow<List<Device>> = dao.getAll()
+        val deviceListFlow: Flow<List<Device>> = dao.getAllDevices()
         assertEquals(0, deviceListFlow.first().size)
 
         dao.insert(kitchenLampOne)
@@ -78,7 +81,7 @@ class CacheDatabaseTest : TestCase() {
     @ExperimentalCoroutinesApi
     @Test
     fun  checkDeleteAllDevices()=runTest{
-        val deviceListFlow: Flow<List<Device>> = dao.getAll()
+        val deviceListFlow: Flow<List<Device>> = dao.getAllDevices()
         assertEquals(0, deviceListFlow.first().size)
 
         dao.insert(loungeTemperatureOne)
@@ -110,6 +113,30 @@ class CacheDatabaseTest : TestCase() {
         dao.insert(kitchenTemperatureOne)
         assertEquals(3, kitchenDeviceListFlow.first().size)
         assertEquals(1, loungeDeviceListFlow.first().size)
+    }
+
+    /**
+     * Verifica il numero di Room presenti a partire dai Device
+     */
+    @ExperimentalCoroutinesApi
+    @Test
+    fun  checkRoomList()=runTest{
+        val roomListFlow: Flow<List<Room>> = dao.getRoomList()
+        assertEquals(0, roomListFlow.first().size)
+
+        dao.insert(kitchenLampOne)
+        dao.insert(kitchenTemperatureOne)
+        assertEquals(1, roomListFlow.first().size)
+
+        dao.insert(loungeTemperatureOne)
+        assertEquals(2, roomListFlow.first().size)
+
+        dao.insert(kitchenLampTwo)
+        assertEquals(2, roomListFlow.first().size)
+
+        dao.insert(bedroomLampOne)
+        assertEquals(3, roomListFlow.first().size)
+
     }
 
 }
