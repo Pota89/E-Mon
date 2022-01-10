@@ -41,7 +41,7 @@ class Repository(context:Context) {
         networkClient.onConnectionSuccess={
             Log.i("EMon - Repository", "Connection success receipt")
             networkClient.subscribe(parser.subscribeAllFeeds())
-            networkClient.publish(parser.requestAllFeeds(),"")
+            networkClient.publish(parser.requestAllFeedsData(),"")
         }
 
         networkClient.onConnectionFailure={

@@ -7,19 +7,21 @@ import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
-import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
+/**
+ * Test per la verifica delle query al database
+ */
 @RunWith(AndroidJUnit4::class)
-class CacheDatabaseTest : TestCase() {
+class CacheDatabaseTest {
 
     private lateinit var db:CacheDatabase
     private lateinit var dao:DeviceDao
@@ -37,14 +39,14 @@ class CacheDatabaseTest : TestCase() {
     private val bedroomLampOne= Device(bedroomRoom, DeviceType.LAMP,1,0)
 
     @Before
-    public override fun setUp() {
+    fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db=androidx.room.Room.inMemoryDatabaseBuilder(context,CacheDatabase::class.java).build()
         dao=db.deviceDao()
     }
 
     @After
-    public override fun tearDown() {
+    fun tearDown() {
         db.close()
     }
 

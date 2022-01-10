@@ -8,12 +8,12 @@ import angelini.domotica.repository.datatypes.RoomType
 
 class Parser(username:String) {
 
-    private var rootname=username
+    var rootname=username
 
     fun subscribeAllFeeds():String{
         return "${rootname}/groups/home"
     }
-    fun requestAllFeeds():String{
+    fun requestAllFeedsData():String{
         return "${rootname}/groups/home/get"
     }
 
