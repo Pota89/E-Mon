@@ -50,7 +50,7 @@ class Repository(context:Context) {
 
         networkClient.onMessageArrived={ topic, message ->
             Log.i("EMon - Repository", "Topic $topic and message $message")
-            val list=parser.decode(topic,message)
+            val list=parser.decode(message)
             runBlocking {
                 //load database on IO thread pool (avoid main/UI thread)
                 launch(Dispatchers.IO) {
