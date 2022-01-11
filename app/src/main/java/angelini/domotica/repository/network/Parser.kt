@@ -6,18 +6,45 @@ import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
 import java.lang.NumberFormatException
 
+/**
+ * Fornisce medodi per richieste e intepretazione risultati
+ *
+ * Classe ausilare per la comunicazione di rete, fornisce stringhe formate appositamente
+ * per fare richieste al server MQTT. Inoltre fornisce in output oggetti a partire dalle
+ * strighe dei feed sottoscritti.
+ *
+ * @property username nome utente che effettua le richieste
+ * @constructor instanzia un oggetto parser con l'utente passato come parametro
+ *
+ */
 class Parser(username: String) {
 
     var rootname = username
 
+    /**
+     * Fornisce la stringa per ottenere tutti i feed disponibili nel server MQTT
+     */
     fun subscribeAllFeeds(): String {
         return "${rootname}/groups/home"
     }
 
+    /**
+     * Fornisce la stringa per ritornare tutti i feed attualmente registrati con il loro valore
+     */
     fun requestAllFeedsData(): String {
         return "${rootname}/groups/home/get"
     }
 
+    /**
+     * Interpreta i feeds che vengono inviati dal server MQTT verso il client
+     *
+     * Il server MQTT fornisce i feeds nel formato:
+     * nomeDashboard.tipoRoom-numeroRoom-tipoDevice-numeroDevice,valore
+     * * ad es. home.bedroom-1-temperature-1,10
+     *
+     * La funzione restituisce una lista di Device valorizzata
+     * @property message stringa proveniente dal server MQTT che rappresenta i feeds
+     */
     fun decode(message: String): List<Device> {
         val returnList = mutableListOf<Device>()
         val deviceStringList = message.lines()//split messages by Carriage Return
