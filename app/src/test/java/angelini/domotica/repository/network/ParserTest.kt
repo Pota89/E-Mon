@@ -10,14 +10,12 @@ import org.junit.Before
 
 import org.junit.Test
 
+/**
+ * Test dedicati alla verifica della classe Parser
+ */
 class ParserTest {
 
     private lateinit var parser:Parser
-
-    private val bedroomOneTemperatureOne= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1)
-    private val hallwayLampOne= Device(Room(RoomType.HALLWAY,0),DeviceType.LAMP,1)
-    private val loungeOneLampOne= Device(Room(RoomType.LOUNGE,1),DeviceType.LAMP,1)
-    private val loungeTwoLamp= Device(Room(RoomType.LOUNGE,2),DeviceType.LAMP,0)
 
     @Before
     fun setUp() {
@@ -55,15 +53,19 @@ class ParserTest {
     }
 
     /**
-     * Generico test di decodifica stringa IO Adafruit senza valore
+     * Generico test di decodifica stringa IO Adafruit senza valore assegnato
      */
     @Test
-    fun firstWellFormedDecode() {
-        //val decodeString="""home.bedroom-1-temperature-1,""\nhome.hallway-0-lamp-1,""\nhome.lounge-1-lamp-1,""\nhome.lounge-2-lamp-0,"""""
+    fun genericWellFormedDecode() {
         val decodeString="home.bedroom-1-temperature-1,\"\"\n" +
                 "home.hallway-0-lamp-1,\"\"\n" +
                 "home.lounge-1-lamp-1,\"\"\n" +
                 "home.lounge-2-lamp-0,\"\""
+        val bedroomOneTemperatureOne= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1)
+        val hallwayLampOne= Device(Room(RoomType.HALLWAY,0),DeviceType.LAMP,1)
+        val loungeOneLampOne= Device(Room(RoomType.LOUNGE,1),DeviceType.LAMP,1)
+        val loungeTwoLamp= Device(Room(RoomType.LOUNGE,2),DeviceType.LAMP,0)
+
         val decodeListResult=parser.decode(decodeString)
 
         assertEquals(4,decodeListResult.count())
@@ -72,5 +74,65 @@ class ParserTest {
         assertTrue(decodeListResult.contains(loungeOneLampOne))
         assertTrue(decodeListResult.contains(loungeTwoLamp))
 
+    }
+
+    /**
+     * Test di decodifica stringa IO Adafruit con valori assegnati
+     */
+    @Test
+    fun assignedWellFormedDecode() {
+        val decodeString="home.hallway-1-lamp-1,1\n" +
+                "home.bedroom-1-temperature-1,20\n" +
+                "home.kitchen-1-temperature-1,20"
+        val hallway= Device(Room(RoomType.HALLWAY,1),DeviceType.LAMP,1,1)
+        val bedroom= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,40)
+        val kitchen= Device(Room(RoomType.KITCHEN,1),DeviceType.TEMPERATURE,1,20)
+
+
+        val decodeListResult=parser.decode(decodeString)
+
+        assertEquals(3,decodeListResult.count())
+        assertTrue(decodeListResult.contains(hallway))
+        assertFalse(decodeListResult.contains(bedroom))//assigned 40 and we expect 20
+        assertTrue(decodeListResult.contains(kitchen))
+    }
+
+    /**
+     * Test di decodifica stringa IO Adafruit con valori di temperatura negativi
+     */
+    @Test
+    fun negativeTemperatureDecode() {
+        val decodeString="home.bedroom-1-temperature-1,-10\n" +
+                "home.hallway-1-lamp-1,1\n" +
+                "home.kitchen-1-temperature-1,-5"
+        val bedroom= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,-10)
+        val hallway= Device(Room(RoomType.HALLWAY,1),DeviceType.LAMP,1,1)
+        val kitchen= Device(Room(RoomType.KITCHEN,1),DeviceType.TEMPERATURE,1,-5)
+
+
+        val decodeListResult=parser.decode(decodeString)
+
+        assertEquals(3,decodeListResult.count())
+        assertTrue(decodeListResult.contains(bedroom))
+        assertTrue(decodeListResult.contains(hallway))
+        assertTrue(decodeListResult.contains(kitchen))
+    }
+
+    /**
+     * Test di decodifica stringa con testo casuale
+     */
+    @Test
+    fun badFormedDecode() {
+        val decodeString="home.hallway-1-lamp-1,1\n" +
+                "im a dirty string\n" +
+                "home.kitchen-1-temperature-1,20"
+        val hallway= Device(Room(RoomType.HALLWAY,1),DeviceType.LAMP,1,1)
+        val kitchen= Device(Room(RoomType.KITCHEN,1),DeviceType.TEMPERATURE,1,20)
+
+        val decodeListResult=parser.decode(decodeString)
+
+        assertEquals(2,decodeListResult.count())
+        assertTrue(decodeListResult.contains(hallway))
+        assertTrue(decodeListResult.contains(kitchen))
     }
 }
