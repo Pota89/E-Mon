@@ -2,13 +2,23 @@ package angelini.domotica.repository.network
 
 import android.content.Context
 import android.util.Log
-import angelini.domotica.repository.MQTT_CLIENT_ID
 import angelini.domotica.repository.MQTT_PWD
-import angelini.domotica.repository.MQTT_SERVER_URI
 import angelini.domotica.repository.MQTT_USERNAME
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
+const val MQTT_SERVER_URI       = "tcp://io.adafruit.com:1883"
+const val MQTT_CLIENT_ID        = ""
+
+/**
+ * Classe per la comunicazione con il server MQTT di IO Adafruit
+ *
+ * Incapsula le funzioni di rete permettendo la comunicazione con il server senza preoccuparsi
+ * dei dettagli implementativi fornendo direttamente metodi come Publish o Subscribe.
+ * La comunicazione è asincrona e il risultato delle operazioni viene interpretato tramite
+ * callbacks assegnabili dall'esterno della classe.
+ * @property context contesto Android, necessario per gestire le operazioni asincrone
+ */
 class NetworkClient(context: Context) {
     private var mqttClient = MqttAndroidClient(context, MQTT_SERVER_URI, MQTT_CLIENT_ID)
 
@@ -26,7 +36,7 @@ class NetworkClient(context: Context) {
     var onConnectionLost: () -> Unit = {}
     var onDeliveryComplete: () -> Unit = {}
 
-    //region Callbacks section
+    //callbacks section
     private val connectCallbacks = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
             Log.i("EMon - NetworkClient","Connection success")
@@ -102,7 +112,7 @@ class NetworkClient(context: Context) {
             onDeliveryComplete()
         }
     }
-    //endregion
+    //end callbacks section
 
     fun connect():Boolean{
         val options = MqttConnectOptions()
