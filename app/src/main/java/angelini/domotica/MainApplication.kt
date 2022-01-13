@@ -7,17 +7,22 @@ import angelini.domotica.repository.network.NetworkClient
 import angelini.domotica.repository.network.Parser
 
 class MainApplication : Application() {
-    private val database=androidx.room.Room.databaseBuilder(
-        applicationContext,
-    CacheDatabase::class.java, "cache"
-    ).build()
+    private lateinit var database:CacheDatabase
 
-    private val networkClient= NetworkClient(applicationContext)
+    private lateinit var networkClient:NetworkClient
 
     private lateinit var repository:Repository
 
     override fun onCreate() {
         super.onCreate()
+
+        database=androidx.room.Room.databaseBuilder(
+            applicationContext,
+            CacheDatabase::class.java, "cache"
+        ).build()
+
+        networkClient= NetworkClient(applicationContext)
+
         repository=Repository(database,networkClient)
         repository.connect()
     }
