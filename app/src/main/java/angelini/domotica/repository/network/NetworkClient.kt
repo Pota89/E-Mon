@@ -15,24 +15,25 @@ const val MQTT_CLIENT_ID        = ""
  * dei dettagli implementativi fornendo direttamente metodi come Publish o Subscribe.
  * La comunicazione è asincrona e il risultato delle operazioni viene interpretato tramite
  * callbacks assegnabili dall'esterno della classe.
+ *
  * @property context contesto Android, necessario per gestire le operazioni asincrone
  */
-class NetworkClient(context: Context) {
+class NetworkClient(context: Context) : INetworkClient {
     private var mqttClient = MqttAndroidClient(context, MQTT_SERVER_URI, MQTT_CLIENT_ID)
 
-    var onConnectionSuccess: () -> Unit = {}
-    var onConnectionFailure: () -> Unit = {}
-    var onSubscribeSuccess: () -> Unit = {}
-    var onSubscribeFailure: () -> Unit = {}
-    var onUnsubscribeSuccess: () -> Unit = {}
-    var onUnsubscribeFailure: () -> Unit = {}
-    var onPublishSuccess: () -> Unit = {}
-    var onPublishFailure: () -> Unit = {}
-    var onDisconnectSuccess: () -> Unit = {}
-    var onDisconnectFailure: () -> Unit = {}
-    var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
-    var onConnectionLost: () -> Unit = {}
-    var onDeliveryComplete: () -> Unit = {}
+    override var onConnectionSuccess: () -> Unit = {}
+    override var onConnectionFailure: () -> Unit = {}
+    override var onSubscribeSuccess: () -> Unit = {}
+    override var onSubscribeFailure: () -> Unit = {}
+    override var onUnsubscribeSuccess: () -> Unit = {}
+    override var onUnsubscribeFailure: () -> Unit = {}
+    override var onPublishSuccess: () -> Unit = {}
+    override var onPublishFailure: () -> Unit = {}
+    override var onDisconnectSuccess: () -> Unit = {}
+    override var onDisconnectFailure: () -> Unit = {}
+    override var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
+    override var onConnectionLost: () -> Unit = {}
+    override var onDeliveryComplete: () -> Unit = {}
 
     //callbacks section
     private val connectCallbacks = object : IMqttActionListener {
@@ -118,7 +119,7 @@ class NetworkClient(context: Context) {
      * @property username nome utente
      * @property password password dell'utente
      */
-    fun connect(username:String,password:String):Boolean{
+    override fun connect(username:String,password:String):Boolean{
         val options = MqttConnectOptions()
         options.userName = username
         options.password = password.toCharArray()
@@ -136,7 +137,7 @@ class NetworkClient(context: Context) {
     /**
      * Verifica se si è connessi al server MQTT
      */
-    fun isConnected(): Boolean {
+    override fun isConnected(): Boolean {
         return mqttClient.isConnected
     }
 
@@ -145,7 +146,7 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    fun subscribe(topic:String) {
+    override fun subscribe(topic:String) {
         try {
             mqttClient.subscribe(topic, 1, null, subscribeCallbacks)
         } catch (e: MqttException) {
@@ -158,7 +159,7 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    fun unsubscribe(topic:String) {
+    override fun unsubscribe(topic:String) {
         try {
             mqttClient.unsubscribe(topic, null, unsubscribeCallbacks)
         } catch (e: MqttException) {
@@ -172,7 +173,7 @@ class NetworkClient(context: Context) {
      * @property topic nome del feed
      * @property smg messaggio pubblicato nel feed
      */
-    fun publish(topic:      String,
+    override fun publish(topic:      String,
                 msg:        String) {
         try {
             val message = MqttMessage()
@@ -188,7 +189,7 @@ class NetworkClient(context: Context) {
     /**
      * Disconetti dal server MQTT attualmente collegato
      */
-    fun disconnect() {
+    override fun disconnect() {
         try {
             mqttClient.disconnect(null,disconnectCallbacks)
         } catch (e: MqttException) {

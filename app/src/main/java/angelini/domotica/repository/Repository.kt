@@ -64,7 +64,7 @@ class Repository(context:Context) {
 
     }
     fun connect() {
-        networkClient.connect()
+        networkClient.connect(MQTT_USERNAME,MQTT_PWD)
     }
 
     fun disconnect() {
