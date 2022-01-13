@@ -4,13 +4,10 @@ import android.app.Application
 import angelini.domotica.repository.Repository
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.NetworkClient
-import angelini.domotica.repository.network.Parser
 
 class MainApplication : Application() {
     private lateinit var database:CacheDatabase
-
     private lateinit var networkClient:NetworkClient
-
     private lateinit var repository:Repository
 
     override fun onCreate() {
