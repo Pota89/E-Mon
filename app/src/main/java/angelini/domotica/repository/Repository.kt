@@ -1,27 +1,21 @@
 package angelini.domotica.repository
 
-import android.content.Context
-import android.util.Log
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
-import angelini.domotica.repository.network.NetworkClient
+import angelini.domotica.repository.network.INetworkClient
 import angelini.domotica.repository.network.Parser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class Repository(context:Context) {
+class Repository(database:CacheDatabase, network: INetworkClient) {
 
-    private val networkClient= NetworkClient(context)
+    private val db=database
+    private val networkClient=network
     private val parser= Parser("ExamToGo")
-
-    private val db = androidx.room.Room.databaseBuilder(
-        context,
-        CacheDatabase::class.java, "cache"
-    ).build()
 
     val devicesList: Flow<List<Device>> =db.deviceDao().getAllDevices()
     val roomsList: Flow<List<Room>> =db.deviceDao().getRoomList()
@@ -39,17 +33,17 @@ class Repository(context:Context) {
             }
         }
         networkClient.onConnectionSuccess={
-            Log.i("EMon - Repository", "Connection success receipt")
+            //Log.i("EMon - Repository", "Connection success receipt")
             networkClient.subscribe(parser.subscribeAllFeeds())
             networkClient.publish(parser.requestAllFeedsData(),"")
         }
 
         networkClient.onConnectionFailure={
-            Log.i("EMon - Repository", "Connection failure receipt")
+            //Log.i("EMon - Repository", "Connection failure receipt")
         }
 
         networkClient.onMessageArrived={ topic, message ->
-            Log.i("EMon - Repository", "Topic $topic and message $message")
+            //Log.i("EMon - Repository", "Topic $topic and message $message")
             val list=parser.decode(message)
             runBlocking {
                 //load database on IO thread pool (avoid main/UI thread)
