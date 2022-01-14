@@ -171,7 +171,7 @@ class NetworkClient(context: Context) : INetworkClient {
      * Pubblica un messaggio sul feed
      *
      * @property topic nome del feed
-     * @property smg messaggio pubblicato nel feed
+     * @property msg messaggio pubblicato nel feed
      */
     override fun publish(topic:      String,
                 msg:        String) {

@@ -15,7 +15,7 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     private val db=database
     private val networkClient=network
-    private val parser= Parser("ExamToGo")
+    private val parser= Parser("")
 
     val devicesList: Flow<List<Device>> =db.deviceDao().getAllDevices()
     val roomsList: Flow<List<Room>> =db.deviceDao().getRoomList()
@@ -55,10 +55,11 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
                 }
             }
         }
-
     }
-    fun connect() {
-        networkClient.connect(MQTT_USERNAME,MQTT_PWD)
+
+    fun connect(username:String,password:String) {
+        parser.rootname=username
+        networkClient.connect(username,password)
     }
 
     fun disconnect() {

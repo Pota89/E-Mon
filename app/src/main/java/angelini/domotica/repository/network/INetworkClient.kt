@@ -52,7 +52,7 @@ interface INetworkClient {
      * Pubblica un messaggio sul feed
      *
      * @property topic nome del feed
-     * @property smg messaggio pubblicato nel feed
+     * @property msg messaggio pubblicato nel feed
      */
     fun publish(
         topic: String,
