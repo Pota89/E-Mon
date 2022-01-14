@@ -87,9 +87,22 @@ class MockNetworkClient() : INetworkClient {
      */
     override fun publish(topic:      String,
                 msg:        String) {
-        if(connected && topicSet.contains(topic)){
+        if(connected) {
             onPublishSuccess()
-            onMessageArrived(topic,msg)
+
+            if (msg == "testuser/groups/home/get") {
+                val responseMsg= "home.bedroom-1-temperature-1,19\n" +
+                        "home.bedroom-2-temperature-1,25\n" +
+                        "home.kitchen-0-lamp-1,\"\"\n" +
+                        "home.hallway-0-lamp-1,1\n" +
+                        "home.lounge-1-lamp-1,1\n" +
+                        "home.lounge-2-lamp-0,1\n" +
+                        "home.bedroom-1-temperature-2,16"
+
+                onMessageArrived(topic, responseMsg)
+            } else if(topicSet.contains(topic)){
+                onMessageArrived(topic, msg)
+            }
         }else{
             onPublishFailure()
         }

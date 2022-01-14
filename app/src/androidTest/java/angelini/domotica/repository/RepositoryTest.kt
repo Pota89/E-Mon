@@ -37,6 +37,8 @@ class RepositoryTest {
 
     @Test
     fun getDevicesList() {
+        repository.connect("testuser","testpassword")
+
     }
 
     @Test

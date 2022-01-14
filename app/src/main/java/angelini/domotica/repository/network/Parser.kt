@@ -22,7 +22,7 @@ class Parser(username: String) {
     var rootname = username
 
     /**
-     * Fornisce la stringa per ottenere tutti i feed disponibili nel server MQTT
+     * Fornisce la stringa per sottoscrivere tutti i feed disponibili nel server MQTT
      */
     fun subscribeAllFeeds(): String {
         return "${rootname}/groups/home"
