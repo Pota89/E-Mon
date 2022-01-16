@@ -21,22 +21,22 @@ const val MQTT_CLIENT_ID        = ""
  *
  * @property context contesto Android, necessario per gestire le operazioni asincrone
  */
-class NetworkClient(context: Context) {
+class NetworkClient(context: Context) : INetworkClient {
     private var mqttClient = MqttAndroidClient(context, MQTT_SERVER_URI, MQTT_CLIENT_ID)
 
-    var onConnectionSuccess: () -> Unit = {}
-    var onConnectionFailure: () -> Unit = {}
-    var onSubscribeSuccess: () -> Unit = {}
-    var onSubscribeFailure: () -> Unit = {}
-    var onUnsubscribeSuccess: () -> Unit = {}
-    var onUnsubscribeFailure: () -> Unit = {}
-    var onPublishSuccess: () -> Unit = {}
-    var onPublishFailure: () -> Unit = {}
-    var onDisconnectSuccess: () -> Unit = {}
-    var onDisconnectFailure: () -> Unit = {}
-    var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
-    var onConnectionLost: () -> Unit = {}
-    var onDeliveryComplete: () -> Unit = {}
+    override var onConnectionSuccess: () -> Unit = {}
+    override var onConnectionFailure: () -> Unit = {}
+    override var onSubscribeSuccess: () -> Unit = {}
+    override var onSubscribeFailure: () -> Unit = {}
+    override var onUnsubscribeSuccess: () -> Unit = {}
+    override var onUnsubscribeFailure: () -> Unit = {}
+    override var onPublishSuccess: () -> Unit = {}
+    override var onPublishFailure: () -> Unit = {}
+    override var onDisconnectSuccess: () -> Unit = {}
+    override var onDisconnectFailure: () -> Unit = {}
+    override var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
+    override var onConnectionLost: () -> Unit = {}
+    override var onDeliveryComplete: () -> Unit = {}
 
     private val clientCallbacks = object : MqttCallback {
         override fun messageArrived(topic: String?, message: MqttMessage?) {
@@ -54,7 +54,6 @@ class NetworkClient(context: Context) {
             onDeliveryComplete()
         }
     }
-    //end callbacks section
 
     /**
      * Connetti al server MQTT
@@ -62,7 +61,7 @@ class NetworkClient(context: Context) {
      * @property username nome utente
      * @property password password dell'utente
      */
-    suspend fun connect(username:String,password:String){
+    override suspend fun connect(username:String, password:String){
         val options = MqttConnectOptions()
         options.userName = username
         options.password = password.toCharArray()
@@ -87,7 +86,7 @@ class NetworkClient(context: Context) {
     /**
      * Verifica se si è connessi al server MQTT
      */
-    fun isConnected(): Boolean {
+    override fun isConnected(): Boolean {
         return mqttClient.isConnected
     }
 
@@ -96,7 +95,7 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    suspend fun subscribe(topic:String) {
+    override suspend fun subscribe(topic:String) {
         return suspendCoroutine { cont -> mqttClient.subscribe(topic, 1, null, object : IMqttActionListener{
             override fun onSuccess(asyncActionToken: IMqttToken?) {
                 Log.i("EMon - NetworkClient", "Subscribed to topic")
@@ -118,7 +117,7 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    suspend fun unsubscribe(topic:String) {
+    override suspend fun unsubscribe(topic:String) {
         return suspendCoroutine { cont -> mqttClient.unsubscribe(topic, null, object : IMqttActionListener{
             override fun onSuccess(asyncActionToken: IMqttToken?) {
                 Log.i("EMon - NetworkClient", "Unsubscribed to topic")
@@ -140,7 +139,7 @@ class NetworkClient(context: Context) {
      * @property topic nome del feed
      * @property msg messaggio pubblicato nel feed
      */
-    suspend fun publish(topic:      String,
+    override suspend fun publish(topic:      String,
                 msg:        String) {
         val message = MqttMessage()
         message.payload = msg.toByteArray()
@@ -165,7 +164,7 @@ class NetworkClient(context: Context) {
     /**
      * Disconetti dal server MQTT attualmente collegato
      */
-    suspend fun disconnect() {
+    override suspend fun disconnect() {
         return suspendCoroutine { cont-> mqttClient.disconnect(null, object : IMqttActionListener{
             override fun onSuccess(asyncActionToken: IMqttToken?) {
                 Log.i("EMon - NetworkClient", "Disconnected")
