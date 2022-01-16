@@ -16,6 +16,8 @@ const val MQTT_CLIENT_ID        = ""
  * dei dettagli implementativi fornendo direttamente metodi come Publish o Subscribe.
  * La comunicazione è asincrona e il risultato delle operazioni viene interpretato tramite
  * callbacks assegnabili dall'esterno della classe.
+ * La classe sfrutta il meccanismo delle funzioni sospendibili tramite Coroutine, agevolando
+ * l'unit testing delle funzioni asincrone.
  *
  * @property context contesto Android, necessario per gestire le operazioni asincrone
  */
@@ -35,54 +37,6 @@ class NetworkClient(context: Context) {
     var onMessageArrived: (topic:String, message:String) -> Unit = { _, _ -> }
     var onConnectionLost: () -> Unit = {}
     var onDeliveryComplete: () -> Unit = {}
-
-
-    private val subscribeCallbacks = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("EMon - NetworkClient", "Subscribed to topic")
-            onSubscribeSuccess()
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("EMon - NetworkClient", "Failed to subscribe topic: ${exception.toString()}")
-            onSubscribeFailure()
-        }
-    }
-
-    private val unsubscribeCallbacks = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("EMon - NetworkClient", "Unsubscribed to topic")
-            onUnsubscribeSuccess()
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("EMon - NetworkClient", "Failed to unsubscribe topic: ${exception.toString()}")
-            onUnsubscribeFailure()
-        }
-    }
-
-    private val publishCallbacks = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("EMon - NetworkClient", "Message published to topic")
-            onPublishSuccess()
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("EMon - NetworkClient", "Failed to publish message to topic: ${exception.toString()}")
-            onPublishFailure()
-        }
-    }
-    private val disconnectCallbacks = object : IMqttActionListener {
-        override fun onSuccess(asyncActionToken: IMqttToken?) {
-            Log.i("EMon - NetworkClient", "Disconnected")
-            onDisconnectSuccess()
-        }
-
-        override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            Log.i("EMon - NetworkClient", "Failed to disconnect: ${exception.toString()}")
-            onDisconnectFailure()
-        }
-    }
 
     private val clientCallbacks = object : MqttCallback {
         override fun messageArrived(topic: String?, message: MqttMessage?) {
@@ -142,12 +96,21 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    fun subscribe(topic:String) {
-        try {
-            mqttClient.subscribe(topic, 1, null, subscribeCallbacks)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
+    suspend fun subscribe(topic:String) {
+        return suspendCoroutine { cont -> mqttClient.subscribe(topic, 1, null, object : IMqttActionListener{
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.i("EMon - NetworkClient", "Subscribed to topic")
+                onSubscribeSuccess()
+                cont.resumeWith(Result.success(Unit))
+            }
+
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+                Log.i("EMon - NetworkClient", "Failed to subscribe topic: $exception")
+                onSubscribeFailure()
+                cont.resumeWith(Result.failure(exception))
+            }
+
+        })}
     }
 
     /**
@@ -155,12 +118,20 @@ class NetworkClient(context: Context) {
      *
      * @property topic nome del feed
      */
-    fun unsubscribe(topic:String) {
-        try {
-            mqttClient.unsubscribe(topic, null, unsubscribeCallbacks)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
+    suspend fun unsubscribe(topic:String) {
+        return suspendCoroutine { cont -> mqttClient.unsubscribe(topic, null, object : IMqttActionListener{
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.i("EMon - NetworkClient", "Unsubscribed to topic")
+                onUnsubscribeSuccess()
+                cont.resumeWith(Result.success(Unit))
+            }
+
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+                Log.i("EMon - NetworkClient", "Failed to unsubscribe topic: $exception")
+                onUnsubscribeFailure()
+                cont.resumeWith(Result.failure(exception))
+            }
+        })}
     }
 
     /**
@@ -169,28 +140,44 @@ class NetworkClient(context: Context) {
      * @property topic nome del feed
      * @property msg messaggio pubblicato nel feed
      */
-    fun publish(topic:      String,
+    suspend fun publish(topic:      String,
                 msg:        String) {
-        try {
-            val message = MqttMessage()
-            message.payload = msg.toByteArray()
-            message.qos = 1
-            message.isRetained = true
-            mqttClient.publish(topic, message, null, publishCallbacks)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
+        val message = MqttMessage()
+        message.payload = msg.toByteArray()
+        message.qos = 1
+        message.isRetained = true
+        return suspendCoroutine { cont-> mqttClient.publish(topic, message, null, object : IMqttActionListener{
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.i("EMon - NetworkClient", "Message published to topic")
+                onPublishSuccess()
+                cont.resumeWith(Result.success(Unit))
+            }
+
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+                Log.i("EMon - NetworkClient", "Failed to publish message to topic: $exception")
+                onPublishFailure()
+                cont.resumeWith(Result.failure(exception))
+            }
+        })}
+
     }
 
     /**
      * Disconetti dal server MQTT attualmente collegato
      */
-    fun disconnect() {
-        try {
-            mqttClient.disconnect(null,disconnectCallbacks)
-        } catch (e: MqttException) {
-            e.printStackTrace()
-        }
-    }
+    suspend fun disconnect() {
+        return suspendCoroutine { cont-> mqttClient.disconnect(null, object : IMqttActionListener{
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.i("EMon - NetworkClient", "Disconnected")
+                onDisconnectSuccess()
+                cont.resumeWith(Result.success(Unit))
+            }
 
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+                Log.i("EMon - NetworkClient", "Failed to disconnect: $exception")
+                onDisconnectFailure()
+                cont.resumeWith(Result.failure(exception))
+            }
+        })}
+    }
 }

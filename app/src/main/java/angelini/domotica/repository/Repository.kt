@@ -10,7 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class Repository(database:CacheDatabase, network: NetworkClient) {
 
@@ -26,33 +25,26 @@ class Repository(database:CacheDatabase, network: NetworkClient) {
     }
 
     init {
-        runBlocking {
-            //load database on IO thread pool (avoid main/UI thread)
-            launch(Dispatchers.IO) {
-                val userDao = db.deviceDao()
-                userDao.deleteAll()
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            val userDao = db.deviceDao()
+            userDao.deleteAll()
         }
         networkClient.onConnectionSuccess={
-            //Log.i("EMon - Repository", "Connection success receipt")
-            networkClient.subscribe(parser.subscribeAllFeeds())
-            networkClient.publish(parser.requestAllFeedsData(),"")
+            CoroutineScope(Dispatchers.IO).launch {
+                networkClient.subscribe(parser.subscribeAllFeeds())
+                networkClient.publish(parser.requestAllFeedsData(),"")
+            }
         }
 
         networkClient.onConnectionFailure={
-            //Log.i("EMon - Repository", "Connection failure receipt")
         }
 
         networkClient.onMessageArrived={ topic, message ->
-            //Log.i("EMon - Repository", "Topic $topic and message $message")
             val list=parser.decode(message)
-            runBlocking {
-                //load database on IO thread pool (avoid main/UI thread)
-                launch(Dispatchers.IO) {
-                    val userDao = db.deviceDao()
-                    for(element in list){
-                        userDao.insert(element)
-                    }
+            CoroutineScope(Dispatchers.IO).launch {
+                val userDao = db.deviceDao()
+                for(element in list){
+                    userDao.insert(element)
                 }
             }
         }
@@ -66,6 +58,8 @@ class Repository(database:CacheDatabase, network: NetworkClient) {
     }
 
     fun disconnect() {
-        networkClient.disconnect()
+        CoroutineScope(Dispatchers.IO).launch {
+            networkClient.disconnect()
+        }
     }
 }
