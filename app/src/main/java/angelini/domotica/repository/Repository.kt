@@ -4,14 +4,15 @@ import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
-import angelini.domotica.repository.network.INetworkClient
+import angelini.domotica.repository.network.NetworkClient
 import angelini.domotica.repository.network.Parser
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class Repository(database:CacheDatabase, network: INetworkClient) {
+class Repository(database:CacheDatabase, network: NetworkClient) {
 
     private val db=database
     private val networkClient=network
@@ -59,7 +60,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     fun connect(username:String,password:String) {
         parser.rootname=username
-        networkClient.connect(username,password)
+        CoroutineScope(Dispatchers.IO).launch {
+            networkClient.connect(username,password)
+        }
     }
 
     fun disconnect() {

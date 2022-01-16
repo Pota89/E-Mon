@@ -1,11 +1,12 @@
 package angelini.domotica.repository
-
+/*
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.MockNetworkClient
 import angelini.domotica.repository.network.NetworkClient
+import kotlinx.coroutines.flow.count
 import org.junit.Assert.*
 
 import org.junit.After
@@ -38,7 +39,7 @@ class RepositoryTest {
     @Test
     fun getDevicesList() {
         repository.connect("testuser","testpassword")
-
+        repository.devicesList.count()
     }
 
     @Test
@@ -57,3 +58,4 @@ class RepositoryTest {
     fun disconnect() {
     }
 }
+*/

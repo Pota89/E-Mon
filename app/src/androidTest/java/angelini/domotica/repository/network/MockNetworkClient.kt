@@ -1,5 +1,5 @@
 package angelini.domotica.repository.network
-
+/*
 /**
  * Classe mock che simula la connessione al server MQTT
  *
@@ -117,4 +117,4 @@ class MockNetworkClient() : INetworkClient {
         onDisconnectSuccess()
     }
 
-}
+}*/

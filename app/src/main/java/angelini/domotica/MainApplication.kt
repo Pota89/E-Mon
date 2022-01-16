@@ -6,6 +6,10 @@ import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.repository.Repository
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.NetworkClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class MainApplication : Application() {
     private lateinit var database:CacheDatabase

@@ -1,5 +1,5 @@
 package angelini.domotica.repository.network
-
+/*
 /**
  * Interfaccia per la comunicazione con il server MQTT di IO Adafruit
  *
@@ -63,4 +63,4 @@ interface INetworkClient {
      * Disconetti dal server MQTT attualmente collegato
      */
     fun disconnect()
-}
+}*/
