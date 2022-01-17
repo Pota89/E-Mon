@@ -70,7 +70,7 @@ class NetworkClient(context: Context) : INetworkClient {
         return suspendCoroutine { cont -> mqttClient.connect(options,null, object : IMqttActionListener {
             override fun onSuccess(asyncActionToken: IMqttToken?) {
                 Log.i("EMon - NetworkClient","Connection success")
-                onConnectionSuccess()
+                //onConnectionSuccess()
                 cont.resumeWith(Result.success(Unit))
             }
 
