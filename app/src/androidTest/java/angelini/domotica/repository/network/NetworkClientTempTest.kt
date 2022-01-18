@@ -3,6 +3,7 @@ package angelini.domotica.repository.network
 import android.content.Context
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import angelini.domotica.repository.MQTT_PWD
 import angelini.domotica.repository.MQTT_USERNAME
 import kotlinx.coroutines.*
@@ -12,14 +13,23 @@ import org.junit.Assert.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+/**
+ * Classe testing mockup di rete
+ *
+ * La classe mockup di rete è necessaria per testare il repository, non è possibile testare
+ * il repository con la vera classe di rete perché non è possibile abilitare il relativo
+ * servizio registrato nel Manifest durante gli InstrumentedTest
+ */
+@RunWith(AndroidJUnit4::class)
 class NetworkClientTempTest {
-    lateinit var network:NetworkClient
+    lateinit var network:MockNetworkClient
 
     @Before
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        network= NetworkClient(context)
+        network= MockNetworkClient()
     }
 
     @After

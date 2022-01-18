@@ -27,7 +27,7 @@ interface INetworkClient {
      * @property username nome utente
      * @property password password dell'utente
      */
-    suspend fun connect(username: String, password: String)
+    fun connect(username: String, password: String)
 
     /**
      * Verifica se si è connessi al server MQTT
@@ -39,14 +39,14 @@ interface INetworkClient {
      *
      * @property topic nome del feed
      */
-    suspend fun subscribe(topic: String)
+    fun subscribe(topic: String)
 
     /**
      * Rimozione della sottoscrizione a un feed
      *
      * @property topic nome del feed
      */
-    suspend fun unsubscribe(topic: String)
+    fun unsubscribe(topic: String)
 
     /**
      * Pubblica un messaggio sul feed
@@ -54,7 +54,7 @@ interface INetworkClient {
      * @property topic nome del feed
      * @property msg messaggio pubblicato nel feed
      */
-    suspend fun publish(
+    fun publish(
         topic: String,
         msg: String
     )
@@ -62,5 +62,5 @@ interface INetworkClient {
     /**
      * Disconetti dal server MQTT attualmente collegato
      */
-    suspend fun disconnect()
+    fun disconnect()
 }

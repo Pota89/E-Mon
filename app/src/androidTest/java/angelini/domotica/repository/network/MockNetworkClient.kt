@@ -1,5 +1,5 @@
 package angelini.domotica.repository.network
-/*
+
 /**
  * Classe mock che simula la connessione al server MQTT
  *
@@ -32,15 +32,13 @@ class MockNetworkClient() : INetworkClient {
      * @property username nome utente
      * @property password password dell'utente
      */
-    override fun connect(username:String,password:String):Boolean{
+    override fun connect(username:String,password:String){
         return if(username=="testuser" && password=="testpassword"){
             connected=true
             onConnectionSuccess()
-            true
         }else{
             connected=false
             onConnectionFailure()
-            false
         }
     }
 
@@ -117,4 +115,4 @@ class MockNetworkClient() : INetworkClient {
         onDisconnectSuccess()
     }
 
-}*/
+}
