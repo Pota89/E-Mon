@@ -104,7 +104,7 @@ class MockNetworkClient() : INetworkClient {
         if(connected) {
             onPublishSuccess()
 
-            if (msg == "testuser/groups/home/get") {
+            if (topic == "testuser/groups/home/get") {
                 val responseMsg= "home.bedroom-1-temperature-1,19\n" +
                         "home.bedroom-2-temperature-1,25\n" +
                         "home.kitchen-0-lamp-1,\"\"\n" +

@@ -1,5 +1,9 @@
 package angelini.domotica.repository.network
 
+import angelini.domotica.repository.datatypes.Device
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.junit.Assert.*
 import org.junit.After
 import org.junit.Before
@@ -70,6 +74,30 @@ class MockNetworkClientTest {
         assertFalse(triggerConnectionSuccess)
         assertTrue(triggerConnectionFailure)
         assertFalse(network.isConnected())
+    }
+
+    /**
+     * Ottiene la lista dei dispositivi registrati
+     *
+     * La classe di rete mocked contiene al suo interno un insieme di
+     * Device alla sua creazione
+     */
+    @Test
+    fun getDeviceList(){
+        val parser=Parser(MOCKED_MQTT_USERNAME)
+        var triggerPublishSuccess=false
+        var list: List<Device> = listOf()
+
+        network.onPublishSuccess={triggerPublishSuccess=true}
+        network.onMessageArrived={_, message ->
+                list=parser.decode(message)
+           }
+
+        network.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+        network.publish(parser.requestAllFeedsData(),"")
+
+        assertTrue(triggerPublishSuccess)
+        assertNotEquals(0,list.size)
     }
 
 }
