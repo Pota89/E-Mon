@@ -1,5 +1,10 @@
 package angelini.domotica.repository.network
 
+import angelini.domotica.repository.datatypes.Device
+
+const val MOCKED_MQTT_USERNAME         = "testuser"
+const val MOCKED_MQTT_PWD              = "testpassword"
+
 /**
  * Classe mock che simula la connessione al server MQTT
  *
@@ -22,7 +27,18 @@ class MockNetworkClient() : INetworkClient {
 
     private var connected=false
 
-    private val topicSet: MutableSet<String> = hashSetOf()
+    private val deviceList: MutableList<Device> = mutableListOf()
+
+    init {
+        deviceList
+        /*"home.bedroom-1-temperature-1,19\n" +
+                "home.bedroom-2-temperature-1,25\n" +
+                "home.kitchen-0-lamp-1,\"\"\n" +
+                "home.hallway-0-lamp-1,1\n" +
+                "home.lounge-1-lamp-1,1\n" +
+                "home.lounge-2-lamp-0,1\n" +
+                "home.bedroom-1-temperature-2,16"*/
+    }
 
     /**
      * Connetti al server MQTT mocked
@@ -33,7 +49,7 @@ class MockNetworkClient() : INetworkClient {
      * @property password password dell'utente
      */
     override fun connect(username:String,password:String){
-        return if(username=="testuser" && password=="testpassword"){
+        return if(username==MOCKED_MQTT_USERNAME && password== MOCKED_MQTT_PWD){
             connected=true
             onConnectionSuccess()
         }else{
@@ -56,7 +72,7 @@ class MockNetworkClient() : INetworkClient {
      */
     override fun subscribe(topic:String) {
         if(connected) {
-            topicSet.add(topic)
+            //topicSet.add(topic)
             onSubscribeSuccess()
         }
         else
@@ -70,7 +86,7 @@ class MockNetworkClient() : INetworkClient {
      */
     override fun unsubscribe(topic:String) {
         if(connected) {
-            topicSet.remove(topic)
+            //topicSet.remove(topic)
             onUnsubscribeSuccess()
         }
         else
@@ -98,7 +114,7 @@ class MockNetworkClient() : INetworkClient {
                         "home.bedroom-1-temperature-2,16"
 
                 onMessageArrived(topic, responseMsg)
-            } else if(topicSet.contains(topic)){
+            } else if(/*topicSet.contains(topic)*/ true){
                 onMessageArrived(topic, msg)
             }
         }else{
@@ -111,7 +127,7 @@ class MockNetworkClient() : INetworkClient {
      */
     override fun disconnect() {
         connected=false
-        topicSet.clear()
+        //topicSet.clear()
         onDisconnectSuccess()
     }
 

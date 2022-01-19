@@ -1,6 +1,7 @@
 package angelini.domotica
 
 import android.app.Application
+import android.util.Log
 import angelini.domotica.repository.MQTT_PWD
 import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.repository.Repository
@@ -18,7 +19,12 @@ class MainApplication : Application() {
         super.onCreate()
 
         networkClient= NetworkClient(applicationContext)
-        networkClient.connect("Pippo", MQTT_PWD)
+        networkClient.onConnectionSuccess={
+            networkClient.publish("ExamToGo/feeds/home.bedroom-1-temperature-1","20")
+            Log.d("MessaggioTest","Pubblicazione effettuata")
+        }
+        networkClient.connect(MQTT_USERNAME, MQTT_PWD)
+
 
         /*
         database=androidx.room.Room.databaseBuilder(
