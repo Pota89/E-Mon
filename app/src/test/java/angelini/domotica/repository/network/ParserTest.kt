@@ -135,4 +135,16 @@ class ParserTest {
         assertTrue(decodeListResult.contains(hallway))
         assertTrue(decodeListResult.contains(kitchen))
     }
+
+    /**
+     * Verifica la corretta formazione della stringa a partire da un Device
+     */
+    @Test
+    fun encode(){
+        val testDevice=Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,20)
+        val expectedReturnString="testparser/feeds/home.bedroom-1-temperature-1,20"
+
+        val testReturnString=parser.encode(testDevice)
+        assertEquals(expectedReturnString,testReturnString)
+    }
 }

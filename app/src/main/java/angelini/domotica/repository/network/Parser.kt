@@ -98,4 +98,26 @@ class Parser(username: String) {
         }
         return returnList
     }
+
+    /**
+     * Restituisce una stringa formattata per la pubblicazione di un Device sul server MQTT
+     *
+     * @property device elemento da formattare
+     */
+    fun encode(device:Device): String {
+        val builder = StringBuilder()
+        builder.append(rootname)
+            .append("/feeds/home.")
+            .append(device.room.type.name.lowercase())
+            .append("-")
+            .append(device.room.number)
+            .append("-")
+            .append(device.type.name.lowercase())
+            .append("-")
+            .append(device.number)
+            .append(",")
+            .append(device.value)
+
+        return builder.toString()
+    }
 }
