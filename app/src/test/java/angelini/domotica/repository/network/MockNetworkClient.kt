@@ -27,17 +27,17 @@ class MockNetworkClient() : INetworkClient {
 
     private var connected=false
 
-    private val deviceList: MutableList<Device> = mutableListOf()
+    data class Item(val subscribed: Boolean, val value: String)
+    private val deviceMap = HashMap<String, Item>()
 
     init {
-        deviceList
-        /*"home.bedroom-1-temperature-1,19\n" +
-                "home.bedroom-2-temperature-1,25\n" +
-                "home.kitchen-0-lamp-1,\"\"\n" +
-                "home.hallway-0-lamp-1,1\n" +
-                "home.lounge-1-lamp-1,1\n" +
-                "home.lounge-2-lamp-0,1\n" +
-                "home.bedroom-1-temperature-2,16"*/
+        deviceMap["home.bedroom-1-temperature-1"]=Item(false,"19")
+        deviceMap["home.bedroom-2-temperature-1"]=Item(false,"25")
+        deviceMap["home.kitchen-0-lamp-1"]=Item(false,"")
+        deviceMap["home.hallway-0-lamp-1"]=Item(false,"1")
+        deviceMap["home.lounge-1-lamp-1"]=Item(false,"1")
+        deviceMap["home.lounge-2-lamp-0"]=Item(false,"1")
+        deviceMap["home.bedroom-1-temperature-2"]=Item(false,"16")
     }
 
     /**
@@ -71,8 +71,8 @@ class MockNetworkClient() : INetworkClient {
      * @property topic nome del feed
      */
     override fun subscribe(topic:String) {
-        if(connected) {
-            //topicSet.add(topic)
+        if(connected && deviceMap.containsKey(topic)) {
+            //TODO deviceMap[topic]?.subscribed=true
             onSubscribeSuccess()
         }
         else

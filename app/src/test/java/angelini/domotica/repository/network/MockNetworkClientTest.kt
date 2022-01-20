@@ -88,12 +88,15 @@ class MockNetworkClientTest {
         var triggerPublishSuccess=false
         var list: List<Device> = listOf()
 
-        network.onPublishSuccess={triggerPublishSuccess=true}
+
         network.onMessageArrived={_, message ->
                 list=parser.decode(message)
            }
 
         network.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+        network.publish(parser.subscribeAllFeeds(),"")
+
+        network.onPublishSuccess={triggerPublishSuccess=true}
         network.publish(parser.requestAllFeedsData(),"")
 
         assertTrue(triggerPublishSuccess)
