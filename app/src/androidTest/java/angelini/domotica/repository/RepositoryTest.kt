@@ -37,6 +37,8 @@ class RepositoryTest {
 
     @After
     fun tearDown() {
+        if(repository.isConnected())
+            repository.disconnect()
     }
 
     /*
