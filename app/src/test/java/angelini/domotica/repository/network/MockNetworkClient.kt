@@ -1,6 +1,6 @@
-package angelini.domotica.repository.network
+package angelini.domotica. repository.network
 
-import angelini.domotica.repository.datatypes.Device
+import java.lang.StringBuilder
 
 const val MOCKED_MQTT_USERNAME         = "testuser"
 const val MOCKED_MQTT_PWD              = "testpassword"
@@ -27,8 +27,8 @@ class MockNetworkClient() : INetworkClient {
 
     private var connected=false
 
-    data class Item(val subscribed: Boolean, val value: String)
-    private val deviceMap = HashMap<String, Item>()
+    private data class Item(var subscribed: Boolean, var value: String)
+    private var deviceMap = HashMap<String, Item>()
 
     init {
         deviceMap["home.bedroom-1-temperature-1"]=Item(false,"19")
@@ -49,7 +49,7 @@ class MockNetworkClient() : INetworkClient {
      * @property password password dell'utente
      */
     override fun connect(username:String,password:String){
-        return if(username==MOCKED_MQTT_USERNAME && password== MOCKED_MQTT_PWD){
+        return if(username==MOCKED_MQTT_USERNAME && password== MOCKED_MQTT_PWD && !connected){
             connected=true
             onConnectionSuccess()
         }else{
@@ -66,14 +66,24 @@ class MockNetworkClient() : INetworkClient {
     }
 
     /**
-     * Sottoscrizione a un feed
+     * Sottoscrizione a uno o tutti i feed
      *
      * @property topic nome del feed
      */
     override fun subscribe(topic:String) {
-        if(connected && deviceMap.containsKey(topic)) {
-            //TODO deviceMap[topic]?.subscribed=true
-            onSubscribeSuccess()
+        if(connected){
+            if(topic=="$MOCKED_MQTT_USERNAME/groups/home"){
+                deviceMap.forEach{item->
+                    item.value.subscribed=true
+                }
+                onSubscribeSuccess()
+            }else if(deviceMap.containsKey(topic))
+            {
+                deviceMap[topic]?.subscribed = true
+                onSubscribeSuccess()
+            }
+            else
+                onSubscribeFailure()
         }
         else
             onSubscribeFailure()
@@ -85,8 +95,8 @@ class MockNetworkClient() : INetworkClient {
      * @property topic nome del feed
      */
     override fun unsubscribe(topic:String) {
-        if(connected) {
-            //topicSet.remove(topic)
+        if(connected && deviceMap.containsKey(topic)) {
+            deviceMap[topic]?.subscribed=false
             onUnsubscribeSuccess()
         }
         else
@@ -104,17 +114,23 @@ class MockNetworkClient() : INetworkClient {
         if(connected) {
             onPublishSuccess()
 
-            if (topic == "testuser/groups/home/get") {
-                val responseMsg= "home.bedroom-1-temperature-1,19\n" +
-                        "home.bedroom-2-temperature-1,25\n" +
-                        "home.kitchen-0-lamp-1,\"\"\n" +
-                        "home.hallway-0-lamp-1,1\n" +
-                        "home.lounge-1-lamp-1,1\n" +
-                        "home.lounge-2-lamp-0,1\n" +
-                        "home.bedroom-1-temperature-2,16"
+            if (topic == "$MOCKED_MQTT_USERNAME/groups/home/get") {
+                val responseMsg=StringBuilder()
+                val iterator=deviceMap.iterator()
+                while(iterator.hasNext()){
+                    val item=iterator.next()
+                    if(item.value.subscribed){
+                        responseMsg.append(item.key)
+                        responseMsg.append(",")
+                        responseMsg.append(item.value.value)
+                        responseMsg.append("\n")
+                    }
+                }
+                val responseMsgChar=responseMsg.removeSuffix("\n")//remove endline for the last item
 
-                onMessageArrived(topic, responseMsg)
-            } else if(/*topicSet.contains(topic)*/ true){
+                onMessageArrived(topic, responseMsgChar.toString())
+            } else if(deviceMap.contains(topic)){
+                deviceMap[topic]?.value =msg
                 onMessageArrived(topic, msg)
             }
         }else{
@@ -127,7 +143,9 @@ class MockNetworkClient() : INetworkClient {
      */
     override fun disconnect() {
         connected=false
-        //topicSet.clear()
+        deviceMap.forEach{item->
+            item.value.subscribed=false
+        }
         onDisconnectSuccess()
     }
 

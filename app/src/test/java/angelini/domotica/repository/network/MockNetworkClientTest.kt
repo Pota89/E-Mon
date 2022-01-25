@@ -94,13 +94,46 @@ class MockNetworkClientTest {
            }
 
         network.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
-        network.publish(parser.subscribeAllFeeds(),"")
+        network.subscribe(parser.subscribeAllFeeds())
 
         network.onPublishSuccess={triggerPublishSuccess=true}
         network.publish(parser.requestAllFeedsData(),"")
 
         assertTrue(triggerPublishSuccess)
         assertNotEquals(0,list.size)
+    }
+
+    /**
+     * Verifica il corretto funzionamento delle sottoscrizioni
+     *
+     * La classe mocked contiene alcuni Device alla sua creazione
+     *
+     */
+    @Test
+    fun getSingleDeviceList(){
+        val parser=Parser(MOCKED_MQTT_USERNAME)
+        var list: List<Device> = listOf()
+
+        network.onMessageArrived={_, message ->
+            list=parser.decode(message)
+        }
+
+        network.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+
+        network.publish(parser.requestAllFeedsData(),"")
+        assertEquals(0,list.size)
+
+        network.subscribe("home.bedroom-1-temperature-1")
+        network.publish(parser.requestAllFeedsData(),"")
+        assertEquals(1,list.size)
+
+        network.subscribe("home.lounge-1-lamp-1")
+        network.publish(parser.requestAllFeedsData(),"")
+        assertEquals(2,list.size)
+
+        network.unsubscribe("home.bedroom-1-temperature-1")
+        network.publish(parser.requestAllFeedsData(),"")
+        assertEquals(1,list.size)
     }
 
 }
