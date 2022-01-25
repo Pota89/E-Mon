@@ -7,6 +7,9 @@ import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.repository.Repository
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.NetworkClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainApplication : Application() {
     private lateinit var database:CacheDatabase
@@ -17,16 +20,15 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+/*
         networkClient= NetworkClient(applicationContext)
         networkClient.onConnectionSuccess={
             networkClient.publish("ExamToGo/feeds/home.bedroom-1-temperature-1","20")
             Log.d("MessaggioTest","Pubblicazione effettuata")
         }
         networkClient.connect(MQTT_USERNAME, MQTT_PWD)
+*/
 
-
-        /*
         database=androidx.room.Room.databaseBuilder(
             applicationContext,
             CacheDatabase::class.java, "cache"
@@ -35,7 +37,10 @@ class MainApplication : Application() {
         networkClient= NetworkClient(applicationContext)
 
         repository=Repository(database,networkClient)
-        repository.connect(MQTT_USERNAME, MQTT_PWD)*/
+        GlobalScope.launch(Dispatchers.IO) {
+
+            repository.connect(MQTT_USERNAME, MQTT_PWD) }
+
     }
 
     fun getRepository():Repository{ return repository}

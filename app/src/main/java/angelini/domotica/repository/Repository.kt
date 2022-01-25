@@ -1,5 +1,6 @@
 package angelini.domotica.repository
 
+import android.util.Log
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.Room
@@ -10,6 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import org.eclipse.paho.client.mqttv3.IMqttActionListener
+import org.eclipse.paho.client.mqttv3.IMqttToken
+import kotlin.coroutines.suspendCoroutine
 
 class Repository(database:CacheDatabase, network: INetworkClient) {
 
@@ -24,23 +28,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         return db.deviceDao().getRoomDevices(roomType,roomNumber)
     }
 
+    //for each received message from network, update database
     init {
-        /*
-        CoroutineScope(Dispatchers.IO).launch {
-            val userDao = db.deviceDao()
-            userDao.deleteAll()
-        }
-        networkClient.onConnectionSuccess={
-            CoroutineScope(Dispatchers.IO).launch {
-                networkClient.subscribe(parser.subscribeAllFeeds())
-                networkClient.publish(parser.requestAllFeedsData(),"")
-            }
-        }
-
-        networkClient.onConnectionFailure={
-        }
-
-        networkClient.onMessageArrived={ topic, message ->
+        networkClient.onMessageArrived={ _, message ->
             val list=parser.decode(message)
             CoroutineScope(Dispatchers.IO).launch {
                 val userDao = db.deviceDao()
@@ -49,17 +39,48 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
                 }
             }
         }
-        */
     }
 
-    suspend fun connect(username:String,password:String) {
+    /**
+     * Connessione del repository alla sorgente dati remota
+     */
+    suspend fun connect(username:String,password:String):Boolean {
         if(networkClient.isConnected())
-            return
-
+            return false
 
         parser.rootname=username
-        networkClient.connect(username,password)
 
+        val userDao = db.deviceDao()
+        userDao.deleteAll()
+
+        val connectionResult:Boolean=suspendCoroutine { cont ->
+            networkClient.onConnectionSuccess={cont.resumeWith(Result.success(true))}
+            networkClient.onConnectionFailure={cont.resumeWith(Result.success(false))}
+            networkClient.connect(username,password)
+        }
+
+        if (!connectionResult)
+            return false
+
+        val subscribeAllFeedsResults:Boolean=suspendCoroutine { cont ->
+            networkClient.onSubscribeSuccess={cont.resumeWith(Result.success(true))}
+            networkClient.onSubscribeFailure={cont.resumeWith(Result.success(false))}
+            networkClient.subscribe(parser.subscribeAllFeeds())
+        }
+
+        if (!subscribeAllFeedsResults)
+            return false
+
+        val requestAllResults:Boolean=suspendCoroutine { cont ->
+            networkClient.onPublishSuccess={cont.resumeWith(Result.success(true))}
+            networkClient.onPublishFailure={cont.resumeWith(Result.success(false))}
+            networkClient.publish(parser.requestAllFeedsData(),"")
+        }
+
+        if (!requestAllResults)
+            return false
+
+        return true
     }
 
     fun disconnect() {
