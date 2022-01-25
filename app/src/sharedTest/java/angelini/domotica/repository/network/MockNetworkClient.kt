@@ -1,4 +1,4 @@
-package angelini.domotica. repository.network
+package angelini.domotica.repository.network
 
 import java.lang.StringBuilder
 

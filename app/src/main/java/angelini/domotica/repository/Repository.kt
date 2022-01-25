@@ -25,6 +25,7 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     }
 
     init {
+        /*
         CoroutineScope(Dispatchers.IO).launch {
             val userDao = db.deviceDao()
             userDao.deleteAll()
@@ -48,18 +49,26 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
                 }
             }
         }
+        */
     }
 
-    fun connect(username:String,password:String) {
+    suspend fun connect(username:String,password:String) {
+        if(networkClient.isConnected())
+            return
+
+
         parser.rootname=username
-        CoroutineScope(Dispatchers.IO).launch {
-            networkClient.connect(username,password)
-        }
+        networkClient.connect(username,password)
+
     }
 
     fun disconnect() {
         CoroutineScope(Dispatchers.IO).launch {
             networkClient.disconnect()
         }
+    }
+
+    fun isConnected():Boolean{
+        return networkClient.isConnected()
     }
 }
