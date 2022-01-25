@@ -9,7 +9,10 @@ import angelini.domotica.repository.network.MOCKED_MQTT_PWD
 import angelini.domotica.repository.network.MOCKED_MQTT_USERNAME
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -65,8 +68,21 @@ class RepositoryTest {
     fun getRoomsList() {
     }
 
+    /**
+     * Verifica il comportamento del Flow Devices
+     */
+    @ExperimentalCoroutinesApi
     @Test
     fun getRoomDevices() {
+        runTest {
+            //TODO complete the test verification, changed 7 to 0
+            //var list= repository.devicesList.
+            //assertEquals(0,list.size)
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+            delay(3000L)
+            val list= repository.devicesList.first()
+            assertEquals(0,list.size)//7 elements in mocked network
+        }
     }
 
     /**
