@@ -60,6 +60,18 @@ class RepositoryTest {
     }
 
     /**
+     * Tenta di stabilire una connessone al repository con credenziali sbagliate
+     */
+    @ExperimentalCoroutinesApi
+    @Test
+    fun fakeConnect() {
+        runTest {
+            repository.connect("wrongtestuser","wrongtestpassword")
+            assertFalse(repository.isConnected())
+        }
+    }
+
+    /**
      * Stabilisce una connessione al repository
      */
     @ExperimentalCoroutinesApi
