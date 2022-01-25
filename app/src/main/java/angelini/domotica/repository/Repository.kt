@@ -84,8 +84,10 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         return true
     }
 
-    fun disconnect() {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun disconnect() {
+        return suspendCoroutine { cont ->
+            networkClient.onDisconnectSuccess={cont.resumeWith(Result.success(Unit))}
+            networkClient.onDisconnectFailure={cont.resumeWith(Result.success(Unit))}
             networkClient.disconnect()
         }
     }

@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import angelini.domotica.repository.db.CacheDatabase
+import angelini.domotica.repository.network.MOCKED_MQTT_PWD
+import angelini.domotica.repository.network.MOCKED_MQTT_USERNAME
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -42,8 +45,10 @@ class RepositoryTest {
 
     @After
     fun tearDown() {
-        if(repository.isConnected())
-            repository.disconnect()
+        runBlocking {
+            if (repository.isConnected())
+                repository.disconnect()
+        }
     }
 
     /*
@@ -83,15 +88,26 @@ class RepositoryTest {
     @Test
     fun connect() {
         runTest {
-            repository.connect("testuser","testpassword")
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
             assertTrue(repository.isConnected())
             val list= repository.devicesList.first()
             assertEquals(7,list.size)//7 elements in mocked network
         }
     }
 
+    /**
+     * Verifica lo stato della connessione e della corretta disconnessione
+     */
+    @ExperimentalCoroutinesApi
     @Test
     fun disconnect() {
+        runTest {
+            assertFalse(repository.isConnected())
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+            assertTrue(repository.isConnected())
+            repository.disconnect()
+            assertFalse(repository.isConnected())
+        }
     }
 }
 
