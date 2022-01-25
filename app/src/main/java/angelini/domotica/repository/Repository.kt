@@ -32,6 +32,7 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     init {
         networkClient.onMessageArrived={ _, message ->
             val list=parser.decode(message)
+            Log.i("EMon - Repository", "LISTA IN REPOSITORY: $message")
             CoroutineScope(Dispatchers.IO).launch {
                 val userDao = db.deviceDao()
                 for(element in list){

@@ -1,11 +1,13 @@
 package angelini.domotica.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -30,7 +32,10 @@ class RepositoryTest {
     @Before
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
+
         database=androidx.room.Room.inMemoryDatabaseBuilder(context,CacheDatabase::class.java).build()
+        //database=androidx.room.Room.databaseBuilder(context,CacheDatabase::class.java, "cache").build()
+
         mockNetworkClient= MockNetworkClient()
         repository=Repository(database,mockNetworkClient)
     }
@@ -72,7 +77,7 @@ class RepositoryTest {
     }
 
     /**
-     * Stabilisce una connessione al repository
+     * Stabilisce una connessione al repository, registra e imposta il database locale
      */
     @ExperimentalCoroutinesApi
     @Test
@@ -80,6 +85,8 @@ class RepositoryTest {
         runTest {
             repository.connect("testuser","testpassword")
             assertTrue(repository.isConnected())
+            val list= repository.devicesList.first()
+            assertEquals(7,list.size)//7 elements in mocked network
         }
     }
 
