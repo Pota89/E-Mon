@@ -32,7 +32,7 @@ class MockNetworkClient() : INetworkClient {
 
     init {
         deviceMap["home.bedroom-1-temperature-1"]=Item(false,"19")
-        deviceMap["home.bedroom-1-temperature-2"]=Item(false,"25")
+        deviceMap["home.bedroom-2-temperature-1"]=Item(false,"25")
         deviceMap["home.kitchen-0-lamp-1"]=Item(false,"")
         deviceMap["home.hallway-0-lamp-1"]=Item(false,"1")
         deviceMap["home.lounge-1-lamp-1"]=Item(false,"1")

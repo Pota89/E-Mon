@@ -52,25 +52,30 @@ class RepositoryTest {
         }
     }
 
-    /*
-    /**
-     * Recupera dal server MQTT mocked la lista dei Device
-     */
-    @Test
-    fun getStandardDevicesList() {
-        repository.connect(MQTT_USERNAME, MQTT_PWD)
-        repository.devicesList.count()
-    }*/
-
     /**
      * Ottiene un flow con solo le Room a partire dai Device
+     *
+     * Sono presenti 6 Room nel mock
+     */
+    @ExperimentalCoroutinesApi
+    @Test
+    fun getRoomList() {
+        runTest {
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+            val list= repository.roomsList.first()
+            assertEquals(6,list.size)//6 Rooms
+        }
+    }
+
+    /**
+     * Ottiene un flow con i Device presenti in una Room
      *
      * In dettaglio si verifica se sono presenti i 2 sensori di temperatura
      * della Bedroom mocked
      */
     @ExperimentalCoroutinesApi
     @Test
-    fun getRoomsList() {
+    fun getRoomDeviceList() {
         runTest {
             repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
             val bedroom=Room(RoomType.BEDROOM,1)
