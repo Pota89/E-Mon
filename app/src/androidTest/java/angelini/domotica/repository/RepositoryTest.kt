@@ -1,18 +1,16 @@
 package angelini.domotica.repository
 
 import android.content.Context
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.MOCKED_MQTT_PWD
 import angelini.domotica.repository.network.MOCKED_MQTT_USERNAME
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -64,24 +62,33 @@ class RepositoryTest {
         repository.devicesList.count()
     }*/
 
-    @Test
-    fun getRoomsList() {
-    }
-
     /**
-     * Verifica il comportamento del Flow Devices
+     * Ottiene un flow con solo le Room a partire dai Device
+     *
+     * In dettaglio si verifica se sono presenti i 2 sensori di temperatura
+     * della Bedroom mocked
      */
     @ExperimentalCoroutinesApi
     @Test
-    fun getRoomDevices() {
+    fun getRoomsList() {
         runTest {
-            //TODO complete the test verification, changed 7 to 0
-            //var list= repository.devicesList.
-            //assertEquals(0,list.size)
             repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
-            delay(3000L)
+            val bedroom=Room(RoomType.BEDROOM,1)
+            val list= repository.getRoomDevicesList(bedroom).first()
+            assertEquals(2,list.size)//2 Devices in mocked bedroom
+        }
+    }
+
+    /**
+     * Verifica il comportamento del Flow con tutti i Devices
+     */
+    @ExperimentalCoroutinesApi
+    @Test
+    fun getAllDevices() {
+        runTest {
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
             val list= repository.devicesList.first()
-            assertEquals(0,list.size)//7 elements in mocked network
+            assertEquals(7,list.size)//7 elements in mocked network
         }
     }
 

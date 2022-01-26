@@ -24,8 +24,8 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     val devicesList: Flow<List<Device>> =db.deviceDao().getAllDevices()
     val roomsList: Flow<List<Room>> =db.deviceDao().getRoomList()
 
-    fun getRoomDevices(roomType: RoomType, roomNumber: Int): Flow<List<Device>> {
-        return db.deviceDao().getRoomDevices(roomType,roomNumber)
+    fun getRoomDevicesList(room:Room): Flow<List<Device>> {
+        return db.deviceDao().getRoomDevices(room.type,room.number)
     }
 
     //for each received message from network, update database
