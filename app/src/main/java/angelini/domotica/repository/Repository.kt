@@ -84,6 +84,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         return true
     }
 
+    fun update(device: Device){
+        //TODO //parser.encode(device)
+    }
     suspend fun disconnect() {
         return suspendCoroutine { cont ->
             networkClient.onDisconnectSuccess={cont.resumeWith(Result.success(Unit))}
