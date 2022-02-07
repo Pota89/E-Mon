@@ -19,6 +19,7 @@ package angelini.domotica
 
 
 
+
  var mqttClient = MqttAndroidClient(applicationContext, "tcp://io.adafruit.com:1883", "")
         mqttClient.setCallback(cbClient)
         val options = MqttConnectOptions()
@@ -40,3 +41,13 @@ package angelini.domotica
             e.printStackTrace()
         }
 * */
+
+
+/*
+        networkClient= NetworkClient(applicationContext)
+        networkClient.onConnectionSuccess={
+            networkClient.publish("ExamToGo/feeds/home.bedroom-1-temperature-1","30")
+            Log.d("MessaggioTest","Pubblicazione effettuata")
+        }
+        networkClient.connect(MQTT_USERNAME, MQTT_PWD)
+*/

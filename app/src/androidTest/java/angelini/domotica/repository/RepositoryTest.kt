@@ -13,10 +13,7 @@ import angelini.domotica.repository.network.MOCKED_MQTT_PWD
 import angelini.domotica.repository.network.MOCKED_MQTT_USERNAME
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

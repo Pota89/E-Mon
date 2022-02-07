@@ -15,13 +15,9 @@ import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var repository:Repository
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //repository=Repository(applicationContext)
-        //repository.connect()
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -36,15 +32,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    override fun onDestroy() {
-        //repository.disconnect()
-        super.onDestroy()
-    }
-
-
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.fragment_container)
