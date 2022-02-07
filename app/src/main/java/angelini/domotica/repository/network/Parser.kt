@@ -15,7 +15,6 @@ import java.lang.NumberFormatException
  *
  * @property username nome utente che effettua le richieste
  * @constructor instanzia un oggetto parser con l'utente passato come parametro
- *
  */
 class Parser(username: String) {
 
@@ -40,14 +39,26 @@ class Parser(username: String) {
      *
      * Il server MQTT fornisce i feeds nel formato:
      * nomeDashboard.tipoRoom-numeroRoom-tipoDevice-numeroDevice,valore
-     * * ad es. home.bedroom-1-temperature-1,10
+     * quando si tratta di una richesta di tutti i feed
+     * ad es. home.bedroom-1-temperature-1,10
+     *
+     * Se riguarda la conferma di una singola publish il formato è
+     * {"feeds":{"tipoRoom-numeroRoom-tipoDevice-numeroDevice":"valore"}}
+     * ad es. {"feeds":{"bedroom-1-temperature-1":"30"}}
      *
      * La funzione restituisce una lista di Device valorizzata
      * @property message stringa proveniente dal server MQTT che rappresenta i feeds
      */
     fun decode(message: String): List<Device> {
         val returnList = mutableListOf<Device>()
-        val deviceStringList = message.lines()//split messages by Carriage Return
+
+        val deviceStringList: List<String> = if(message.startsWith("{\"feeds\":{\"")){//single feed response
+            val item=message.removePrefix("{\"feeds\":{\"").removeSuffix("\"}}").replace("\":\"",",")
+            listOf(item)
+        } else{//all feeds response
+            message.lines()//split messages by Carriage Return
+        }
+
         for (deviceString in deviceStringList) {
             val noPrefixString=deviceString.removePrefix("home.")
             val deviceElementsAndValuePair=noPrefixString.split(",")//split device info and value
@@ -104,7 +115,7 @@ class Parser(username: String) {
      *
      * @property device elemento da formattare
      */
-    fun encode(device:Device): String {
+    fun encodeTopic(device:Device): String {
         val builder = StringBuilder()
         builder.append(rootname)
             .append("/feeds/home.")
@@ -115,8 +126,6 @@ class Parser(username: String) {
             .append(device.type.name.lowercase())
             .append("-")
             .append(device.number)
-            .append(",")
-            .append(device.value)
 
         return builder.toString()
     }

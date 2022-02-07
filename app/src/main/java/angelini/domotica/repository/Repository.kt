@@ -4,15 +4,9 @@ import android.util.Log
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.Room
-import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.repository.network.INetworkClient
 import angelini.domotica.repository.network.Parser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import org.eclipse.paho.client.mqttv3.IMqttActionListener
-import org.eclipse.paho.client.mqttv3.IMqttToken
 import kotlin.coroutines.suspendCoroutine
 
 class Repository(database:CacheDatabase, network: INetworkClient) {
@@ -30,15 +24,13 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     //for each received message from network, update database
     init {
-        networkClient.onMessageArrived={ _, message ->
+        networkClient.onMessageArrived={ topic, message ->
+            Log.i("Test","topic $topic message $message")
             val list=parser.decode(message)
-            Log.i("EMon - Repository", "LISTA IN REPOSITORY: $message")
-            CoroutineScope(Dispatchers.IO).launch {
                 val userDao = db.deviceDao()
                 for(element in list){
                     userDao.insert(element)
                 }
-            }
         }
     }
 
@@ -84,9 +76,14 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         return true
     }
 
-    fun update(device: Device){
-        //TODO //parser.encode(device)
+    suspend fun update(device: Device):Boolean{
+        return suspendCoroutine { cont ->
+            networkClient.onPublishSuccess={cont.resumeWith(Result.success(true))}
+            networkClient.onPublishFailure={cont.resumeWith(Result.success(false))}
+            networkClient.publish(parser.encodeTopic(device),device.value.toString())
+        }
     }
+
     suspend fun disconnect() {
         return suspendCoroutine { cont ->
             networkClient.onDisconnectSuccess={cont.resumeWith(Result.success(Unit))}

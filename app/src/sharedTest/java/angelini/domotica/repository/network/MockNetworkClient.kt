@@ -116,6 +116,7 @@ class MockNetworkClient() : INetworkClient {
 
             if (topic == "$MOCKED_MQTT_USERNAME/groups/home/get") {
                 val responseMsg=StringBuilder()
+                val responseTopic=topic.removeSuffix("/get")
                 val iterator=deviceMap.iterator()
                 while(iterator.hasNext()){
                     val item=iterator.next()
@@ -128,10 +129,13 @@ class MockNetworkClient() : INetworkClient {
                 }
                 val responseMsgChar=responseMsg.removeSuffix("\n")//remove endline for the last item
 
-                onMessageArrived(topic, responseMsgChar.toString())
-            } else if(deviceMap.contains(topic)){
-                deviceMap[topic]?.value =msg
-                onMessageArrived(topic, msg)
+                onMessageArrived(responseTopic, responseMsgChar.toString())
+            } else if(topic.startsWith("$MOCKED_MQTT_USERNAME/feeds/")){
+                val deviceName=topic.removePrefix("$MOCKED_MQTT_USERNAME/feeds/")
+                if(deviceMap.contains(deviceName)) {
+                    deviceMap[deviceName]?.value = msg
+                    onMessageArrived("$MOCKED_MQTT_USERNAME/groups/home", "{\"feeds\":{\"$deviceName\":\"$msg\"}}")
+                }
             }
         }else{
             onPublishFailure()

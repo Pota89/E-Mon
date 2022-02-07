@@ -1,8 +1,11 @@
 package angelini.domotica.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.repository.db.CacheDatabase
@@ -10,7 +13,10 @@ import angelini.domotica.repository.network.MOCKED_MQTT_PWD
 import angelini.domotica.repository.network.MOCKED_MQTT_USERNAME
 import angelini.domotica.repository.network.MockNetworkClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -135,6 +141,32 @@ class RepositoryTest {
             assertTrue(repository.isConnected())
             repository.disconnect()
             assertFalse(repository.isConnected())
+        }
+    }
+
+    /**
+     * Aggiorna il valore di un device
+     *
+     * Cambia il valore del topic home.bedroom-1-temperature-1 da 19 (default del mock) a 32
+     */
+    @ExperimentalCoroutinesApi
+    @Test
+    fun updateDeviceValue() {
+        runTest {
+            repository.connect(MOCKED_MQTT_USERNAME, MOCKED_MQTT_PWD)
+            var list= repository.devicesList.first()
+            val refBedroom= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,19)
+            val bedroom= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,32)
+            assertTrue(list.contains(refBedroom))
+            assertFalse(list.contains(bedroom))
+
+            repository.update(bedroom)
+            list= repository.devicesList.first()
+            for (item in list)
+                Log.i("DeviceList","${item.room.type} ${item.room.number} ${item.type} ${item.number} ${item.value}")
+
+            assertTrue(list.contains(bedroom))
+            assertFalse(list.contains(refBedroom))
         }
     }
 }

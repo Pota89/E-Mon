@@ -23,7 +23,7 @@ class MainApplication : Application() {
 /*
         networkClient= NetworkClient(applicationContext)
         networkClient.onConnectionSuccess={
-            networkClient.publish("ExamToGo/feeds/home.bedroom-1-temperature-1","20")
+            networkClient.publish("ExamToGo/feeds/home.bedroom-1-temperature-1","30")
             Log.d("MessaggioTest","Pubblicazione effettuata")
         }
         networkClient.connect(MQTT_USERNAME, MQTT_PWD)

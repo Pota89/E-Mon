@@ -137,14 +137,27 @@ class ParserTest {
     }
 
     /**
-     * Verifica la corretta formazione della stringa a partire da un Device
+     * Verifica la corretta formazione della stringa topic MQTT a partire da un Device
      */
     @Test
-    fun encode(){
+    fun encodeTopic(){
         val testDevice=Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,20)
-        val expectedReturnString="testparser/feeds/home.bedroom-1-temperature-1,20"
+        val expectedReturnString="testparser/feeds/home.bedroom-1-temperature-1"
 
-        val testReturnString=parser.encode(testDevice)
+        val testReturnString=parser.encodeTopic(testDevice)
         assertEquals(expectedReturnString,testReturnString)
+    }
+
+    /**
+     * Test di decodifica stringa di ritorno a seguito di una publish
+     */
+    @Test
+    fun publishDecode() {
+        val decodeString="{\"feeds\":{\"bedroom-1-temperature-1\":\"30\"}}"
+        val bedroomCompare= Device(Room(RoomType.BEDROOM,1),DeviceType.TEMPERATURE,1,30)
+        val decodeListResult=parser.decode(decodeString)
+
+        assertEquals(1,decodeListResult.count())
+        assertTrue(decodeListResult.contains(bedroomCompare))
     }
 }
