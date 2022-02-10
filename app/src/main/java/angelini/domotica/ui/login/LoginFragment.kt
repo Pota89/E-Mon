@@ -15,11 +15,11 @@ class LoginFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rulesViewModel: LoginViewModel by viewModels()
+        val loginViewModel: LoginViewModel by viewModels()
 
         val root = inflater.inflate(R.layout.fragment_login, container, false)
         val textView: TextView = root.findViewById(R.id.text_login)
-        rulesViewModel.text.observe(viewLifecycleOwner, {
+        loginViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root
