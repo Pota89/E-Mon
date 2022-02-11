@@ -32,16 +32,12 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.roomList.adapter = adapter
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         lifecycle.coroutineScope.launch {
             viewModel.rooms.collect {
                 adapter.submitList(it)
             }
         }
+
+        return binding.root
     }
 }
