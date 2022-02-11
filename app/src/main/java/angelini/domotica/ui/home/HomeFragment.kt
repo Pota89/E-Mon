@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import angelini.domotica.R
+import androidx.lifecycle.coroutineScope
+import angelini.domotica.databinding.FragmentHomeBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * Classe per la visualizzazione della pagina Home
@@ -19,24 +21,27 @@ import angelini.domotica.R
  *
  */
 class HomeFragment : Fragment() {
-    private val homeViewModel: HomeViewModel by viewModels()
-    private lateinit var root:View
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        root = inflater.inflate(R.layout.fragment_login, container, false)
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var binding: FragmentHomeBinding
+    private val adapter = RoomAdapter()
 
-        return root
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.roomList.adapter = adapter
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = root.findViewById(R.id.text_login)
-        homeViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
+        lifecycle.coroutineScope.launch {
+            viewModel.rooms.collect {
+                adapter.submitList(it)
+            }
+        }
     }
 }
