@@ -19,9 +19,9 @@ class LoginFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_login, container, false)
         val textView: TextView = root.findViewById(R.id.text_login)
-        loginViewModel.text.observe(viewLifecycleOwner, {
+        loginViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        })
+        }
         return root
     }
 }
