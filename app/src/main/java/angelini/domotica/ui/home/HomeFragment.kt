@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
+import angelini.domotica.MainApplication
 import angelini.domotica.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -21,7 +23,9 @@ import kotlinx.coroutines.launch
  *
  */
 class HomeFragment : Fragment() {
-    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var viewModelFactory: HomeViewModelFactory
+    private lateinit var viewModel: HomeViewModel
+
     private lateinit var binding: FragmentHomeBinding
     private val adapter = RoomAdapter()
 
@@ -30,6 +34,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModelFactory = HomeViewModelFactory((activity?.application as MainApplication).getRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(HomeViewModel::class.java)
+
         binding.roomList.adapter = adapter
 
         lifecycle.coroutineScope.launch {
