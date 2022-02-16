@@ -3,10 +3,16 @@ package angelini.domotica.repository
 import android.util.Log
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
+import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.repository.datatypes.Room
+import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.repository.network.INetworkClient
 import angelini.domotica.repository.network.Parser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.suspendCoroutine
 
 class Repository(database:CacheDatabase, network: INetworkClient) {
@@ -26,11 +32,15 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     init {
         networkClient.onMessageArrived={ topic, message ->
             Log.i("Test","topic $topic message $message")
-            val list=parser.decode(message)
-                val userDao = db.deviceDao()
-                for(element in list){
-                    userDao.insert(element)
+            MainScope().launch {
+                withContext(Dispatchers.IO) {
+                    val list=parser.decode(message)
+                    val userDao = db.deviceDao()
+                    for(element in list){
+                        userDao.insert(element)
+                    }
                 }
+            }
         }
     }
 
@@ -45,6 +55,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
         val userDao = db.deviceDao()
         userDao.deleteAll()
+/*
+        val bedroomTest= Device(Room(RoomType.BEDROOM,6), DeviceType.TEMPERATURE,6,66)
+        userDao.insert(bedroomTest)*/
 
         val connectionResult:Boolean=suspendCoroutine { cont ->
             networkClient.onConnectionSuccess={cont.resumeWith(Result.success(true))}

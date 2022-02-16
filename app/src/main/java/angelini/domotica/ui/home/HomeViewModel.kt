@@ -8,11 +8,11 @@ import angelini.domotica.repository.datatypes.RoomType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class HomeViewModel(repository: Repository): ViewModel(){
+class HomeViewModel(private val repository: Repository): ViewModel(){
     init {
         Log.i("HomeViewModel", "We can run HomeViewModel")
     }
-
+/*
     private val _rooms = flow {
         val lista=mutableListOf<Room>()
         val kitchenRoom= Room(RoomType.KITCHEN,1)
@@ -21,8 +21,8 @@ class HomeViewModel(repository: Repository): ViewModel(){
         lista.add(kitchenRoom)
         lista.add(loungeRoom)
         emit(lista)
-    }
+    }*/
 
     val rooms: Flow<List<Room>>
-        get() = _rooms
+        get() = repository.roomsList
 }
