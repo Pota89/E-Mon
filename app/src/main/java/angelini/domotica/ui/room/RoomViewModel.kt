@@ -1,13 +1,13 @@
 package angelini.domotica.ui.room
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import angelini.domotica.repository.Repository
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.RoomType
 
-class RoomViewModel(application: Application) : AndroidViewModel(application) {
+class RoomViewModel(private val repository: Repository): ViewModel() {
 
     //private val repository = getApplication<MainApplication>().getRepository()
 

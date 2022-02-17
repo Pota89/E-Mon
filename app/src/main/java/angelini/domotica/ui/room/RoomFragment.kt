@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import angelini.domotica.MainApplication
 import angelini.domotica.databinding.FragmentRoomBinding
+import angelini.domotica.ui.RepositoryViewModelFactory
 
 class RoomFragment : Fragment() {
-    private val viewModel: RoomViewModel by viewModels()
+    private lateinit var viewModelFactory: RepositoryViewModelFactory
+    private lateinit var viewModel: RoomViewModel
+
     private lateinit var binding: FragmentRoomBinding
     private val args: RoomFragmentArgs by navArgs()
 
@@ -18,8 +22,11 @@ class RoomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRoomBinding.inflate(inflater, container, false)
+        viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(RoomViewModel::class.java)
 
+        binding = FragmentRoomBinding.inflate(inflater, container, false)
         val adapter = DeviceAdapter()
         binding.deviceList.adapter = adapter
 
