@@ -14,7 +14,6 @@ import angelini.domotica.ui.RepositoryViewModelFactory
 class RoomFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: RoomViewModel
-
     private lateinit var binding: FragmentRoomBinding
     private val args: RoomFragmentArgs by navArgs()
 
@@ -25,8 +24,8 @@ class RoomFragment : Fragment() {
         viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RoomViewModel::class.java)
-
         binding = FragmentRoomBinding.inflate(inflater, container, false)
+
         val adapter = DeviceAdapter()
         binding.deviceList.adapter = adapter
 

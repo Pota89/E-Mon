@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import angelini.domotica.MainApplication
 import angelini.domotica.R
+import angelini.domotica.databinding.FragmentLoginBinding
+import angelini.domotica.databinding.FragmentSettingsBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 
 class SettingsFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: SettingsViewModel
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -23,12 +26,11 @@ class SettingsFragment : Fragment() {
         viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(SettingsViewModel::class.java)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        val textView: TextView = root.findViewById(R.id.text_settings)
         viewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
+            binding.textSettings.text = it
         })
-        return root
+        return binding.root
     }
 }

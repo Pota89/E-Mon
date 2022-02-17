@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import angelini.domotica.MainApplication
 import angelini.domotica.R
+import angelini.domotica.databinding.FragmentLoginBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 
 class LoginFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: LoginViewModel
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -23,12 +25,11 @@ class LoginFragment : Fragment() {
         viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(LoginViewModel::class.java)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        val root = inflater.inflate(R.layout.fragment_login, container, false)
-        val textView: TextView = root.findViewById(R.id.text_login)
         viewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            binding.textLogin.text = it
         }
-        return root
+        return binding.root
     }
 }

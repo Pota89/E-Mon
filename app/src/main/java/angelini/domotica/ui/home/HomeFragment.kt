@@ -25,19 +25,18 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: HomeViewModel
-
     private lateinit var binding: FragmentHomeBinding
-    private val adapter = RoomAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(HomeViewModel::class.java)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        val adapter = RoomAdapter()
         binding.roomList.adapter = adapter
 
         lifecycle.coroutineScope.launch {
