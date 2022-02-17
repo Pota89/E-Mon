@@ -25,9 +25,9 @@ class SettingsFragment : Fragment() {
             .get(SettingsViewModel::class.java)
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        viewModel.text.observe(viewLifecycleOwner, {
+        viewModel.text.observe(viewLifecycleOwner) {
             binding.textSettings.text = it
-        })
+        }
         return binding.root
     }
 }
