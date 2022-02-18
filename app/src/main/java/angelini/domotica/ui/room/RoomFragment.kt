@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.navArgs
 import angelini.domotica.MainApplication
 import angelini.domotica.databinding.FragmentRoomBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class RoomFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
@@ -29,10 +32,11 @@ class RoomFragment : Fragment() {
         val adapter = DeviceAdapter()
         binding.deviceList.adapter = adapter
 
-        //TODO fix the observer with Flow
-        viewModel.getRoomDevices(args.roomType,args.roomNumber).observe(viewLifecycleOwner, {device ->
-            adapter.submitList(device)})
-
+        lifecycle.coroutineScope.launch {
+            viewModel.getRoomDevices(args.roomType,args.roomNumber).collect {
+                adapter.submitList(it)
+            }
+        }
 
         return binding.root
     }
