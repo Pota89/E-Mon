@@ -10,14 +10,13 @@
     card_view:cardBackgroundColor="@color/white"
     card_view:cardMaxElevation="12dp"
     card_view:cardPreventCornerOverlap="true"
-    card_view:cardUseCompatPadding="true"    >
+    card_view:cardUseCompatPadding="true">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/movement_image"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        card_view:srcCompat="@android:drawable/ic_input_add" />
-
+        android:src="@drawable/ic_sensor_movement_undetected"/>
     <TextView
         android:id="@+id/device_name"
         android:layout_width="wrap_content"
