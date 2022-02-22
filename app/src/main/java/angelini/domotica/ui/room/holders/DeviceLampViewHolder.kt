@@ -1,13 +1,25 @@
 package angelini.domotica.ui.room.holders
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceLampBinding
 
-class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding) : RecyclerView.ViewHolder(binding.root) {
+class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding , private val onUpdateCallback: (Device) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {
+        binding.switchLamp.setOnClickListener {
+            if(binding.switchLamp.isChecked)
+                item.value=1
+            else
+                item.value=0
+
+            Log.i("UpdateTest","Dentro al listener (prima di callback)")
+            onUpdateCallback(item)
+            Log.i("UpdateTest","Dentro al listener (dopo la callback)")
+        }
         binding.switchLamp.isChecked = item.value!=0//return true if value is different than 0
+
         val builder = StringBuilder()
         builder.append("Lampada")
 

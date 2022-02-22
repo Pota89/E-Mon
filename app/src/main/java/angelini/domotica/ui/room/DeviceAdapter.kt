@@ -16,8 +16,15 @@ import angelini.domotica.ui.room.holders.DeviceMovementViewHolder
 import angelini.domotica.ui.room.holders.DeviceTemperatureViewHolder
 import angelini.domotica.ui.room.holders.DeviceUnknownViewHolder
 
-//take Device rows and adapt them for RecyclerView in RoomFragment
-class DeviceAdapter : ListAdapter<Device, RecyclerView.ViewHolder>(DeviceDiffCallback()) {
+/**
+ * Adatta la visualizzazione a seconda del tipo di Device
+ *
+ * Ogni tipo di Device ha una sua visualizzazione personalizzata ma tutte ereditano
+ * dalla classe generica View.
+ * Al costruttore di passa una callback di un metodo del ViewModel
+ * per notificarlo dell'aggiornamento dell'interfaccia utente.
+ */
+class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapter<Device, RecyclerView.ViewHolder>(DeviceDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         when(DeviceType.values()[viewType])//get DeviceType enum from viewType
@@ -43,7 +50,8 @@ class DeviceAdapter : ListAdapter<Device, RecyclerView.ViewHolder>(DeviceDiffCal
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                )
+                ),
+                onUpdateCallback
             )
 
             else -> return DeviceUnknownViewHolder(

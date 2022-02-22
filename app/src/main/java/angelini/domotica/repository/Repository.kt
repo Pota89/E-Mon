@@ -91,9 +91,15 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     suspend fun update(device: Device):Boolean{
         return suspendCoroutine { cont ->
-            networkClient.onPublishSuccess={cont.resumeWith(Result.success(true))}
-            networkClient.onPublishFailure={cont.resumeWith(Result.success(false))}
+            networkClient.onPublishSuccess={
+                Log.i("UpdateTest","Publish success")
+                cont.resumeWith(Result.success(true))}
+            networkClient.onPublishFailure={
+                Log.i("UpdateTest","Publish fail")
+                cont.resumeWith(Result.success(false))}
+            Log.i("UpdateTest","Publish request todo")
             networkClient.publish(parser.encodeTopic(device),device.value.toString())
+            Log.i("UpdateTest","Publish request done")
         }
     }
 

@@ -10,5 +10,5 @@ data class Device (
     @NonNull @Embedded val room: Room = Room(),
     @NonNull @ColumnInfo(name = "deviceType")val type: DeviceType = DeviceType.UNKNOWN,
     @NonNull @ColumnInfo(name = "deviceNumber")val number:Int=0,
-    @NonNull @ColumnInfo(name = "deviceValue")val value:Int=0
+    @NonNull @ColumnInfo(name = "deviceValue") var value:Int=0
 )

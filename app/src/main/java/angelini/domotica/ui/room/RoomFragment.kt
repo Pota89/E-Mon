@@ -1,6 +1,7 @@
 package angelini.domotica.ui.room
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import angelini.domotica.MainApplication
 import angelini.domotica.databinding.FragmentRoomBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -29,10 +31,16 @@ class RoomFragment : Fragment() {
             .get(RoomViewModel::class.java)
         binding = FragmentRoomBinding.inflate(inflater, container, false)
 
-        val adapter = DeviceAdapter()
+        val adapter = DeviceAdapter{device->
+            lifecycle.coroutineScope.launch(Dispatchers.IO) {
+                Log.i("UpdateTest","Lanciata la callback")
+                viewModel.update(device)
+            }
+        }
+
         binding.deviceList.adapter = adapter
 
-        lifecycle.coroutineScope.launch {
+        lifecycle.coroutineScope.launch(Dispatchers.IO) {
             viewModel.getRoomDevices(args.roomType,args.roomNumber).collect {
                 adapter.submitList(it)
             }
