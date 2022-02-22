@@ -32,13 +32,11 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     init {
         networkClient.onMessageArrived={ topic, message ->
             Log.i("Test","topic $topic message $message")
-            MainScope().launch {
-                withContext(Dispatchers.IO) {
-                    val list=parser.decode(message)
-                    val userDao = db.deviceDao()
-                    for(element in list){
-                        userDao.insert(element)
-                    }
+            MainScope().launch(Dispatchers.IO) {
+                val list=parser.decode(message)
+                val userDao = db.deviceDao()
+                for(element in list){
+                    userDao.insert(element)
                 }
             }
         }
@@ -91,15 +89,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     suspend fun update(device: Device):Boolean{
         return suspendCoroutine { cont ->
-            networkClient.onPublishSuccess={
-                Log.i("UpdateTest","Publish success")
-                cont.resumeWith(Result.success(true))}
-            networkClient.onPublishFailure={
-                Log.i("UpdateTest","Publish fail")
-                cont.resumeWith(Result.success(false))}
-            Log.i("UpdateTest","Publish request todo")
+            networkClient.onPublishSuccess={cont.resumeWith(Result.success(true))}
+            networkClient.onPublishFailure={cont.resumeWith(Result.success(false))}
             networkClient.publish(parser.encodeTopic(device),device.value.toString())
-            Log.i("UpdateTest","Publish request done")
         }
     }
 

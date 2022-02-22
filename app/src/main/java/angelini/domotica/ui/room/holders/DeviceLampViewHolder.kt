@@ -1,6 +1,5 @@
 package angelini.domotica.ui.room.holders
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceLampBinding
@@ -14,9 +13,7 @@ class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding , priv
             else
                 item.value=0
 
-            Log.i("UpdateTest","Dentro al listener (prima di callback)")
             onUpdateCallback(item)
-            Log.i("UpdateTest","Dentro al listener (dopo la callback)")
         }
         binding.switchLamp.isChecked = item.value!=0//return true if value is different than 0
 

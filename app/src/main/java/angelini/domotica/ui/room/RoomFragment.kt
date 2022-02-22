@@ -33,7 +33,6 @@ class RoomFragment : Fragment() {
 
         val adapter = DeviceAdapter{device->
             lifecycle.coroutineScope.launch(Dispatchers.IO) {
-                Log.i("UpdateTest","Lanciata la callback")
                 viewModel.update(device)
             }
         }

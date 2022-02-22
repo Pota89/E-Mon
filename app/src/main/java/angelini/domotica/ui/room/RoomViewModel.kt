@@ -1,6 +1,5 @@
 package angelini.domotica.ui.room
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import angelini.domotica.repository.Repository
 import angelini.domotica.repository.datatypes.Device
@@ -14,8 +13,6 @@ class RoomViewModel(private val repository: Repository): ViewModel() {
     }
 
     suspend fun update(device: Device){
-        Log.i("UpdateTest","Prima di update repository")
         repository.update(device)
-        Log.i("UpdateTest","Dopo update repository")
     }
 }
