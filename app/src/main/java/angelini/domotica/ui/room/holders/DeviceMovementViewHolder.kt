@@ -1,6 +1,7 @@
 package angelini.domotica.ui.room.holders
 
 import androidx.recyclerview.widget.RecyclerView
+import angelini.domotica.R
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.databinding.ListItemDeviceMovementBinding
@@ -8,21 +9,19 @@ import angelini.domotica.databinding.ListItemDeviceMovementBinding
 class DeviceMovementViewHolder(private val binding: ListItemDeviceMovementBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {
-        val builder = StringBuilder()
+        if(item.value==0)
+            binding.movementImage.setImageResource(R.drawable.ic_sensor_movement_undetected)
+        else
+            binding.movementImage.setImageResource(R.drawable.ic_sensor_movement_detected)
 
-        when(item.type)
-        {
-            DeviceType.TEMPERATURE -> builder.append("Temperatura")
-            DeviceType.MOVEMENT -> builder.append("Movimento")
-            DeviceType.LAMP -> builder.append("Lampada")
-            else -> builder.append("Sconosciuto")
-        }
+        val builder = StringBuilder()
+        builder.append("Movimento")
 
         if (item.number!=0){
             builder.append(" ")
             builder.append(item.number)
         }
 
-        binding.deviceName.text=builder.toString()
+        binding.movementSensorName.text=builder.toString()
     }
 }

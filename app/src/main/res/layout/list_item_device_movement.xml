@@ -16,9 +16,11 @@
         android:id="@+id/movement_image"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_sensor_movement_undetected"/>
     <TextView
-        android:id="@+id/device_name"
+        android:id="@+id/movement_sensor_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

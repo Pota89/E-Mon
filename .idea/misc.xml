@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/ic_sensor_movement_detected.xml" value="0.1" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/ic_sensor_movement_on.xml" value="0.109" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/movement.xml" value="0.109" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/activity_main.xml" value="0.14114583333333333" />
@@ -14,7 +15,7 @@
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device.xml" value="0.13489583333333333" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_lamp.xml" value="0.14322916666666666" />
-        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_movement.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_movement.xml" value="0.16" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_temperature.xml" value="0.13125" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_unknown.xml" value="0.13125" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_room.xml" value="0.12916666666666668" />
