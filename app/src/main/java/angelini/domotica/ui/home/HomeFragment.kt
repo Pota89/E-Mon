@@ -1,13 +1,17 @@
 package angelini.domotica.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.fragment.findNavController
 import angelini.domotica.MainApplication
+import angelini.domotica.R
 import angelini.domotica.databinding.FragmentHomeBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 import kotlinx.coroutines.flow.collect
@@ -46,5 +50,16 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController()
+        if(!viewModel.isConnected()){
+            Log.i("Login", "Not authenticated, go to login")
+            navController.navigate(R.id.nav_login)
+        }
+        else
+            Log.i("Login", "Authenticated")
     }
 }

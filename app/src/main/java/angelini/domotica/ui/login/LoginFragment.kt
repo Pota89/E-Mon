@@ -1,12 +1,15 @@
 package angelini.domotica.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import angelini.domotica.MainApplication
+import angelini.domotica.R
 import angelini.domotica.databinding.FragmentLoginBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 
@@ -25,10 +28,15 @@ class LoginFragment : Fragment() {
             .get(LoginViewModel::class.java)
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        binding.buttonConnect.setOnClickListener {
+                val navController = findNavController()
+                navController.navigate(R.id.nav_home)
+            }
+        /*
         viewModel.text.observe(viewLifecycleOwner) {
             //TODO update bindings for login fragmnet
             //binding.textLogin.text = it
-        }
+        }*/
         return binding.root
     }
 }
