@@ -26,7 +26,8 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         viewModel.text.observe(viewLifecycleOwner) {
-            binding.textLogin.text = it
+            //TODO update bindings for login fragmnet
+            //binding.textLogin.text = it
         }
         return binding.root
     }
