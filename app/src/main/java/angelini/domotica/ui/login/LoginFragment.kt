@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import angelini.domotica.MainApplication
 import angelini.domotica.R
 import angelini.domotica.databinding.FragmentLoginBinding
+import angelini.domotica.repository.MQTT_PWD
+import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.ui.RepositoryViewModelFactory
 
 class LoginFragment : Fragment() {
@@ -31,6 +33,12 @@ class LoginFragment : Fragment() {
                 val navController = findNavController()
                 navController.navigate(R.id.nav_home)
             }
+
+        //TODO finire set user e password
+        binding.buttonPrefill.setOnClickListener {
+            binding.edittextUsername.text= MQTT_USERNAME
+            binding.edittextPassword.text= MQTT_PWD
+        }
         /*
         viewModel.text.observe(viewLifecycleOwner) {
             //TODO update bindings for login fragmnet
