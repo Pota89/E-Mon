@@ -1,7 +1,6 @@
 package angelini.domotica.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class LoginFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewModelFactory = RepositoryViewModelFactory((activity?.application as MainApplication).getRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(LoginViewModel::class.java)
