@@ -34,14 +34,13 @@ class LoginFragment : Fragment() {
                 navController.navigate(R.id.nav_home)
             }
 
-        //TODO finire set user e password
         binding.buttonPrefill.setOnClickListener {
-            binding.edittextUsername.text= MQTT_USERNAME
-            binding.edittextPassword.text= MQTT_PWD
+            binding.edittextUsername.setText(MQTT_USERNAME)
+            binding.edittextPassword.setText(MQTT_PWD)
         }
         /*
         viewModel.text.observe(viewLifecycleOwner) {
-            //TODO update bindings for login fragmnet
+            //TODO update bindings for login fragment
             //binding.textLogin.text = it
         }*/
         return binding.root
