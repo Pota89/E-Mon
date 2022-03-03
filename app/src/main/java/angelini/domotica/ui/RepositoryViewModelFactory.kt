@@ -11,12 +11,13 @@ import angelini.domotica.ui.settings.SettingsViewModel
 /**
  * Implementazione custom della classe ViewModelProvider.Factory
  *
- * Tale implementazione è necessaria affinchè il sistema oeprativo fornisca una e una sola
+ * Tale implementazione è necessaria affinchè il sistema operativo fornisca una e una sola
  * istanza per ciascun ViewModel per tutta l'esecuzione dell'applicazione includendo la dipendenza
  * dal Repository
  *
  */
 class RepositoryViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory{
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(repository) as T
