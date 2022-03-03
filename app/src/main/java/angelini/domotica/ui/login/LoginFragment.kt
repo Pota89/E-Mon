@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import angelini.domotica.MainApplication
 import angelini.domotica.R
@@ -13,6 +14,8 @@ import angelini.domotica.databinding.FragmentLoginBinding
 import angelini.domotica.repository.MQTT_PWD
 import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.ui.RepositoryViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
@@ -29,7 +32,11 @@ class LoginFragment : Fragment() {
             .get(LoginViewModel::class.java)
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        //TODO fix the double connect issue (maybe connected request is too fast)
         binding.buttonConnect.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.login(binding.edittextUsername.text.toString(), binding.edittextPassword.text.toString())
+            }
                 val navController = findNavController()
                 navController.navigate(R.id.nav_home)
             }

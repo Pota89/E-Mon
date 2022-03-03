@@ -3,8 +3,6 @@ package angelini.domotica
 import android.app.Application
 import android.content.Intent
 import android.os.Build
-import angelini.domotica.repository.MQTT_PWD
-import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.repository.Repository
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.network.NetworkClient
@@ -34,12 +32,7 @@ class MainApplication : Application() {
         ).build()
 
         networkClient= NetworkClient(applicationContext)
-
         repository=Repository(database,networkClient)
-
-        applicationIOScope.launch(Dispatchers.IO) {
-            repository.connect(MQTT_USERNAME, MQTT_PWD)
-        }
     }
 
     fun getRepository():Repository{ return repository}
