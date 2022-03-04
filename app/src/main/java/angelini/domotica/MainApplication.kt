@@ -20,11 +20,10 @@ class MainApplication : Application() {
         super.onCreate()
 
         //code required to launch services with Android Oreo and upper
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             applicationContext.startForegroundService(Intent(applicationContext, MqttService::class.java))
-        } else {
-            applicationContext.startService(Intent(applicationContext, MqttService::class.java))
-        }
+
+        applicationContext.startService(Intent(applicationContext, MqttService::class.java))
 
         database=androidx.room.Room.databaseBuilder(
             applicationContext,
