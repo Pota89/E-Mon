@@ -52,11 +52,7 @@ class LoginFragment : Fragment() {
             binding.edittextUsername.setText(MQTT_USERNAME)
             binding.edittextPassword.setText(MQTT_PWD)
         }
-        /*
-        viewModel.text.observe(viewLifecycleOwner) {
-            //TODO update bindings for login fragment
-            //binding.textLogin.text = it
-        }*/
+
         return binding.root
     }
 }
