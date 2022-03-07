@@ -41,7 +41,6 @@ class LoginFragment : Fragment() {
                     if (loginResult) {
                         val navController = findNavController()
                         navController.navigate(R.id.nav_home)
-
                     } else
                         Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
                 }
