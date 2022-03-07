@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.ui.RepositoryViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class LoginFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
@@ -32,14 +34,19 @@ class LoginFragment : Fragment() {
             .get(LoginViewModel::class.java)
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        //TODO fix the double connect issue (maybe connected request is too fast)
         binding.buttonConnect.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.login(binding.edittextUsername.text.toString(), binding.edittextPassword.text.toString())
+                val loginResult=viewModel.login(binding.edittextUsername.text.toString(), binding.edittextPassword.text.toString())
+                if(loginResult) {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val navController = findNavController()
+                        navController.navigate(R.id.nav_home)
+                    }
+                }
+                else
+                    Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
             }
-                val navController = findNavController()
-                navController.navigate(R.id.nav_home)
-            }
+        }
 
         binding.buttonPrefill.setOnClickListener {
             binding.edittextUsername.setText(MQTT_USERNAME)
