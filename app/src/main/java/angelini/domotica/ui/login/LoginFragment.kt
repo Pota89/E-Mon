@@ -37,14 +37,14 @@ class LoginFragment : Fragment() {
         binding.buttonConnect.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val loginResult=viewModel.login(binding.edittextUsername.text.toString(), binding.edittextPassword.text.toString())
-                if(loginResult) {
-                    lifecycleScope.launch(Dispatchers.Main) {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (loginResult) {
                         val navController = findNavController()
                         navController.navigate(R.id.nav_home)
-                    }
+
+                    } else
+                        Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
                 }
-                else
-                    Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
             }
         }
 
