@@ -40,6 +40,7 @@ class LoginFragment : Fragment() {
                 lifecycleScope.launch(Dispatchers.Main) {
                     if (loginResult) {
                         val navController = findNavController()
+                        navController.popBackStack(R.id.nav_home, true);
                         navController.navigate(R.id.nav_home)
                     } else
                         Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
