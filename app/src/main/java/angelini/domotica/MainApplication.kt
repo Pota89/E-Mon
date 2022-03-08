@@ -14,7 +14,6 @@ class MainApplication : Application() {
     private lateinit var database:CacheDatabase
     private lateinit var networkClient:NetworkClient
     private lateinit var repository:Repository
-    private val applicationIOScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onCreate() {
         super.onCreate()
@@ -37,7 +36,7 @@ class MainApplication : Application() {
     fun getRepository():Repository{ return repository}
 
     override fun onTerminate() {
-        applicationIOScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             repository.disconnect()
         }
         super.onTerminate()
