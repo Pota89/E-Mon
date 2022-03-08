@@ -12,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         //implement custom behavior for Logout item entry
         navView.menu.findItem(R.id.nav_login).setOnMenuItemClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                (applicationContext as MainApplication).getRepository().disconnect()
+            }
             Toast.makeText(applicationContext, "Logout", Toast.LENGTH_LONG).show()
             navController.navigate(R.id.nav_login)
             drawerLayout.closeDrawers();
