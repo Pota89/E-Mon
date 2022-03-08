@@ -1,6 +1,7 @@
 package angelini.domotica
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,7 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import angelini.domotica.repository.Repository
 import com.google.android.material.navigation.NavigationView
 
 
@@ -29,6 +29,14 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        //implement custom behavior for Logout item entry
+        navView.menu.findItem(R.id.nav_login).setOnMenuItemClickListener {
+            Toast.makeText(applicationContext, "Logout", Toast.LENGTH_LONG).show()
+            navController.navigate(R.id.nav_login)
+            drawerLayout.closeDrawers();
+            true
+        }
         navView.setupWithNavController(navController)
     }
 
