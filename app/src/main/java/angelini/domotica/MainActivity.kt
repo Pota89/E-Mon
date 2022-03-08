@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_login, R.id.nav_home), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         //implement custom behavior for Logout item entry
