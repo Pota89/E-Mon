@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">E-Mon</string>
+
+    <string name="navigation_drawer_open">Apri pannello navigazione</string>
+    <string name="navigation_drawer_close">Chiudi pannello navigazione</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Testata navigazione</string>
+    <string name="action_settings">Impostazioni</string>
+
+    <string name="menu_home">Principale</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="menu_logout">Disconnetti</string>
+    <string name="room_icon">icona stanza</string>
+
+    <!--strings for Login fragment-->
+    <string name="button_connect_text">Connetti</string>
+    <string name="button_prefill_text">Riempi</string>
+    <string name="button_clean_text">Svuota</string>
+    <string name="username_text">Utente</string>
+    <string name="password_text">Password</string>
+</resources>

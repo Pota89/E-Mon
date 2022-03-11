@@ -15,6 +15,7 @@ class MainApplication : Application() {
     private lateinit var networkClient:NetworkClient
     private lateinit var repository:Repository
 
+
     override fun onCreate() {
         super.onCreate()
 
