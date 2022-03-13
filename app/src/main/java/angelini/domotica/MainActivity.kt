@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     //TODO verificare se si può spostare a livello di MainApplication
     /**
      * Sovrascrive alcune informazioni del context fornite dal sistema operativo
@@ -81,9 +82,10 @@ class MainActivity : AppCompatActivity() {
      * E' una classe wrapper che fornisce un locale e un tema diversi da quelli
      * di default del sistema operativo
      */
+    /*
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(
             LocaleService.updateBaseContextLocale(newBase)
         )
-    }
+    }*/
 }

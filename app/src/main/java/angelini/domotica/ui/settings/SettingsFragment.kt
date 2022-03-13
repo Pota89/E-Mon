@@ -20,7 +20,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var viewModel: SettingsViewModel
     private lateinit var binding: FragmentSettingsBinding
 
-    /*
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.preferences, rootKey)
+    }
+/*
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -36,7 +39,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         return binding.root
     }*/
-
+/*
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_layout, rootKey)
@@ -119,5 +122,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val LANGUAGE_DE = "de"
         const val LANGUAGE_CS = "cs"
         const val THEME_NIGHT = "night"
-    }
+    }*/
 }
