@@ -39,6 +39,22 @@ class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
         viewModel.text.observe(viewLifecycleOwner) {
             binding.textSettings.text = it
         }
+
+        binding.buttonEnglish.setOnClickListener {
+            requireContext()
+                .getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).apply {
+                    put(PREF_TITLE_LANG, "en")
+                }
+            requireActivity().recreate()
+        }
+
+        binding.buttonItalian.setOnClickListener {
+            requireContext()
+                .getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).apply {
+                    put(PREF_TITLE_LANG, "it")
+                }
+            requireActivity().recreate()
+        }
         return binding.root
     }
 

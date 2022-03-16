@@ -15,7 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import angelini.domotica.utility.LocaleService
+import angelini.domotica.utility.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
 import java.util.*
@@ -76,14 +76,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     /**
      * Sovrascrive alcune informazioni del context fornite dal sistema operativo
      *
      * Fornisce una lingua e un tema diversi da quelli di default del sistema operativo
      */
     override fun attachBaseContext(baseContext: Context) {
-        val language = "it"
+        val sharedPreferences = baseContext.getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE)
+        val language = sharedPreferences.get(PREF_TITLE_LANG, LANGUAGE_DEFAULT)
         val locale = Locale(language)
         Locale.setDefault(locale)
 
