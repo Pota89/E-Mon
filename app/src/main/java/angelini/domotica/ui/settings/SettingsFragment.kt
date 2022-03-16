@@ -39,8 +39,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         return binding.root
     }*/
-/*
 
+/*
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_layout, rootKey)
 

@@ -28,7 +28,7 @@
     <string name="lang_es" translatable="false">Spanish</string>
     <string name="lang_de" translatable="false">German</string>
     <string name="lang_cz" translatable="false">Czech</string>
-    <string name="language_array_title">Language</string>
+    <string name="language_array_title" translatable="false">Language</string>
     <string-array name="language_array">
         <item>@string/lang_pl</item>
         <item>@string/lang_en</item>
@@ -37,18 +37,18 @@
         <item>@string/lang_cz</item>
     </string-array>
 
-    <string name="theme_day">Day</string>
-    <string name="theme_night">Night</string>
-    <string name="theme_array_title">Theme</string>
+    <string name="theme_day" translatable="false">Day</string>
+    <string name="theme_night" translatable="false">Night</string>
+    <string name="theme_array_title" translatable="false">Theme</string>
     <string-array name="theme_array">
         <item>@string/theme_day</item>
         <item>@string/theme_night</item>
     </string-array>
 
     <!-- Preference Titles -->
-    <string name="ui">UI</string>
-    <string name="theme_mode">Dark Mode</string>
-    <string name="theme_mode_def_value">MODE_NIGHT_FOLLOW_SYSTEM</string>
+    <string name="ui" translatable="false">UI</string>
+    <string name="theme_mode" translatable="false">Dark Mode</string>
+    <string name="theme_mode_def_value" translatable="false">MODE_NIGHT_FOLLOW_SYSTEM</string>
 
     <!-- Dark Mode ListPreference -->
     <string-array name="theme_mode_entries">
