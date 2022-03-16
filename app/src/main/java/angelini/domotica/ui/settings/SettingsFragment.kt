@@ -15,15 +15,17 @@ import angelini.domotica.databinding.FragmentSettingsBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 import angelini.domotica.utility.*
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: SettingsViewModel
     private lateinit var binding: FragmentSettingsBinding
 
+    /*
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-    }
-/*
+    }*/
+
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -38,7 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             binding.textSettings.text = it
         }
         return binding.root
-    }*/
+    }
 
 /*
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

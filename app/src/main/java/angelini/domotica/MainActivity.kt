@@ -1,6 +1,7 @@
 package angelini.domotica
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import angelini.domotica.utility.LocaleService
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -75,17 +77,19 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //TODO verificare se si può spostare a livello di MainApplication
     /**
      * Sovrascrive alcune informazioni del context fornite dal sistema operativo
      *
-     * E' una classe wrapper che fornisce un locale e un tema diversi da quelli
-     * di default del sistema operativo
+     * Fornisce una lingua e un tema diversi da quelli di default del sistema operativo
      */
-    /*
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(
-            LocaleService.updateBaseContextLocale(newBase)
-        )
-    }*/
+    override fun attachBaseContext(baseContext: Context) {
+        val language = "it"
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        val configuration: Configuration = baseContext.resources.configuration
+        configuration.setLocale(locale)
+        val newContext=baseContext.createConfigurationContext(configuration)
+        super.attachBaseContext(newContext)
+    }
 }
