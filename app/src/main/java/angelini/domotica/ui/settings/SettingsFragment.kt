@@ -41,18 +41,16 @@ class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
         }
 
         binding.buttonEnglish.setOnClickListener {
-            requireContext()
-                .getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).apply {
-                    put(PREF_TITLE_LANG, "en")
-                }
+            val editor=requireContext().getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).edit()
+            editor.putString(PREF_TITLE_LANG,  "en")
+            editor.apply()
             requireActivity().recreate()
         }
 
         binding.buttonItalian.setOnClickListener {
-            requireContext()
-                .getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).apply {
-                    put(PREF_TITLE_LANG, "it")
-                }
+            val editor=requireContext().getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE).edit()
+            editor.putString(PREF_TITLE_LANG,  "it")
+            editor.apply()
             requireActivity().recreate()
         }
         return binding.root

@@ -8,8 +8,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import java.util.*
 
+//TODO rimuovere una volta terminata implementazione tema
 object LocaleService {
-
+/*
     fun updateBaseContextLocale(context: Context): Context {
         val language = getLanguageFromPreferences(context)
         val locale = Locale(language)
@@ -44,5 +45,5 @@ object LocaleService {
     private fun getLanguageFromPreferences(context: Context): String {
         val sharedPreferences = context.getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.get(PREF_TITLE_LANG, LANGUAGE_DEFAULT)
-    }
+    }*/
 }
