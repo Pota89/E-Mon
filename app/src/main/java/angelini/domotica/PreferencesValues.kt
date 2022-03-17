@@ -1,4 +1,4 @@
-package angelini.domotica.utility
+package angelini.domotica
 
 const val PREF_TITLE_LANG = "appLanguage"
 const val PREF_TITLE_THEME = "appTheme"

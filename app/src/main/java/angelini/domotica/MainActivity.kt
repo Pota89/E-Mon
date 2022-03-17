@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun attachBaseContext(baseContext: Context) {
         val sharedPreferences = baseContext.getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE)
-        val language = sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)
+        val language = sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)!!
         val locale = Locale(language)
         Locale.setDefault(locale)
 

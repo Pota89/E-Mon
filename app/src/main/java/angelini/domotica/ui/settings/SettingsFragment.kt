@@ -2,18 +2,16 @@ package angelini.domotica.ui.settings
 
 import android.content.Context
 import android.os.Bundle
-import android.preference.ListPreference
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.PreferenceFragmentCompat
 import angelini.domotica.MainApplication
-import angelini.domotica.R
+import angelini.domotica.PREF_DB_NAME
+import angelini.domotica.PREF_TITLE_LANG
 import angelini.domotica.databinding.FragmentSettingsBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
-import angelini.domotica.utility.*
 
 class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
