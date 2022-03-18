@@ -7,23 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceFragmentCompat
 import angelini.domotica.MainApplication
 import angelini.domotica.PREF_DB_NAME
 import angelini.domotica.PREF_TITLE_LANG
+import angelini.domotica.R
 import angelini.domotica.databinding.FragmentSettingsBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 
-class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat() {
+    /*
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: SettingsViewModel
     private lateinit var binding: FragmentSettingsBinding
+*/
 
-    /*
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences, rootKey)
-    }*/
+        setPreferencesFromResource(R.xml.preference_layout, rootKey)
+    }
 
-
+/*
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -52,7 +55,7 @@ class SettingsFragment : Fragment() { //PreferenceFragmentCompat() {
             requireActivity().recreate()
         }
         return binding.root
-    }
+    }*/
 
 /*
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
