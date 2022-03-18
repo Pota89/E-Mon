@@ -6,7 +6,6 @@ import angelini.domotica.repository.Repository
 import angelini.domotica.ui.home.HomeViewModel
 import angelini.domotica.ui.login.LoginViewModel
 import angelini.domotica.ui.room.RoomViewModel
-import angelini.domotica.ui.settings.SettingsViewModel
 
 /**
  * Implementazione custom della classe ViewModelProvider.Factory
@@ -27,9 +26,6 @@ class RepositoryViewModelFactory(private val repository: Repository) : ViewModel
         }
         if (modelClass.isAssignableFrom(RoomViewModel::class.java)) {
             return RoomViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-            return SettingsViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
