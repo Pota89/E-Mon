@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EMon">
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.EMon.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
