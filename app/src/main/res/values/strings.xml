@@ -33,12 +33,17 @@
         <item>en</item>
     </string-array>
 
-    <string name="theme_day" translatable="false">Day</string>
-    <string name="theme_night" translatable="false">Night</string>
+    <string name="theme_day">Day</string>
+    <string name="theme_night">Night</string>
     <string name="theme_array_title" translatable="false">Theme</string>
     <string-array name="theme_array">
         <item>@string/theme_day</item>
         <item>@string/theme_night</item>
+    </string-array>
+
+    <string-array name="theme_array_entry">
+        <item>day</item>
+        <item>night</item>
     </string-array>
 
     <!-- Preference Titles -->

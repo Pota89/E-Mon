@@ -23,4 +23,6 @@
     <string name="lang_it">Italiano</string>
     <string name="lang_en">Inglese</string>
     <string name="language_array_title">Lingua</string>
+    <string name="theme_day">Giorno</string>
+    <string name="theme_night">Notte</string>
 </resources>

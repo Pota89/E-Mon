@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -84,13 +85,20 @@ class MainActivity : AppCompatActivity() {
      */
     override fun attachBaseContext(baseContext: Context) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
+
         val language = sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)!!
         val locale = Locale(language)
         Locale.setDefault(locale)
-
         val configuration: Configuration = baseContext.resources.configuration
         configuration.setLocale(locale)
         val newContext=baseContext.createConfigurationContext(configuration)
+
+        when (sharedPreferences.getString(PREF_TITLE_LANG, THEME_DEFAULT)!!) {
+            THEME_DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            else ->AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            //TODO System default - MODE_NIGHT_FOLLOW_SYSTEM
+        }
+
         super.attachBaseContext(newContext)
     }
 }
