@@ -1,9 +1,9 @@
 package angelini.domotica
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import angelini.domotica.utility.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
      * Fornisce una lingua e un tema diversi da quelli di default del sistema operativo
      */
     override fun attachBaseContext(baseContext: Context) {
-        val sharedPreferences = baseContext.getSharedPreferences(PREF_DB_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
         val language = sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)!!
         val locale = Locale(language)
         Locale.setDefault(locale)
