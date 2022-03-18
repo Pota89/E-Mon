@@ -1,7 +1,9 @@
 package angelini.domotica.ui.settings
 
 import android.os.Bundle
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import angelini.domotica.PREF_TITLE_LANG
 import angelini.domotica.R
 
 /**
@@ -14,6 +16,12 @@ import angelini.domotica.R
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences_settings, rootKey)
+
+        val languagePreference:Preference = findPreference(PREF_TITLE_LANG)!!
+        languagePreference.setOnPreferenceChangeListener { _,_ ->
+            requireActivity().recreate()
+            true
+        }
     }
 
 /*
