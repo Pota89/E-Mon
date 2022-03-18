@@ -28,6 +28,10 @@
         <item>@string/lang_it</item>
         <item>@string/lang_en</item>
     </string-array>
+    <string-array name="language_array_entry">
+        <item>it</item>
+        <item>en</item>
+    </string-array>
 
     <string name="theme_day" translatable="false">Day</string>
     <string name="theme_night" translatable="false">Night</string>

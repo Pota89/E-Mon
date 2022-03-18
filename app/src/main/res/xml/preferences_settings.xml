@@ -4,7 +4,7 @@
 
     <ListPreference
         app:entries="@array/language_array"
-        app:entryValues="@array/language_array"
+        app:entryValues="@array/language_array_entry"
         app:key="appLanguage"
         app:title="@string/language_array_title"
         app:useSimpleSummaryProvider="true" />
