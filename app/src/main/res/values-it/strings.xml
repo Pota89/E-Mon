@@ -20,4 +20,7 @@
     <string name="button_clean_text">Svuota</string>
     <string name="username_text">Utente</string>
     <string name="password_text">Password</string>
+    <string name="lang_it">Italiano</string>
+    <string name="lang_en">Inglese</string>
+    <string name="language_array_title">Lingua</string>
 </resources>
