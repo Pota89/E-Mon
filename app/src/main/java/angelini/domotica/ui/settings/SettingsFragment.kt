@@ -4,6 +4,13 @@ import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import angelini.domotica.R
 
+/**
+ * Fragment per selezionare le impostazioni dell'applicazione
+ *
+ * Questa classe eredita dalla classe di Android PreferenceFragmentCompat, la quale
+ * provvede a generare il layout e l'interazione per le impostazioni a partire
+ * dal file XML preferences_settings.xml
+ */
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences_settings, rootKey)
