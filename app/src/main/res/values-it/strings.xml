@@ -25,4 +25,6 @@
     <string name="language_array_title">Lingua</string>
     <string name="theme_day">Giorno</string>
     <string name="theme_night">Notte</string>
+    <string name="theme_system">Sistema</string>
+    <string name="theme_array_title">Tema</string>
 </resources>
