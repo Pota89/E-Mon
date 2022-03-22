@@ -11,7 +11,7 @@
 
     <ListPreference
         app:entries="@array/theme_array"
-        app:entryValues="@array/theme_array"
+        app:entryValues="@array/theme_array_entry"
         app:key="appTheme"
         app:title="@string/theme_array_title"
         app:useSimpleSummaryProvider="true" />
