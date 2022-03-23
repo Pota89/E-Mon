@@ -1,11 +1,8 @@
 package angelini.domotica.repository.network
 
 import angelini.domotica.repository.datatypes.Device
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.junit.Assert.*
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
