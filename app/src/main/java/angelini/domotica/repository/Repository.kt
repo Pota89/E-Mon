@@ -15,6 +15,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * Sorgente principale d'informazioni per l'applicativo
+ *
+ * Si occupa di astrarre i dettagli riguardanti il reperimento e la gestione dei dati
+ * utilizzati dall'applicativo.
+ * Riduce al minimo le richieste di aggiornamento dello stato dell'abitazione mantenendo
+ * una copia in locale allineata allo stato del server MQTT tramite aggiornamenti dei
+ * singoli feeds.
+ *
+ * @property database database usato come cache per i dati provenienti dalla rete
+ * @property network classe di rete, definito come interfaccia per permettere il testing
+ * della classe Repository tramite mockup
+ */
 class Repository(database:CacheDatabase, network: INetworkClient) {
 
     private val db=database
@@ -24,6 +37,15 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
     val devicesList: Flow<List<Device>> =db.deviceDao().getAllDevices()
     val roomsList: Flow<List<Room>> =db.deviceDao().getRoomList()
 
+    /**
+     * Restituisce il riferimento alla lista di Device della singola Room
+     *
+     * Il tipo di ritorno è Flow, si comporta similmente a un puntatore all'ultimo elemento
+     * di una coda e permette di mantenere all'interno della variabile la lista
+     * sempre aggiornata
+     *
+     * @property room Room di cui si vuole ottenere i Device presenti
+     */
     fun getRoomDevicesList(room:Room): Flow<List<Device>> {
         return db.deviceDao().getRoomDevices(room.type,room.number)
     }
@@ -44,6 +66,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
     /**
      * Connessione del repository alla sorgente dati remota
+     *
+     * @property username utente per l'accesso al server MQTT
+     * @property password password per l'accesso al server MQTT
      */
     suspend fun connect(username:String,password:String):Boolean {
         if(networkClient.isConnected())
@@ -53,9 +78,6 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
 
         val userDao = db.deviceDao()
         userDao.deleteAll()
-/*
-        val bedroomTest= Device(Room(RoomType.BEDROOM,6), DeviceType.TEMPERATURE,6,66)
-        userDao.insert(bedroomTest)*/
 
         val connectionResult:Boolean=suspendCoroutine { cont ->
             networkClient.onConnectionSuccess={cont.resumeWith(Result.success(true))}
@@ -87,6 +109,14 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         return true
     }
 
+    /**
+     * Aggiorna lo stato in remoto di un singolo Device
+     *
+     * Il repository manda la richiesta di aggiornamento al server MQTT, non aggiorna direttamente
+     * il database cache ma attende la risposta dal server MQTT
+     *
+     * @property device Device di cui aggiornare il valore in remoto
+     */
     suspend fun update(device: Device):Boolean{
         return suspendCoroutine { cont ->
             networkClient.onPublishSuccess={cont.resumeWith(Result.success(true))}
@@ -95,6 +125,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         }
     }
 
+    /**
+     * Effettua la disconnessione dal server MQTT
+     */
     suspend fun disconnect() {
         return suspendCoroutine { cont ->
             networkClient.onDisconnectSuccess={cont.resumeWith(Result.success(Unit))}
@@ -103,6 +136,9 @@ class Repository(database:CacheDatabase, network: INetworkClient) {
         }
     }
 
+    /**
+     * Verifica se il server MQTT è connesso
+     */
     fun isConnected():Boolean{
         return networkClient.isConnected()
     }
