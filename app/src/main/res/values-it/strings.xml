@@ -27,4 +27,5 @@
     <string name="theme_night">Notte</string>
     <string name="theme_system">Sistema</string>
     <string name="theme_array_title">Tema</string>
+    <string name="lang_system">Sistema</string>
 </resources>

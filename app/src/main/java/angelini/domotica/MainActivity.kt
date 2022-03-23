@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -80,18 +81,26 @@ class MainActivity : AppCompatActivity() {
     /**
      * Sovrascrive alcune informazioni del context fornite dal sistema operativo
      *
-     * Fornisce una lingua e un tema diversi da quelli di default del sistema operativo
+     * Fornisce opzionalmente una lingua e un tema diversi da quelli di default
+     * del sistema operativo
      */
     override fun attachBaseContext(baseContext: Context) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
 
-        val language = sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)!!
-        val locale = Locale(language)
-        Locale.setDefault(locale)
+        var systemLanguage=Locale.getDefault().language;
+        if(systemLanguage!="en" && systemLanguage!="it") //force english if system language is not supported
+            systemLanguage="en"
+
+        val locale= when (sharedPreferences.getString(PREF_TITLE_LANG, LANGUAGE_DEFAULT)!!) {
+            "system" -> Locale(systemLanguage)
+            "en" -> Locale("en")
+            "it" ->Locale("it")
+            else ->Locale(systemLanguage)
+        }
+
         val configuration: Configuration = baseContext.resources.configuration
         configuration.setLocale(locale)
         val newContext=baseContext.createConfigurationContext(configuration)
-
         when (sharedPreferences.getString(PREF_TITLE_THEME, THEME_DEFAULT)!!) {
             THEME_DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             THEME_DAY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
