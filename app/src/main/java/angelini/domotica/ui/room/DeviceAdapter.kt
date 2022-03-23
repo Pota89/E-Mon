@@ -5,16 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import angelini.domotica.databinding.*
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.DeviceType
-import angelini.domotica.databinding.ListItemDeviceUnknownBinding
-import angelini.domotica.databinding.ListItemDeviceLampBinding
-import angelini.domotica.databinding.ListItemDeviceMovementBinding
-import angelini.domotica.databinding.ListItemDeviceTemperatureBinding
-import angelini.domotica.ui.room.holders.DeviceLampViewHolder
-import angelini.domotica.ui.room.holders.DeviceMovementViewHolder
-import angelini.domotica.ui.room.holders.DeviceTemperatureViewHolder
-import angelini.domotica.ui.room.holders.DeviceUnknownViewHolder
+import angelini.domotica.ui.room.holders.*
 
 /**
  * Adatta la visualizzazione a seconda del tipo di Device
@@ -54,6 +48,15 @@ class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapte
                 onUpdateCallback
             )
 
+            DeviceType.SHUTTER -> return DeviceShutterViewHolder(
+                ListItemDeviceShutterBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                onUpdateCallback
+            )
+
             else -> return DeviceUnknownViewHolder(
                 ListItemDeviceUnknownBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -70,12 +73,14 @@ class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapte
         return item.type.ordinal//return Int equivalent of DeviceType Enum
     }
 
+    //TODO definire caso di astrazione con ViewHolder?
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val device = getItem(position)
         when(DeviceType.values()[holder.itemViewType]){//get DeviceType enum from viewType
             DeviceType.TEMPERATURE -> (holder as DeviceTemperatureViewHolder).bind(device)
             DeviceType.MOVEMENT -> (holder as DeviceMovementViewHolder).bind(device)
             DeviceType.LAMP -> (holder as DeviceLampViewHolder).bind(device)
+            DeviceType.SHUTTER -> (holder as DeviceShutterViewHolder).bind(device)
             else -> (holder as DeviceUnknownViewHolder).bind(device)
         }
     }
