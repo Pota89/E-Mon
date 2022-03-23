@@ -20,7 +20,6 @@ class DeviceShutterViewHolder(private val binding: ListItemDeviceShutterBinding,
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 item.value=seekBar!!.progress
-                Log.i("SeekBar",item.value.toString())
                 onUpdateCallback(item)
             }
 
