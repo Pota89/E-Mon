@@ -1,6 +1,5 @@
 package angelini.domotica.ui.room.holders
 
-import android.util.Log
 import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.repository.datatypes.Device
@@ -22,7 +21,6 @@ class DeviceShutterViewHolder(private val binding: ListItemDeviceShutterBinding,
                 item.value=seekBar!!.progress
                 onUpdateCallback(item)
             }
-
         })
 
         val builder = StringBuilder()
