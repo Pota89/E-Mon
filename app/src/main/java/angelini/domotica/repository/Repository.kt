@@ -3,16 +3,13 @@ package angelini.domotica.repository
 import android.util.Log
 import angelini.domotica.repository.db.CacheDatabase
 import angelini.domotica.repository.datatypes.Device
-import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.repository.datatypes.Room
-import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.repository.network.INetworkClient
 import angelini.domotica.repository.network.Parser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.suspendCoroutine
 
 /**

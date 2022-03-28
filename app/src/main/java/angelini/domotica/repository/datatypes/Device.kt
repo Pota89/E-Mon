@@ -5,6 +5,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 
+/**
+ * Classe dati che definisce la struttura di un Device
+ *
+ * Le annotazioni servono per la generazione della tabella nel database
+ * generato dalla libreria Room di Android
+ */
 @Entity(primaryKeys = ["roomType", "roomNumber", "deviceType", "deviceNumber"])
 data class Device (
     @NonNull @Embedded val room: Room = Room(),
