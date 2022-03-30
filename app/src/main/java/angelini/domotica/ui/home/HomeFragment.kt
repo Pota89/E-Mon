@@ -30,6 +30,13 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
+    /**
+     * Esegue le inizializzazioni prima di creare la schermata
+     *
+     * Metodo ereditato da Fragment e richiamato automaticamente dal sistema operativo
+     * prima di creare la View per la prima volta.
+     * Effettua le operazioni necessarie per collegare il ViewModel con la View.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +58,15 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Verifica la corretta connessione al repository, altrimenti torna al login
+     *
+     * Metodo ereditato da Fragment e richiamato automaticamente dal sistema operativo
+     * dopo aver creato la View per la prima volta.
+     * Vengono effettuate le operazioni che necessitano di avere la View inflated
+     * (intesa come generata a partire dal file XML),nel caso specifico, il metodo
+     * "findNavController()" richiede una View inflated per funzionare.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()

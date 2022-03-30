@@ -7,8 +7,9 @@ import angelini.domotica.repository.datatypes.Room
 import angelini.domotica.repository.datatypes.RoomType
 import angelini.domotica.databinding.ListItemRoomBinding
 
-//code to configure a single row of Room in HomeFragment
-
+/**
+ * Definisce come deve essere riempita la singola View a partire dall'item
+ */
 class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Room)  {
@@ -48,7 +49,6 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
             builder.append(item.number)
         }
 
-        //TODO fix the listener with Flow
         //navigation to selected room
         binding.root.setOnClickListener {
             val direction = HomeFragmentDirections.actionNavHomeToRoomFragment()
