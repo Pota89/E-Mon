@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -22,12 +21,20 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
 import java.util.*
 
-
+/**
+ * Activity che ospita i diversi Fragment dell'applicativo
+ *
+ * Il suo scopo è quello di fornire uno scheletro all'interfaccia e fornire il supporto
+ * alla navigazione, in particolare alla navigazione condizionale del login
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var navView: NavigationView
 
+    /**
+     * Inizializza l'activity impostando la logica di navigazione
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,6 +66,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    /**
+     * Funzionalità di navigazione nella Topbar
+     *
+     * Fornisce la possibilità di navigare all'indietro se in un Fragment secondario.
+     * Se in un fragment top level come Login o Home, permette l'apertura del drawer
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.fragment_container)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -82,12 +95,14 @@ class MainActivity : AppCompatActivity() {
      * Sovrascrive alcune informazioni del context fornite dal sistema operativo
      *
      * Fornisce opzionalmente una lingua e un tema diversi da quelli di default
-     * del sistema operativo
+     * del sistema operativo.
+     * Il metodo viene chiamato ogni volta che l'app viene avviata, compresi
+     * i riavvi su richiesta dell'app stessa
      */
     override fun attachBaseContext(baseContext: Context) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
 
-        var systemLanguage=Locale.getDefault().language;
+        var systemLanguage=Locale.getDefault().language
         if(systemLanguage!="en" && systemLanguage!="it") //force english if system language is not supported
             systemLanguage="en"
 
