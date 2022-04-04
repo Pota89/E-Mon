@@ -15,8 +15,8 @@ import angelini.domotica.ui.room.holders.*
  *
  * Ogni tipo di Device ha una sua visualizzazione personalizzata ma tutte ereditano
  * dalla classe generica View.
- * Al costruttore di passa una callback di un metodo del ViewModel
- * per notificarlo dell'aggiornamento dell'interfaccia utente.
+ * Al costruttore si passa una callback di un metodo del ViewModel
+ * per notificarlo quando è necessario aggiornare l'interfaccia grafica.
  */
 class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapter<Device, RecyclerView.ViewHolder>(DeviceDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

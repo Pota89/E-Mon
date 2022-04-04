@@ -33,6 +33,13 @@ class RoomFragment : Fragment() {
     private lateinit var binding: FragmentRoomBinding
     private val args: RoomFragmentArgs by navArgs()
 
+    /**
+     * Esegue le inizializzazioni prima di creare la schermata
+     *
+     * Metodo ereditato da Fragment e richiamato automaticamente dal sistema operativo
+     * prima di creare la View per la prima volta.
+     * Effettua le operazioni necessarie per collegare il ViewModel con la View.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
