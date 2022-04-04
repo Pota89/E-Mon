@@ -86,12 +86,29 @@ class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapte
     }
 }
 
+/**
+ * Definisce se gli elementi di una nuova lista sono gli stessi della vecchia.
+ *
+ * RecyclerView quando deve fare gli aggiornamenti opera valutando le differenze tra
+ * le liste, per ottimizzare il consumo di memoria ricicla le View già create cambiando
+ * solo il contenuto
+ */
 private class DeviceDiffCallback : DiffUtil.ItemCallback<Device>() {
-
+    /**
+     * Indica se stiamo valutando lo stesso elemento ma con valori eventualmente cambiati
+     */
     override fun areItemsTheSame(oldItem: Device, newItem: Device): Boolean {
         return oldItem.room.type == newItem.room.type && oldItem.room.number == newItem.room.number && oldItem.type == newItem.type && oldItem.number == newItem.number
     }
 
+    /**
+     * Indica se l'elemento valutato è uguale in tutto
+     *
+     * Significa che l'elemento è rimasto immutato tra la vecchia e la nuova lista a
+     * disposizione di RecyclerView.
+     * Sfruttando la definizione come "data class" di Device ereditiamo il metodo
+     * che permette di fare uguaglianze tra oggetti
+     */
     override fun areContentsTheSame(oldItem: Device, newItem: Device): Boolean {
         return oldItem == newItem
     }
