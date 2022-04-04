@@ -15,6 +15,14 @@ import angelini.domotica.R
  * dal file XML preferences_settings.xml
  */
 class SettingsFragment : PreferenceFragmentCompat() {
+    /**
+     * Effettua l'inflate dall'XML e imposta i relativi listener
+     *
+     * Metodo ereditato da PreferenceFragmentCompat, effettua l'inflate dall'XML
+     * preferences_settings e imposta dei listener per quando vengono cambiate le preferenze.
+     * I listener si occupano di riavviare l'applicazione per rendere effettive le
+     * preferenze modificate.
+     */
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences_settings, rootKey)
 

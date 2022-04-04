@@ -16,6 +16,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+/**
+ * Classe per la visualizzazione della pagina Room
+ *
+ * E' la schermata di dettaglio della singla Room e mostra i Device ivi presenti.
+ *
+ * Riguarda la schermata principale del programma, recupera le informazioni
+ * da HomeViewModel e mostra la lista delle stanze disponibili
+ * Alla selezione della stanza da parte dell'utente deve permettere il movimento
+ * verso il Fragment di dettaglio (RoomFragment)
+ *
+ */
 class RoomFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: RoomViewModel

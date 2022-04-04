@@ -12,8 +12,7 @@ import angelini.domotica.ui.room.RoomViewModel
  *
  * Tale implementazione è necessaria affinchè il sistema operativo fornisca una e una sola
  * istanza per ciascun ViewModel per tutta l'esecuzione dell'applicazione includendo la dipendenza
- * dal Repository
- *
+ * dal Repository.
  */
 class RepositoryViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory{
     @Suppress("UNCHECKED_CAST")

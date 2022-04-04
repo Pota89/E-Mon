@@ -18,7 +18,13 @@ import angelini.domotica.ui.RepositoryViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+/**
+ * Classe per la visualizzazione della pagina Login
+ *
+ * E' la prima schermata del programma, permette di inserire le credenziali di login
+ * e di entrare nelle impostazioni.
+ *
+ */
 class LoginFragment : Fragment() {
     private lateinit var viewModelFactory: RepositoryViewModelFactory
     private lateinit var viewModel: LoginViewModel

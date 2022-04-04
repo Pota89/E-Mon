@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Classe intermedia tra la View e il Repository.
  *
- * Eventuali manipolazioni di logica dati tra Repository e View
+ * Eventuali manipolazioni di logica dati tra Repository e HomeFragment
  * vanno effettuate in questa classe
+ *
+ * @property repository repository fornito da RepositoryViewModelFactory
  */
 class HomeViewModel(private val repository: Repository): ViewModel(){
     val rooms: Flow<List<Room>>
