@@ -40,6 +40,17 @@
     <string name="theme_day">Day</string>
     <string name="theme_night">Night</string>
     <string name="theme_array_title">Theme</string>
+    <string name="room_bedroom">Bedroom</string>
+    <string name="room_bathroom">Bathroom</string>
+    <string name="room_kitchen">Kitchen</string>
+    <string name="room_lounge">Lounge</string>
+    <string name="room_study">Study</string>
+    <string name="room_garage">Garage</string>
+    <string name="room_hall">Hall</string>
+    <string name="room_dining">Dining room</string>
+    <string name="room_hallway">Hallway</string>
+    <string name="room_unknown">Unknown</string>
+
     <string-array name="theme_array">
         <item>@string/theme_system</item>
         <item>@string/theme_day</item>

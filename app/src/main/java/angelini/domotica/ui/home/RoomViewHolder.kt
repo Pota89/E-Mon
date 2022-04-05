@@ -31,17 +31,18 @@ class RoomViewHolder(private val binding: ListItemRoomBinding) : RecyclerView.Vi
         //room string
         val builder = StringBuilder()
 
+        val viewContext=binding.root.context
         when (item.type) {
-            RoomType.BATHROOM -> builder.append("Bagno")
-            RoomType.BEDROOM -> builder.append("Camera")
-            RoomType.KITCHEN -> builder.append("Cucina")
-            RoomType.LOUNGE -> builder.append("Soggiorno")
-            RoomType.STUDY -> builder.append("Studio")
-            RoomType.GARAGE -> builder.append("Garage")
-            RoomType.HALL -> builder.append("Ingresso")
-            RoomType.DINING -> builder.append("Sala da pranzo")
-            RoomType.HALLWAY -> builder.append("Corridoio")
-            else -> builder.append("Sconosciuto")
+            RoomType.BATHROOM -> builder.append(viewContext.getString(R.string.room_bathroom))
+            RoomType.BEDROOM -> builder.append(viewContext.getString(R.string.room_bedroom))
+            RoomType.KITCHEN -> builder.append(viewContext.getString(R.string.room_kitchen))
+            RoomType.LOUNGE -> builder.append(viewContext.getString(R.string.room_lounge))
+            RoomType.STUDY -> builder.append(viewContext.getString(R.string.room_study))
+            RoomType.GARAGE -> builder.append(viewContext.getString(R.string.room_garage))
+            RoomType.HALL -> builder.append(viewContext.getString(R.string.room_hall))
+            RoomType.DINING -> builder.append(viewContext.getString(R.string.room_dining))
+            RoomType.HALLWAY -> builder.append(viewContext.getString(R.string.room_hallway))
+            else -> builder.append(viewContext.getString(R.string.room_unknown))
         }
 
         if (item.number!=0){

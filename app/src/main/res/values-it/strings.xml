@@ -28,4 +28,15 @@
     <string name="theme_system">Sistema</string>
     <string name="theme_array_title">Tema</string>
     <string name="lang_system">Sistema</string>
+
+    <string name="room_bedroom">Camera</string>
+    <string name="room_bathroom">Bagno</string>
+    <string name="room_kitchen">Cucina</string>
+    <string name="room_lounge">Soggiorno</string>
+    <string name="room_study">Studio</string>
+    <string name="room_garage">Garage</string>
+    <string name="room_hall">Ingresso</string>
+    <string name="room_dining">Sala da pranzo</string>
+    <string name="room_hallway">Corridoio</string>
+    <string name="room_unknown">Sconosciuto</string>
 </resources>
