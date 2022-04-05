@@ -19,6 +19,16 @@ import angelini.domotica.ui.room.holders.*
  * per notificarlo quando è necessario aggiornare l'interfaccia grafica.
  */
 class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapter<Device, RecyclerView.ViewHolder>(DeviceDiffCallback()) {
+    /**
+     * Effettua l'inflate di una View per RecyclerView, differenziata per tipo
+     *
+     * L'idea di RecyclerView è quella di riciclare gli elementi dell'UI quando
+     * si scorre la lista, le View sono differenziate per RecyclerView tramite
+     * il parametro viewType
+     *
+     * @property parent la view parent, in questo caso il singolo Holder della RecyclerView
+     * @property viewType il valore numerico utilizzato per differenziare le view generate
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         when(DeviceType.values()[viewType])//get DeviceType enum from viewType
@@ -68,12 +78,26 @@ class DeviceAdapter(private val onUpdateCallback: (Device) -> Unit) : ListAdapte
         }
     }
 
+    /**
+     * Restituisce il tipo di Device all'interno della lista nell'Adapter
+     *
+     * @property position indice dell'elemento nella lista nell'Adapter
+     */
     override fun getItemViewType(position: Int): Int {
         val item=getItem(position)
         return item.type.ordinal//return Int equivalent of DeviceType Enum
     }
 
-    //TODO definire caso di astrazione con ViewHolder?
+    /**
+     * In base al tipo di Device da visualizzare, recupera una Viewholder adeguata
+     *
+     * Se è disponibile una ViewHolder adeguata e inutilizzata nel pool
+     * delle View, RecyclerView la recupera e associa i dati del Device d'interesse.
+     * In assenza, RecyclerView crea in memora una ViewHolder per quel tipo di Device
+     *
+     * @property holder holder su cui fare il collegamento dei dati
+     * @property position indice dell'elemento nella lista nell'Adapter usato da RecyclerView
+     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val device = getItem(position)
         when(DeviceType.values()[holder.itemViewType]){//get DeviceType enum from viewType
