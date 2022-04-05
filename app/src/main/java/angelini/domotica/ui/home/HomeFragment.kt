@@ -71,10 +71,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         if(!viewModel.isConnected()){
-            Log.i("Login", "Not authenticated, go to login")
             navController.navigate(R.id.nav_login)
         }
-        else
-            Log.i("Login", "Authenticated")
     }
 }
