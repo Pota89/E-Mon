@@ -4,6 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceLampBinding
 
+/**
+ * ViewHolder per il Device Lamp
+ */
 class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding , private val onUpdateCallback: (Device) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {

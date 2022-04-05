@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceShutterBinding
 
+/**
+ * ViewHolder per il Device Shutter
+ */
 class DeviceShutterViewHolder(private val binding: ListItemDeviceShutterBinding, private val onUpdateCallback: (Device) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {

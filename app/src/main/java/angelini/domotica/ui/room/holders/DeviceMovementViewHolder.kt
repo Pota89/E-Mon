@@ -6,6 +6,9 @@ import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.repository.datatypes.DeviceType
 import angelini.domotica.databinding.ListItemDeviceMovementBinding
 
+/**
+ * ViewHolder per il Device Movement
+ */
 class DeviceMovementViewHolder(private val binding: ListItemDeviceMovementBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Device)  {
