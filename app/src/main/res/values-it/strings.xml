@@ -45,4 +45,5 @@
     <string name="device_shutter">Serranda</string>
     <string name="device_temperature">Temperatura</string>
     <string name="device_unknown">Sconosciuto</string>
+    <string name="logout_notify">Disconnesso</string>
 </resources>

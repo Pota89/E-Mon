@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 (applicationContext as MainApplication).getRepository().disconnect()
             }
-            Toast.makeText(applicationContext, "Logout", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.logout_notify), Toast.LENGTH_LONG).show()
             navController.navigate(R.id.nav_login)
             drawerLayout.closeDrawers()
             true

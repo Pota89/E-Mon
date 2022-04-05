@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
-import kotlin.coroutines.suspendCoroutine
 
 const val MQTT_SERVER_URI       = "tcp://io.adafruit.com:1883"
 const val MQTT_CLIENT_ID        = ""
