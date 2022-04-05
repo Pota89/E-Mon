@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import angelini.domotica.MQTT_PWD
+import angelini.domotica.MQTT_USERNAME
 import angelini.domotica.MainApplication
 import angelini.domotica.R
 import angelini.domotica.databinding.FragmentLoginBinding
-import angelini.domotica.repository.MQTT_PWD
-import angelini.domotica.repository.MQTT_USERNAME
 import angelini.domotica.ui.RepositoryViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

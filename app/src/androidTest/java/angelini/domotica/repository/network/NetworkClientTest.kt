@@ -3,10 +3,9 @@ package angelini.domotica.repository.network
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import angelini.domotica.repository.MQTT_PWD
-import angelini.domotica.repository.MQTT_USERNAME
+import angelini.domotica.MQTT_PWD
+import angelini.domotica.MQTT_USERNAME
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
