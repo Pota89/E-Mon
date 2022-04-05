@@ -50,6 +50,12 @@
     <string name="room_dining">Dining room</string>
     <string name="room_hallway">Hallway</string>
     <string name="room_unknown">Unknown</string>
+    <string name="login_failed">Login failed</string>
+    <string name="device_lamp">Lamp</string>
+    <string name="device_movement">Movement</string>
+    <string name="device_shutter">Shutter</string>
+    <string name="device_temperature">Temperature</string>
+    <string name="device_unknown">Unknown</string>
 
     <string-array name="theme_array">
         <item>@string/theme_system</item>

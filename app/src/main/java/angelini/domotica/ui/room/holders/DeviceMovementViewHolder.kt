@@ -18,7 +18,7 @@ class DeviceMovementViewHolder(private val binding: ListItemDeviceMovementBindin
             binding.movementImage.setImageResource(R.drawable.ic_sensor_movement_detected)
 
         val builder = StringBuilder()
-        builder.append("Movimento")
+        builder.append(binding.root.context.getString(R.string.device_movement))
 
         if (item.number!=0){
             builder.append(" ")

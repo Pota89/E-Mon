@@ -2,6 +2,7 @@ package angelini.domotica.ui.room.holders
 
 import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
+import angelini.domotica.R
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceShutterBinding
 
@@ -27,7 +28,7 @@ class DeviceShutterViewHolder(private val binding: ListItemDeviceShutterBinding,
         })
 
         val builder = StringBuilder()
-        builder.append("Serranda")
+        builder.append(binding.root.context.getString(R.string.device_shutter))
 
         if (item.number!=0){
             builder.append(" ")

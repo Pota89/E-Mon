@@ -1,6 +1,7 @@
 package angelini.domotica.ui.room.holders
 
 import androidx.recyclerview.widget.RecyclerView
+import angelini.domotica.R
 import angelini.domotica.repository.datatypes.Device
 import angelini.domotica.databinding.ListItemDeviceLampBinding
 
@@ -21,7 +22,7 @@ class DeviceLampViewHolder(private val binding: ListItemDeviceLampBinding , priv
         binding.switchLamp.isChecked = item.value!=0//return true if value is different than 0
 
         val builder = StringBuilder()
-        builder.append("Lampada")
+        builder.append(binding.root.context.getString(R.string.device_lamp))
 
         if (item.number!=0){
             builder.append(" ")

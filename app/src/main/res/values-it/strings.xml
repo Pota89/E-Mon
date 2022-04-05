@@ -39,4 +39,10 @@
     <string name="room_dining">Sala da pranzo</string>
     <string name="room_hallway">Corridoio</string>
     <string name="room_unknown">Sconosciuto</string>
+    <string name="login_failed">Errore login</string>
+    <string name="device_lamp">Lampada</string>
+    <string name="device_movement">Movimento</string>
+    <string name="device_shutter">Serranda</string>
+    <string name="device_temperature">Temperatura</string>
+    <string name="device_unknown">Sconosciuto</string>
 </resources>
