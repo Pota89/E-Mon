@@ -98,6 +98,8 @@ class MainActivity : AppCompatActivity() {
      * del sistema operativo.
      * Il metodo viene chiamato ogni volta che l'app viene avviata, compresi
      * i riavvi su richiesta dell'app stessa
+     *
+     * @property baseContext context fornito normalmente dal sistema operativo
      */
     override fun attachBaseContext(baseContext: Context) {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(baseContext)
