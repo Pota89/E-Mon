@@ -11,10 +11,9 @@
 
     <string name="menu_home">Principale</string>
     <string name="menu_settings">Impostazioni</string>
-    <string name="menu_logout">Disconnetti</string>
+    <string name="menu_login">Autenticazione</string>
     <string name="room_icon">icona stanza</string>
 
-    <!--strings for Login fragment-->
     <string name="button_connect_text">Connetti</string>
     <string name="button_prefill_text">Riempi</string>
     <string name="button_clean_text">Svuota</string>
