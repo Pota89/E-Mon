@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Classe per la verifica della reale connessione di rete, richiede un vero server MQTT
@@ -38,32 +39,18 @@ class NetworkClientTest {
     }
 
     /**
-     * Verifica una connessione reale con credenziali corrette
+     * Verifica una connessione reale
      */
     @ExperimentalCoroutinesApi
     @Test
     fun successfulConnect() {
-        var connectFlag=false
-        network.onConnectionSuccess={connectFlag=true}
-        network
         runTest {
-            network.connect(MQTT_USERNAME, MQTT_PWD)
+            val connectionResult: Boolean = suspendCoroutine { cont ->
+                network.onConnectionSuccess = { cont.resumeWith(Result.success(true)) }
+                network.onConnectionFailure = { cont.resumeWith(Result.success(false)) }
+                network.connect(MQTT_USERNAME, MQTT_PWD)
+            }
+            assertEquals(true, connectionResult)
         }
-        assertEquals(true,connectFlag)
-    }
-
-    /**
-     * Verifica una connessione reale con credenziali errate
-     */
-    @ExperimentalCoroutinesApi
-    @Test
-    fun unsuccessfulConnect() {
-        var connectFlag=false
-        network.onConnectionSuccess={connectFlag=true}
-        network
-        runTest {
-            network.connect("utentefalso","passwordsconosciuta")
-        }
-        assertEquals(false,connectFlag)
     }
 }
