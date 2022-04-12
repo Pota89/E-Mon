@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14" />
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable-v24/ic_menu_home.xml" value="0.14" />
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.14" />
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/ic_sensor_movement_detected.xml" value="0.1" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/ic_sensor_movement_on.xml" value="0.109" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/drawable/movement.xml" value="0.109" />
