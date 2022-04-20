@@ -70,7 +70,7 @@ class NetworkClient(context: Context) : INetworkClient {
                 onConnectionSuccess()
             }
 
-            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.i("EMon - NetworkClient", "Connection failure: $exception")
                 onConnectionFailure()
             }
@@ -96,7 +96,7 @@ class NetworkClient(context: Context) : INetworkClient {
                 onSubscribeSuccess()
             }
 
-            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.i("EMon - NetworkClient", "Failed to subscribe topic: $exception")
                 onSubscribeFailure()
             }
@@ -115,7 +115,7 @@ class NetworkClient(context: Context) : INetworkClient {
                 onUnsubscribeSuccess()
             }
 
-            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.i("EMon - NetworkClient", "Failed to unsubscribe topic: $exception")
                 onUnsubscribeFailure()
             }
@@ -140,7 +140,7 @@ class NetworkClient(context: Context) : INetworkClient {
                 onPublishSuccess()
             }
 
-            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.i("EMon - NetworkClient", "Failed to publish message to topic: $exception")
                 onPublishFailure()
             }
@@ -157,7 +157,7 @@ class NetworkClient(context: Context) : INetworkClient {
                 onDisconnectSuccess()
             }
 
-            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable) {
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.i("EMon - NetworkClient", "Failed to disconnect: $exception")
                 onDisconnectFailure()
             }
