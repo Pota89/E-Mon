@@ -14,7 +14,8 @@
     <string name="room_icon">room icon</string>
 
     <string name="button_connect_text">Connect</string>
-    <string name="button_prefill_text">Prefill</string>
+    <string name="button_prefill_home_one_text">Set home 1</string>
+    <string name="button_prefill_home_two_text">Set home 2</string>
     <string name="button_clean_text">Clean</string>
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>

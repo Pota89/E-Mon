@@ -15,7 +15,8 @@
     <string name="room_icon">icona stanza</string>
 
     <string name="button_connect_text">Connetti</string>
-    <string name="button_prefill_text">Riempi</string>
+    <string name="button_prefill_home_one_text">Imposta casa 1</string>
+    <string name="button_prefill_home_two_text">Imposta casa 2</string>
     <string name="button_clean_text">Svuota</string>
     <string name="username_text">Utente</string>
     <string name="password_text">Password</string>
