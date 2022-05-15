@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
     app:cardElevation="5dp">
-
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="UseCompoundDrawables">
     <ImageView
         android:id="@+id/room_image"
         android:layout_width="100dp"
@@ -16,15 +19,16 @@
         android:src="@drawable/ic_room_unknown"
         android:layout_margin="10dp"
         android:contentDescription="@string/room_icon" />
-
     <TextView
         android:id="@+id/room_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:textSize="30sp"
         android:textStyle="bold"
+        tools:text="RoomName"
         />
+</LinearLayout>
+
+
 </com.google.android.material.card.MaterialCardView>
