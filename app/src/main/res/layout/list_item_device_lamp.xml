@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view_device_lamp"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="20dp"
-    card_view:cardElevation="10dp"
-    card_view:cardMaxElevation="12dp"
-    card_view:cardPreventCornerOverlap="true"
-    card_view:cardUseCompatPadding="true">
-
+    app:cardUseCompatPadding="true"
+    app:cardElevation="5dp">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <TextView
             android:id="@+id/lamp_name"
             android:layout_width="wrap_content"
@@ -27,13 +21,10 @@
             android:textSize="40sp"
             android:textStyle="bold"
             tools:text="Lampada"/>
-
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_lamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="48dp"/>
-
     </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
