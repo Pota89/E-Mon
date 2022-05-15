@@ -23,7 +23,7 @@
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_shutter.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_temperature.xml" value="0.13125" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_device_unknown.xml" value="0.13125" />
-        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_room.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/list_item_room.xml" value="0.25" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/nav_header_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/layout/preference_layout.xml" value="0.1265625" />
         <entry key="..\:/Users/marma/StudioProjects/E-Mon/app/src/main/res/menu/activity_main_drawer.xml" value="0.176" />
@@ -38,5 +38,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.12916666666666668" />
+      </ProjectState>
+    </option>
   </component>
 </project>

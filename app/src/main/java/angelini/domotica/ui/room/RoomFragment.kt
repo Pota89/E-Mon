@@ -57,7 +57,7 @@ class RoomFragment : Fragment() {
 
         binding.deviceList.adapter = adapter
 
-        lifecycle.coroutineScope.launch(Dispatchers.IO) {
+        lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.getRoomDevices(args.roomType,args.roomNumber).collect {
                 adapter.submitList(it)
             }
