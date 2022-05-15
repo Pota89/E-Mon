@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import angelini.domotica.MQTT_PWD_ONE
-import angelini.domotica.MQTT_USERNAME_ONE
-import angelini.domotica.MainApplication
-import angelini.domotica.R
+import angelini.domotica.*
 import angelini.domotica.databinding.FragmentLoginBinding
 import angelini.domotica.ui.RepositoryViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -54,9 +51,14 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.buttonPrefill.setOnClickListener {
+        binding.buttonPrefillOne.setOnClickListener {
             binding.edittextUsername.setText(MQTT_USERNAME_ONE)
             binding.edittextPassword.setText(MQTT_PWD_ONE)
+        }
+
+        binding.buttonPrefillTwo.setOnClickListener {
+            binding.edittextUsername.setText(MQTT_USERNAME_TWO)
+            binding.edittextPassword.setText(MQTT_PWD_TWO)
         }
 
         return binding.root
