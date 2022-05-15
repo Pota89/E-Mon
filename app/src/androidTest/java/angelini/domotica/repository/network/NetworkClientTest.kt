@@ -3,8 +3,8 @@ package angelini.domotica.repository.network
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import angelini.domotica.MQTT_PWD
-import angelini.domotica.MQTT_USERNAME
+import angelini.domotica.MQTT_PWD_ONE
+import angelini.domotica.MQTT_USERNAME_ONE
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -48,7 +48,7 @@ class NetworkClientTest {
             val connectionResult: Boolean = suspendCoroutine { cont ->
                 network.onConnectionSuccess = { cont.resumeWith(Result.success(true)) }
                 network.onConnectionFailure = { cont.resumeWith(Result.success(false)) }
-                network.connect(MQTT_USERNAME, MQTT_PWD)
+                network.connect(MQTT_USERNAME_ONE, MQTT_PWD_ONE)
             }
             assertEquals(true, connectionResult)
         }
