@@ -10,21 +10,21 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_gravity="center"
+        tools:ignore="UseCompoundDrawables"
+        android:layout_marginVertical="15dp">
         <TextView
             android:id="@+id/lamp_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             tools:text="Lampada"/>
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_lamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"/>
+            android:layout_marginStart="30dp"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
