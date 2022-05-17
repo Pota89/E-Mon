@@ -8,24 +8,26 @@
     app:cardUseCompatPadding="true"
     app:cardElevation="5dp">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:ignore="UseCompoundDrawables"
-        android:layout_marginVertical="15dp">
+        android:layout_marginVertical="5dp"
+        tools:ignore="UseCompoundDrawables">
         <TextView
+            android:layout_marginVertical="10dp"
             android:id="@+id/movement_sensor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginStart="30sp"
             android:textSize="30sp"
             android:textStyle="bold"
             tools:text="Movement"/>
         <ImageView
             android:id="@+id/movement_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
+            android:layout_marginStart="30sp"
+            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_sensor_movement_undetected"
             android:contentDescription="image status icon"/>
