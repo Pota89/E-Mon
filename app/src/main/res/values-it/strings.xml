@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">E-Mon</string>
+    <string name="app_name">Domotica</string>
 
     <string name="navigation_drawer_open">Apri pannello navigazione</string>
     <string name="navigation_drawer_close">Chiudi pannello navigazione</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_subtitle">Il tuo gestore della casa</string>
     <string name="nav_header_desc">Testata navigazione</string>
     <string name="action_settings">Impostazioni</string>
 
@@ -46,4 +45,5 @@
     <string name="device_temperature">Temperatura</string>
     <string name="device_unknown">Sconosciuto</string>
     <string name="logout_notify">Disconnesso</string>
+    <string name="nav_header_title">Domotica</string>
 </resources>
