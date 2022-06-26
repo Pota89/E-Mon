@@ -8,7 +8,7 @@ const val THEME_DAY = "day"
 const val THEME_NIGHT = "night"
 
 const val MQTT_USERNAME_ONE         = "ExamToGo"
-const val MQTT_PWD_ONE              = "aio_QhVU8878VItl07ohHG13IrtQ2EAc"
+const val MQTT_PWD_ONE              = "aio_gryS08f5ajcjP4dx05uLbI4utCPX"
 
 const val MQTT_USERNAME_TWO         = "SecondHome"
-const val MQTT_PWD_TWO              = "aio_pfit43A3fh5YsHcdImjKhKnr1wyX"
+const val MQTT_PWD_TWO              = "aio_LiCx95BnpwQMJWraJGMks2tQJoql"
